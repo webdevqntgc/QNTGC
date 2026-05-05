@@ -1,0 +1,152 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "brands": "Our Brands",
+    "milestones": "Milestones",
+    "csr": "CSR",
+    "leadership": "Leadership",
+    "careers": "Careers",
+    "contact": "Contact",
+    "contactCta": "Contact Us"
+  },
+  "hero": {
+    "eyebrow": "Qatar National Trading Group Company",
+    "title": "Shaping the Future of Fun",
+    "subtitle": "QNTGC is a regional ecosystem of trusted retail, entertainment, lifestyle, and family experience brands — built to inspire imagination, create joy, and shape meaningful memories for every generation.",
+    "ctaPrimary": "Explore Our Brands",
+    "ctaSecondary": "Discover Our Story",
+    "scroll": "Scroll to explore"
+  },
+  "about": {
+    "eyebrow": "About QNTGC",
+    "title": "Fun Creators, Built in Qatar",
+    "body": "Founded in 2006, Qatar National Trading Group Company is a regional leader in children's retail and entertainment. Rooted in Qatar and expanding across the Gulf, QNTGC brings together a portfolio of complementary brands across toys, creative play, entertainment venues, candies, cafés, and lifestyle experiences.",
+    "stat1Value": "2006",
+    "stat1Label": "Founded",
+    "stat2Value": "9+",
+    "stat2Label": "Brands",
+    "stat3Value": "150+",
+    "stat3Label": "Team Members",
+    "stat4Value": "5",
+    "stat4Label": "Countries"
+  },
+  "vmv": {
+    "eyebrow": "Our Foundation",
+    "title": "Vision, Mission & Values",
+    "visionTitle": "Vision",
+    "vision": "To become the leading regional and global hub of fun and creativity, shaping the future of entertainment, learning, and leisure for children and families.",
+    "missionTitle": "Mission",
+    "mission": "To grow and connect a diverse ecosystem of trusted, innovative, and complementary brands that inspire imagination, deliver excellence, and create meaningful experiences for every generation.",
+    "valuesTitle": "Our Values",
+    "values": [
+      { "title": "Trust", "desc": "Earned through consistency, quality, and care." },
+      { "title": "Creativity", "desc": "Imagination at the heart of every experience." },
+      { "title": "Excellence", "desc": "Standards that never compromise." },
+      { "title": "Innovation", "desc": "Always shaping what comes next." },
+      { "title": "Collaboration", "desc": "Stronger together, across brands and borders." },
+      { "title": "Diversity & Inclusion", "desc": "Welcoming every family, every story." },
+      { "title": "Sustainability", "desc": "Building joy that respects tomorrow." }
+    ]
+  },
+  "brandsSection": {
+    "eyebrow": "Our Brand Ecosystem",
+    "title": "A Universe of Fun",
+    "subtitle": "Each QNTGC brand is its own world — connected by a single purpose: creating joyful experiences for families across the region.",
+    "filterAll": "All",
+    "filterRetail": "Retail",
+    "filterEntertainment": "Entertainment",
+    "filterFnb": "Food & Beverage",
+    "filterCreative": "Creative Experiences",
+    "filterLifestyle": "Lifestyle",
+    "established": "Est.",
+    "explore": "Explore"
+  },
+  "timeline": {
+    "eyebrow": "Our Journey",
+    "title": "Two Decades of Fun",
+    "subtitle": "From a single toy retailer to a regional ecosystem of family experience brands.",
+    "events": [
+      { "year": "2003", "title": "Spacetoys Established", "desc": "The journey begins with a beloved toy retailer." },
+      { "year": "2006", "title": "QNTGC & Kiddy Zone Founded", "desc": "Qatar National Trading Group launches its flagship retail chain." },
+      { "year": "2015", "title": "Trampo Extreme Expands", "desc": "Active entertainment parks open across the GCC." },
+      { "year": "2018", "title": "PhotoBrick Begins", "desc": "Transforming memories into brick art across continents." },
+      { "year": "2023", "title": "Rondvill Launched", "desc": "A luxury toy experience opens at Katara’s Gift Building." },
+      { "year": "2023", "title": "Candyvill Launched", "desc": "A bright candy destination joins the family." },
+      { "year": "2023", "title": "L’Art du Café Established", "desc": "A refined café experience opens in Katara." },
+      { "year": "2025", "title": "West Fun Launches", "desc": "A new family entertainment hub at West Walk Qatar." },
+      { "year": "2025", "title": "Ecolandia Opens", "desc": "A safe learning playground for the youngest explorers." },
+      { "year": "Future", "title": "Regional & Global Expansion", "desc": "Building the future of fun, beyond borders." }
+    ]
+  },
+  "market": {
+    "eyebrow": "Market Presence",
+    "title": "Rooted in Qatar. Expanding Across the Region.",
+    "subtitle": "From a single store in Doha to a network spanning the Gulf, Australia, and the United States.",
+    "stats": [
+      { "value": "2006", "label": "Founded" },
+      { "value": "150+", "label": "Employees" },
+      { "value": "9+", "label": "Brands" },
+      { "value": "5", "label": "Countries" },
+      { "value": "20+", "label": "Branches" }
+    ],
+    "countries": ["Qatar", "UAE", "Oman", "Kuwait", "Australia", "USA"]
+  },
+  "csr": {
+    "eyebrow": "CSR & Sustainability",
+    "title": "Fun With Purpose",
+    "body": "At QNTGC, joy comes with responsibility. We invest in our communities, support families and children, and operate with care for the environment that future generations will inherit.",
+    "pillars": [
+      { "title": "Community Support", "desc": "Toy giveaways, family programs, and partnerships across Qatar." },
+      { "title": "Health Awareness", "desc": "Long-standing collaborations with Qatar Cancer Society’s Alghabga and Sedra." },
+      { "title": "Diversity & Inclusion", "desc": "Welcoming spaces for every child, every family, every story." },
+      { "title": "Environmental Care", "desc": "Biodegradable bags reducing waste by more than 23 tons annually." }
+    ]
+  },
+  "leadership": {
+    "eyebrow": "Leadership",
+    "title": "A Message From Our Leaders",
+    "ceoRole": "Chief Executive Officer",
+    "ceoName": "QNTGC CEO",
+    "ceoMessage": "Fun is not just entertainment. It is the foundation for growth, learning, and the meaningful connections that shape who we become. At QNTGC, every brand we build is a chapter in that story.",
+    "cooRole": "Chief Operating Officer",
+    "cooName": "QNTGC COO",
+    "cooMessage": "We turn vision into action through operations, collaboration, and a relentless focus on quality, safety, and seamless brand experiences — from the smallest detail to the largest opening day."
+  },
+  "future": {
+    "eyebrow": "Looking Ahead",
+    "title": "Building the Future of Fun",
+    "body": "QNTGC is building on its success in the Gulf and expanding internationally. Guided by trust, creativity, innovation, and excellence, the group aims to redefine family entertainment, joyful learning, and lifestyle experiences for generations to come.",
+    "ctaPartner": "Partner With Us",
+    "ctaContact": "Contact QNTGC"
+  },
+  "contact": {
+    "eyebrow": "Get In Touch",
+    "title": "Let’s Build Something Joyful Together",
+    "subtitle": "Whether you’re a partner, supplier, mall, media, or family — we’d love to hear from you.",
+    "name": "Full Name",
+    "company": "Company",
+    "email": "Email",
+    "phone": "Phone",
+    "subject": "Subject",
+    "message": "Message",
+    "interestedIn": "Interested in",
+    "interestOptions": ["Partnership", "Leasing", "Supplier", "Media", "Careers", "General Inquiry"],
+    "send": "Send Message",
+    "info": {
+      "address": "Doha, Qatar",
+      "email": "info@qntgc.com",
+      "phone": "+974 0000 0000"
+    }
+  },
+  "footer": {
+    "tagline": "Shaping the Future of Fun",
+    "rights": "All rights reserved.",
+    "company": "Company",
+    "explore": "Explore",
+    "connect": "Connect",
+    "legal": "Legal",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Use"
+  }
+}
