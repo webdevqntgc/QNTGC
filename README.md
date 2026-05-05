@@ -9,8 +9,8 @@ Bilingual **English / Arabic** with full **RTL** support. Deployable as a fully 
 
 ## 1. Prerequisites
 
-- **Node.js 20+** (download from <https://nodejs.org>)
-- npm 10+ (ships with Node)
+- **Node.js 20+**
+- npm 10+ ships with Node
 
 Verify the install:
 ```bash
@@ -20,15 +20,15 @@ npm --version
 
 ## 2. Install & run
 
-From the project root (`C:\Users\MUHAMMAD\Downloads\Code`):
+From the project root:
 
 ```bash
 npm install
 npm run dev
 ```
 
-Open <http://localhost:3000>. You will be redirected to `/en` (English).
-Switch language via the header globe icon → `/ar` (Arabic, RTL).
+You will be redirected to `/en` for English.
+Switch language via the header globe icon → `/ar` for Arabic with RTL support.
 
 ## 3. Build a static production site
 
@@ -36,7 +36,7 @@ Switch language via the header globe icon → `/ar` (Arabic, RTL).
 npm run build
 ```
 
-The static site is emitted to `./out/`. Upload that folder to any static host (Netlify, Vercel static, S3, Cloudflare Pages, GitHub Pages, on-prem nginx, etc.).
+The static site is emitted to `./out/`.
 
 ---
 
@@ -72,7 +72,7 @@ The static site is emitted to `./out/`. Upload that folder to any static host (N
 ├── messages/
 │   ├── en.json                 # English UI dictionary
 │   └── ar.json                 # Arabic UI dictionary
-├── public/                     # Static assets (drop logo.png here — see §6)
+├── public/                     # Static assets
 ├── tailwind.config.ts          # Brand colors, fonts, animations, shadows
 ├── next.config.mjs             # Static export config
 └── package.json
@@ -97,36 +97,19 @@ Both are loaded via `next/font/google` — no external font requests at runtime.
 
 ---
 
-## 6. Replacing placeholder assets with real ones
-
-The site ships with **inline-SVG approximations** of the QNTGC mark and brand initials so it runs immediately. To use the official assets:
-
-1. **Master logo** — save the official QNTGC logo as `public/qntgc-logo.svg` (or `.png`). Then replace the `<LogoMark />` calls inside `components/LogoMark.tsx` with:
-   ```tsx
-   import Image from 'next/image';
-   <Image src="/qntgc-logo.svg" alt="QNTGC" width={120} height={40} priority />
-   ```
-2. **Brand logos** — drop each into `public/brands/{brand-id}.svg` (e.g. `kiddyzone.svg`, `spacetoys.svg`). Then in `components/BrandEcosystem.tsx` replace the gradient initial tile with an `<img src={`/brands/${brand.id}.svg`} />`.
-3. **Leadership portraits** — drop into `public/team/ceo.jpg` and `public/team/coo.jpg`, then replace the initial circle in `components/Leadership.tsx` with `<Image>`.
-4. **CSR / lifestyle photography** — drop into `public/csr/` and reference inside `components/CSR.tsx`.
-
-All assets live under `public/` so they’re served as-is in the static export.
-
----
-
-## 7. Wiring the contact form to a real backend
+## 6. Wiring the contact form to a real backend
 
 `components/Contact.tsx` currently shows a success state without sending data anywhere. To connect it:
 
-- **Easiest** — point the `<form>` at a [Formspree](https://formspree.io) or [Web3Forms](https://web3forms.com) endpoint:
+- **Easiest** — point the `<form>` at a Formspree or Web3Forms endpoint:
   ```tsx
   <form action="https://formspree.io/f/your-id" method="POST" ...>
   ```
-- **Custom API** — switch the build away from `output: 'export'` (in `next.config.mjs`) and add a Route Handler at `app/api/contact/route.ts` that posts to Resend / SendGrid / your CRM.
+- **Custom API** — switch the build away from `output: 'export'` in `next.config.mjs` and add a Route Handler at `app/api/contact/route.ts` that posts to Resend / SendGrid / your CRM.
 
 ---
 
-## 8. The 10 sections delivered
+## 7. The 10 sections delivered
 
 | # | Section          | Component             |
 |---|------------------|-----------------------|
@@ -143,7 +126,7 @@ All assets live under `public/` so they’re served as-is in the static export.
 
 ---
 
-## 9. Customising content
+## 8. Customising content
 
 All copy lives in two places:
 - **UI labels & section copy** → `messages/en.json` and `messages/ar.json`
@@ -153,15 +136,15 @@ Edit either, save, and the dev server hot-reloads.
 
 ---
 
-## 10. Notes on the 3D hero
+## 9. Notes on the 3D hero
 
-- Renders in a `<Canvas>` from React Three Fiber, dynamically imported (no SSR) so the rest of the page stays statically pre-rendered.
+- Renders in a `<Canvas>` from React Three Fiber, dynamically imported with no SSR so the rest of the page stays statically pre-rendered.
 - Three torus ribbons (red / navy / grey) approximate the QNTGC orbital mark, with a navy core and 6 planet brand-color satellites.
 - `OrbitControls` auto-rotates slowly; the user can drag to orbit.
 - The scene falls back to a subtle radial-gradient watermark while loading or when the user has `prefers-reduced-motion` set.
 
 ---
 
-## 11. License
+## 10. License
 
 © Qatar National Trading Group Company. All rights reserved.
