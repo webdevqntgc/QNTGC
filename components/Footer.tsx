@@ -17,8 +17,8 @@ export function Footer({ locale, dict }: Props) {
       <div className="absolute -top-32 -right-32 h-96 w-96 rounded-full bg-brand-red/10 blur-3xl" />
       <div className="absolute -bottom-32 -left-32 h-96 w-96 rounded-full bg-brand-navy-light/30 blur-3xl" />
 
-      <div className="container-page relative grid gap-12 py-20 lg:grid-cols-12">
-        <div className="lg:col-span-5 space-y-6">
+      <div className="container-page relative grid gap-10 py-16 sm:grid-cols-2 sm:gap-12 lg:grid-cols-12 lg:py-20">
+        <div className="sm:col-span-2 lg:col-span-5 space-y-6">
           <LogoLockup locale={locale} variant="white" />
           <p className="max-w-md text-white/70 leading-relaxed">{dict.footer.tagline}</p>
           <div className="flex gap-3 pt-2">
@@ -40,10 +40,10 @@ export function Footer({ locale, dict }: Props) {
             {dict.footer.explore}
           </h4>
           <ul className="space-y-2.5 text-sm">
-            <li><a href="#about" className="text-white/80 hover:text-white">{dict.nav.about}</a></li>
-            <li><a href="#brands" className="text-white/80 hover:text-white">{dict.nav.brands}</a></li>
-            <li><a href="#milestones" className="text-white/80 hover:text-white">{dict.nav.milestones}</a></li>
-            <li><a href="#csr" className="text-white/80 hover:text-white">{dict.nav.csr}</a></li>
+            <li><a href={`/${locale}#about`} className="text-white/80 hover:text-white">{dict.nav.about}</a></li>
+            <li><a href={`/${locale}#brands`} className="text-white/80 hover:text-white">{dict.nav.brands}</a></li>
+            <li><a href={`/${locale}#milestones`} className="text-white/80 hover:text-white">{dict.nav.milestones}</a></li>
+            <li><a href={`/${locale}#csr`} className="text-white/80 hover:text-white">{dict.nav.csr}</a></li>
           </ul>
         </div>
 
@@ -52,9 +52,9 @@ export function Footer({ locale, dict }: Props) {
             {dict.footer.company}
           </h4>
           <ul className="space-y-2.5 text-sm">
-            <li><a href="#leadership" className="text-white/80 hover:text-white">{dict.nav.leadership}</a></li>
-            <li><a href="#" className="text-white/80 hover:text-white">{dict.nav.careers}</a></li>
-            <li><a href="#contact" className="text-white/80 hover:text-white">{dict.nav.contact}</a></li>
+            <li><a href={`/${locale}#leadership`} className="text-white/80 hover:text-white">{dict.nav.leadership}</a></li>
+            <li><Link href={`/${locale}/career`} className="text-white/80 hover:text-white">{dict.nav.careers}</Link></li>
+            <li><a href={`/${locale}#contact`} className="text-white/80 hover:text-white">{dict.nav.contact}</a></li>
             <li><Link href={`/${locale === 'en' ? 'ar' : 'en'}`} className="text-white/80 hover:text-white">{locale === 'en' ? 'العربية' : 'English'}</Link></li>
           </ul>
         </div>

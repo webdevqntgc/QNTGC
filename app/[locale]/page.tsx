@@ -28,11 +28,11 @@ export default function Home({ params }: Props) {
   return (
     <main>
       <Navigation locale={locale} dict={dict} />
-      <Hero locale={locale} dict={dict} />
+      <Hero />
       <About dict={dict} />
       <VisionMission dict={dict} />
       <BrandEcosystem dict={dict} locale={locale} />
-      <Timeline dict={dict} />
+      <Timeline dict={dict} locale={locale} />
       <MarketPresence dict={dict} />
       <CSR dict={dict} />
       <Leadership dict={dict} />

@@ -16,7 +16,7 @@ export function Contact({ dict }: { dict: Dict }) {
   };
 
   return (
-    <section id="contact" className="relative py-32">
+    <section id="contact" className="relative py-20 md:py-32">
       <div className="container-page">
         <div className="mx-auto max-w-3xl text-center mb-16">
           <span className="eyebrow mb-4 justify-center">{dict.contact.eyebrow}</span>
@@ -50,15 +50,21 @@ export function Contact({ dict }: { dict: Dict }) {
               </a>
             ))}
 
-            {/* Map placeholder */}
-            <div className="aspect-square overflow-hidden rounded-2xl bg-brand-grey-light">
+            {/* Map — pinned at B2 Building, Salwa Road, Al Waab, Doha */}
+            <a
+              href="https://www.openstreetmap.org/?mlat=25.2520&mlon=51.4760#map=17/25.2520/51.4760"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block aspect-square overflow-hidden rounded-2xl bg-brand-grey-light shadow-soft transition-shadow hover:shadow-card-hover"
+              title="Open in OpenStreetMap"
+            >
               <iframe
-                title="QNTGC location"
-                src="https://www.openstreetmap.org/export/embed.html?bbox=51.45,25.25,51.6,25.35&amp;layer=mapnik"
-                className="h-full w-full border-0"
+                title="QNTGC headquarters location — B2 Building, Salwa Road, Al Waab, Doha, Qatar"
+                src="https://www.openstreetmap.org/export/embed.html?bbox=51.4660%2C25.2470%2C51.4860%2C25.2570&layer=mapnik&marker=25.2520%2C51.4760"
+                className="pointer-events-none h-full w-full border-0"
                 loading="lazy"
               />
-            </div>
+            </a>
           </motion.aside>
 
           {/* Form column */}

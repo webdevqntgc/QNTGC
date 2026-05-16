@@ -7,56 +7,70 @@ import { brands } from '@/lib/brands';
 
 function Counter({ value, label }: { value: string; label: string }) {
   const ref = useRef<HTMLDivElement>(null);
-  const [display, setDisplay] = useState('0');
   const numeric = parseInt(value.replace(/\D/g, ''), 10);
   const suffix = value.replace(/[0-9]/g, '');
+  // Always start visibly at "0" + suffix (e.g. "0+", "0", "0")
+  const [display, setDisplay] = useState(Number.isNaN(numeric) ? value : '0' + suffix);
 
   useEffect(() => {
     if (Number.isNaN(numeric)) {
       setDisplay(value);
       return;
     }
-    const obs = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting) {
-        const start = performance.now();
-        const dur = 1400;
-        const tick = (now: number) => {
-          const t = Math.min(1, (now - start) / dur);
-          const eased = 1 - Math.pow(1 - t, 3);
-          setDisplay(Math.floor(eased * numeric) + suffix);
-          if (t < 1) requestAnimationFrame(tick);
-        };
-        requestAnimationFrame(tick);
-        obs.disconnect();
-      }
-    });
+    let raf = 0;
+    const obs = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          // Reset to 0 and start the count-up
+          setDisplay('0' + suffix);
+          const start = performance.now();
+          const dur = 2000;
+          const tick = (now: number) => {
+            const t = Math.min(1, (now - start) / dur);
+            const eased = 1 - Math.pow(1 - t, 3);
+            setDisplay(Math.floor(eased * numeric) + suffix);
+            if (t < 1) raf = requestAnimationFrame(tick);
+          };
+          raf = requestAnimationFrame(tick);
+          obs.disconnect();
+        }
+      },
+      { threshold: 0.3 }
+    );
     if (ref.current) obs.observe(ref.current);
-    return () => obs.disconnect();
+    return () => {
+      obs.disconnect();
+      if (raf) cancelAnimationFrame(raf);
+    };
   }, [numeric, suffix, value]);
 
   return (
     <div ref={ref} className="space-y-1">
-      <div className="font-display text-4xl font-bold text-brand-red lg:text-5xl">{display}</div>
-      <div className="text-xs font-medium uppercase tracking-wider text-brand-navy/60">{label}</div>
+      <div className="font-display text-3xl font-bold text-brand-red sm:text-4xl lg:text-5xl">
+        {display}
+      </div>
+      <div className="text-[10px] font-medium uppercase tracking-wider text-brand-navy/60 sm:text-xs">
+        {label}
+      </div>
     </div>
   );
 }
 
 export function About({ dict }: { dict: Dict }) {
   return (
-    <section id="about" className="relative py-32">
-      <div className="container-page grid items-center gap-16 lg:grid-cols-2">
+    <section id="about" className="relative py-16 md:py-32">
+      <div className="container-page grid items-center gap-10 md:gap-16 lg:grid-cols-2">
         <motion.div
           initial={{ opacity: 0, x: -30 }}
           whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, amount: 0.4 }}
+          viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.8 }}
         >
-          <span className="eyebrow mb-6 block">{dict.about.eyebrow}</span>
-          <h2 className="heading-display mb-8">{dict.about.title}</h2>
-          <p className="text-lg leading-relaxed text-brand-navy/75">{dict.about.body}</p>
+          <span className="eyebrow mb-4 block sm:mb-6">{dict.about.eyebrow}</span>
+          <h2 className="heading-display mb-6 sm:mb-8">{dict.about.title}</h2>
+          <p className="text-base leading-relaxed text-brand-navy/75 sm:text-lg">{dict.about.body}</p>
 
-          <div className="mt-12 grid grid-cols-2 gap-8 sm:grid-cols-4">
+          <div className="mt-10 grid grid-cols-2 gap-x-5 gap-y-7 sm:gap-x-10 md:grid-cols-2 lg:mt-12 lg:grid-cols-4 lg:gap-x-8">
             <Counter value={dict.about.stat1Value} label={dict.about.stat1Label} />
             <Counter value={dict.about.stat2Value} label={dict.about.stat2Label} />
             <Counter value={dict.about.stat3Value} label={dict.about.stat3Label} />
@@ -67,9 +81,9 @@ export function About({ dict }: { dict: Dict }) {
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true, amount: 0.3 }}
+          viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 1 }}
-          className="relative aspect-square"
+          className="relative mx-auto aspect-square w-full max-w-[300px] sm:max-w-[420px] lg:max-w-none"
         >
           <BrandOrbit />
         </motion.div>
@@ -115,7 +129,16 @@ function BrandOrbit() {
             const angle = (i / inner.length) * Math.PI * 2 - Math.PI / 2;
             const x = 50 + Math.cos(angle) * 50;
             const y = 50 + Math.sin(angle) * 50;
-            return <BrandSatellite key={b.id} brand={b} x={x} y={y} counter={360} size={64} />;
+            return (
+              <BrandSatellite
+                key={b.id}
+                brand={b}
+                x={x}
+                y={y}
+                counter={360}
+                sizeClass="h-9 w-9 sm:h-12 sm:w-12 lg:h-16 lg:w-16"
+              />
+            );
           })}
         </motion.div>
 
@@ -129,7 +152,16 @@ function BrandOrbit() {
             const angle = (i / outer.length) * Math.PI * 2 - Math.PI / 2 + 0.3;
             const x = 50 + Math.cos(angle) * 47;
             const y = 50 + Math.sin(angle) * 47;
-            return <BrandSatellite key={b.id} brand={b} x={x} y={y} counter={-360} size={72} />;
+            return (
+              <BrandSatellite
+                key={b.id}
+                brand={b}
+                x={x}
+                y={y}
+                counter={-360}
+                sizeClass="h-10 w-10 sm:h-14 sm:w-14 lg:h-[72px] lg:w-[72px]"
+              />
+            );
           })}
         </motion.div>
 
@@ -140,7 +172,7 @@ function BrandOrbit() {
             whileInView={{ scale: 1 }}
             viewport={{ once: true }}
             transition={{ type: 'spring', stiffness: 120, damping: 14, delay: 0.3 }}
-            className="relative grid h-36 w-36 place-items-center rounded-full bg-white p-4 shadow-2xl ring-4 ring-brand-red/10 sm:h-40 sm:w-40"
+            className="relative grid h-24 w-24 place-items-center rounded-full bg-white p-2.5 shadow-2xl ring-4 ring-brand-red/10 sm:h-32 sm:w-32 sm:p-3 lg:h-40 lg:w-40 lg:p-4"
           >
             <div className="absolute inset-0 -z-10 animate-pulse-slow rounded-full bg-brand-red/10 blur-2xl" />
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -161,13 +193,13 @@ function BrandSatellite({
   x,
   y,
   counter,
-  size,
+  sizeClass,
 }: {
   brand: { id: string; name: string; logo?: string; accent: string };
   x: number;
   y: number;
   counter: number;
-  size: number;
+  sizeClass: string;
 }) {
   return (
     <motion.div
@@ -175,14 +207,14 @@ function BrandSatellite({
       whileInView={{ opacity: 1, scale: 1 }}
       viewport={{ once: true }}
       transition={{ delay: 0.4 + Math.random() * 0.4, type: 'spring', stiffness: 120 }}
-      className="absolute -translate-x-1/2 -translate-y-1/2"
-      style={{ left: `${x}%`, top: `${y}%`, width: size, height: size }}
+      className={`absolute -translate-x-1/2 -translate-y-1/2 ${sizeClass}`}
+      style={{ left: `${x}%`, top: `${y}%` }}
     >
       {/* Counter-rotate so the logo stays upright while its parent ring spins */}
       <motion.div
         animate={{ rotate: counter }}
         transition={{ duration: counter < 0 ? 38 : 55, repeat: Infinity, ease: 'linear' }}
-        className="grid h-full w-full place-items-center rounded-full bg-white p-2 shadow-card ring-1 ring-brand-navy/5 transition-transform hover:scale-110 hover:shadow-card-hover"
+        className="grid h-full w-full place-items-center rounded-full bg-white p-1.5 shadow-card ring-1 ring-brand-navy/5 transition-transform hover:scale-110 hover:shadow-card-hover sm:p-2"
         style={{ borderTop: `3px solid ${brand.accent}` }}
         title={brand.name}
       >

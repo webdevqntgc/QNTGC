@@ -36,7 +36,7 @@ export function LogoLockup({ locale, variant = 'default' }: { locale: string; va
       <img
         src="/QNTGC Logo.png"
         alt="Qatar National Trading Group"
-        className={`h-16 w-auto shrink-0 md:h-20 lg:h-24 ${variant === 'white' ? 'brightness-0 invert' : ''}`}
+        className={`h-14 w-auto shrink-0 md:h-16 lg:h-[90px] ${variant === 'white' ? 'brightness-0 invert' : ''}`}
       />
     </div>
   );

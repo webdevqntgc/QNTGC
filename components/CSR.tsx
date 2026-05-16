@@ -8,7 +8,7 @@ const icons = [Heart, Stethoscope, Users, Leaf];
 
 export function CSR({ dict }: { dict: Dict }) {
   return (
-    <section id="csr" className="relative bg-brand-grey-light/40 py-32">
+    <section id="csr" className="relative bg-brand-grey-light/40 py-20 md:py-32">
       <div className="container-page">
         <div className="grid gap-16 lg:grid-cols-12">
           <div className="lg:col-span-5">

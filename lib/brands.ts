@@ -7,6 +7,7 @@ export interface Brand {
   year: number;
   category: BrandCategory;
   accent: string;
+  bg: string;            // card background hex (e.g. '#333b88')
   description_en: string;
   description_ar: string;
   slogan_ar?: string;
@@ -23,6 +24,7 @@ export const brands: Brand[] = [
     year: 2006,
     category: 'retail',
     accent: '#E63946',
+    bg: '#333b88',
     description_en: 'The largest toy retail chain in Qatar, established in 2006, with 14 branches and a growing presence across the UAE and Oman.',
     description_ar: 'أكبر سلسلة لبيع الألعاب بالتجزئة في قطر، تأسست عام 2006، وتضم 14 فرعًا مع توسع متزايد في الإمارات وعُمان.',
     locations: ['Qatar', 'UAE', 'Oman'],
@@ -34,6 +36,7 @@ export const brands: Brand[] = [
     year: 2003,
     category: 'retail',
     accent: '#3A86FF',
+    bg: '#005c96',
     description_en: 'Established in 2003, a recognized toy retailer and collector destination, known for toys, TCG collections, and its flagship branch at Doha City Centre.',
     description_ar: 'تأسست عام 2003، وجهة بارزة للألعاب والمقتنيات، ومعروفة بالألعاب ومجموعات TCG وفرعها الرئيسي في سيتي سنتر الدوحة.',
     locations: ['Qatar'],
@@ -47,6 +50,7 @@ export const brands: Brand[] = [
     year: 2023,
     category: 'retail',
     accent: '#9D4EDD',
+    bg: '#ac2228',
     description_en: 'A luxury toy retail experience launched in 2023 at Katara’s Gift Building, designed for VIP clientele and premium gifting.',
     description_ar: 'تجربة فاخرة لبيع الألعاب بالتجزئة، انطلقت عام 2023 في مبنى الهدايا بكتارا، مصممة لعملاء VIP وتجربة إهداء راقية.',
     locations: ['Qatar'],
@@ -60,6 +64,7 @@ export const brands: Brand[] = [
     year: 2023,
     category: 'fnb',
     accent: '#FF6B9D',
+    bg: '#cb2129',
     description_en: 'A bright candy destination offering loose candies, chocolates, trending sweets, toy candies, ice cream, and slushies.',
     description_ar: 'وجهة حلويات نابضة بالألوان تقدم الحلويات السائبة والشوكولاتة وحلويات الموضة وحلويات الألعاب والآيس كريم والسلاش.',
     locations: ['Qatar'],
@@ -73,6 +78,7 @@ export const brands: Brand[] = [
     year: 2018,
     category: 'creative',
     accent: '#FFB703',
+    bg: '#ffffff',
     description_en: 'A creative personalized brick-based photo concept with branches in Australia, the UAE, USA, and Qatar.',
     description_ar: 'مفهوم إبداعي لتحويل الصور إلى لوحات من المكعبات الشخصية، مع فروع في أستراليا والإمارات وأمريكا وقطر.',
     locations: ['Qatar', 'UAE', 'USA', 'Australia'],
@@ -86,6 +92,7 @@ export const brands: Brand[] = [
     year: 2015,
     category: 'entertainment',
     accent: '#06A77D',
+    bg: '#f06b3c',
     description_en: 'Active entertainment parks with trampoline arenas, Clip ’n Climb, dodgeball, foam pits, Sky Trail, and adventure attractions across the GCC.',
     description_ar: 'مدن ترفيه نشطة مع ساحات ترامبولين، تسلق Clip ’n Climb، كرة الإعفاء، حفر الإسفنج، Sky Trail، ومغامرات في أنحاء الخليج.',
     locations: ['Qatar', 'UAE', 'Oman', 'Kuwait'],
@@ -97,6 +104,7 @@ export const brands: Brand[] = [
     year: 2025,
     category: 'entertainment',
     accent: '#F77F00',
+    bg: '#38421d',
     description_en: 'Launched in 2025 at West Walk Qatar, combining VR games, inflatable play zones, playgrounds, and arcades for families, children, and teens.',
     description_ar: 'انطلقت عام 2025 في ويست ووك قطر، تجمع ألعاب الواقع الافتراضي ومناطق اللعب المنفوخة وألعاب الأركيد للعائلات والأطفال والمراهقين.',
     locations: ['Qatar'],
@@ -110,6 +118,7 @@ export const brands: Brand[] = [
     year: 2025,
     category: 'entertainment',
     accent: '#52B788',
+    bg: '#ffffff',
     description_en: 'A safe entertainment and learning space for children up to six years old, with sliders, ball pools, trampolines, and themed educational play areas.',
     description_ar: 'مساحة آمنة للترفيه والتعلم للأطفال حتى سن السادسة، مع زحاليق وبرك كرات وترامبولين ومناطق لعب تعليمية ذات طابع خاص.',
     locations: ['Qatar'],
@@ -123,6 +132,7 @@ export const brands: Brand[] = [
     year: 2023,
     category: 'fnb',
     accent: '#7F5539',
+    bg: '#71cac8',
     description_en: 'A refined café experience in Katara, offering speciality coffees, desserts, pastries, gourmet food, and a luxurious atmosphere.',
     description_ar: 'تجربة مقهى راقية في كتارا، تقدم القهوة المختصة والحلويات والمعجنات والأطباق الفاخرة في أجواء راقية.',
     locations: ['Qatar'],

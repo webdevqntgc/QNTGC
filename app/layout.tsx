@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import { Poppins, Almarai } from 'next/font/google';
 import './globals.css';
+import { ContentProtection } from '@/components/ContentProtection';
+import { BackToTop } from '@/components/BackToTop';
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -50,7 +52,11 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html className={`${poppins.variable} ${almarai.variable}`}>
-      <body className="font-sans">{children}</body>
+      <body className="font-sans">
+        <ContentProtection />
+        {children}
+        <BackToTop />
+      </body>
     </html>
   );
 }

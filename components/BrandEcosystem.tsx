@@ -6,6 +6,16 @@ import { ArrowUpRight, MapPin } from 'lucide-react';
 import type { Dict, Locale } from '@/lib/i18n';
 import { brands, type BrandCategory } from '@/lib/brands';
 
+/** True if the hex colour is light enough to need dark text on top of it. */
+function isLightBg(hex: string): boolean {
+  const h = hex.replace('#', '');
+  const r = parseInt(h.slice(0, 2), 16);
+  const g = parseInt(h.slice(2, 4), 16);
+  const b = parseInt(h.slice(4, 6), 16);
+  const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+  return luminance > 0.6;
+}
+
 interface Props { dict: Dict; locale: Locale }
 
 type Filter = BrandCategory | 'all';
@@ -20,13 +30,12 @@ export function BrandEcosystem({ dict, locale }: Props) {
     { id: 'entertainment', label: dict.brandsSection.filterEntertainment },
     { id: 'fnb', label: dict.brandsSection.filterFnb },
     { id: 'creative', label: dict.brandsSection.filterCreative },
-    { id: 'lifestyle', label: dict.brandsSection.filterLifestyle },
   ];
 
   const filtered = filter === 'all' ? brands : brands.filter((b) => b.category === filter);
 
   return (
-    <section id="brands" className="relative overflow-hidden py-32">
+    <section id="brands" className="relative overflow-hidden py-20 md:py-32">
       {/* Cosmic gradient background */}
       <div className="absolute inset-0 bg-gradient-to-b from-white via-brand-grey-light/30 to-white" />
       <div className="absolute -left-32 top-1/4 h-96 w-96 rounded-full bg-brand-red/5 blur-3xl" />
@@ -63,6 +72,17 @@ export function BrandEcosystem({ dict, locale }: Props) {
             {filtered.map((brand, i) => {
               const desc = isAr ? brand.description_ar : brand.description_en;
               const slogan = isAr ? brand.slogan_ar : brand.slogan;
+              const lightBg = isLightBg(brand.bg);
+
+              // Text/chip palette per bg luminance
+              const titleClass = lightBg ? 'text-brand-navy' : 'text-white';
+              const yearClass  = lightBg ? 'text-brand-navy/45' : 'text-white/55';
+              const descClass  = lightBg ? 'text-brand-navy/70' : 'text-white/80';
+              const chipBg     = lightBg ? 'bg-brand-navy/8 text-brand-navy/75' : 'bg-white/15 text-white/85';
+              const exploreCls = lightBg
+                ? 'text-brand-navy group-hover:text-brand-red'
+                : 'text-white group-hover:text-yellow-300';
+
               return (
                 <motion.article
                   key={brand.id}
@@ -72,8 +92,8 @@ export function BrandEcosystem({ dict, locale }: Props) {
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ duration: 0.5, delay: (i % 6) * 0.06 }}
                   whileHover={{ y: -6 }}
-                  className="group relative overflow-hidden rounded-3xl bg-white p-8 shadow-card transition-shadow duration-500 hover:shadow-card-hover"
-                  style={{ borderTop: `4px solid ${brand.accent}` }}
+                  className="group relative overflow-hidden rounded-3xl p-8 shadow-card transition-shadow duration-500 hover:shadow-card-hover"
+                  style={{ background: brand.bg }}
                 >
                   {/* Glow */}
                   <div
@@ -81,9 +101,11 @@ export function BrandEcosystem({ dict, locale }: Props) {
                     style={{ background: brand.accent }}
                   />
 
-                  {/* Brand mark — real logo if provided, fallback to gradient initials */}
+                  {/* Brand mark — real logo if provided, fallback to gradient initials.
+                      Always render the logo on a white tile so colored brand SVGs read
+                      cleanly even when the card background is dark. */}
                   {brand.logo ? (
-                    <div className="mb-6 grid h-20 w-20 place-items-center rounded-2xl bg-white p-2 shadow-md ring-1 ring-brand-navy/5 transition-transform duration-500 group-hover:scale-110">
+                    <div className="mb-6 grid h-20 w-20 place-items-center rounded-2xl bg-white p-2 shadow-md ring-1 ring-black/10 transition-transform duration-500 group-hover:scale-110">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={brand.logo}
@@ -101,26 +123,29 @@ export function BrandEcosystem({ dict, locale }: Props) {
                   )}
 
                   <div className="mb-2 flex items-baseline justify-between gap-2">
-                    <h3 className="font-display text-xl font-bold text-brand-navy">{brand.name}</h3>
-                    <span className="text-xs font-semibold uppercase tracking-wider text-brand-navy/40">
+                    <h3 className={`font-display text-xl font-bold ${titleClass}`}>{brand.name}</h3>
+                    <span className={`text-xs font-semibold uppercase tracking-wider ${yearClass}`}>
                       {dict.brandsSection.established} {brand.year}
                     </span>
                   </div>
 
                   {slogan && (
-                    <p className="mb-3 text-sm font-semibold italic" style={{ color: brand.accent }}>
+                    <p
+                      className="mb-3 text-sm font-semibold italic"
+                      style={{ color: lightBg ? brand.accent : '#ffffff' }}
+                    >
                       “{slogan}”
                     </p>
                   )}
 
-                  <p className="mb-5 text-sm leading-relaxed text-brand-navy/65">{desc}</p>
+                  <p className={`mb-5 text-sm leading-relaxed ${descClass}`}>{desc}</p>
 
                   {brand.locations && brand.locations.length > 0 && (
                     <div className="mb-5 flex flex-wrap gap-1.5">
                       {brand.locations.map((loc) => (
                         <span
                           key={loc}
-                          className="inline-flex items-center gap-1 rounded-full bg-brand-grey-light px-2.5 py-0.5 text-[11px] font-medium text-brand-navy/70"
+                          className={`inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-[11px] font-medium ${chipBg}`}
                         >
                           <MapPin className="h-2.5 w-2.5" /> {loc}
                         </span>
@@ -130,7 +155,7 @@ export function BrandEcosystem({ dict, locale }: Props) {
 
                   <a
                     href="#contact"
-                    className="inline-flex items-center gap-1 text-sm font-semibold text-brand-navy transition-colors group-hover:text-brand-red"
+                    className={`inline-flex items-center gap-1 text-sm font-semibold transition-colors ${exploreCls}`}
                   >
                     {dict.brandsSection.explore}
                     <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
