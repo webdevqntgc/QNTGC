@@ -84,8 +84,8 @@ export function Footer({ locale, dict }: Props) {
         <div className="container-page flex flex-col gap-4 py-6 text-xs text-white/50 md:flex-row md:items-center md:justify-between">
           <p>© {year} Qatar National Trading Group Company. {dict.footer.rights}</p>
           <div className="flex gap-6">
-            <a href="#" className="hover:text-white">{dict.footer.privacy}</a>
-            <a href="#" className="hover:text-white">{dict.footer.terms}</a>
+            <Link href={`/${locale}/privacy`} className="hover:text-white">{dict.footer.privacy}</Link>
+            <Link href={`/${locale}/terms`} className="hover:text-white">{dict.footer.terms}</Link>
           </div>
         </div>
       </div>

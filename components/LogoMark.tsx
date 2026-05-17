@@ -34,7 +34,7 @@ export function LogoLockup({ locale, variant = 'default' }: { locale: string; va
     <div className="flex items-center" lang={locale}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src="/QNTGC Logo.png"
+        src="/icon_QNTGC.svg"
         alt="Qatar National Trading Group"
         className={`h-14 w-auto shrink-0 md:h-16 lg:h-[90px] ${variant === 'white' ? 'brightness-0 invert' : ''}`}
       />
