@@ -153,8 +153,15 @@ export function BrandEcosystem({ dict, locale }: Props) {
                     </div>
                   )}
 
+                  {/* Brands with a dedicated sub-brand page link to it; others fall back to the contact section */}
                   <a
-                    href="#contact"
+                    href={
+                      brand.id === 'kiddyzone'
+                        ? `/${locale}/brands/kiddyzone`
+                        : brand.id === 'candyvill'
+                          ? `/${locale}/brands/candyvill`
+                          : `/${locale}/#contact`
+                    }
                     className={`inline-flex items-center gap-1 text-sm font-semibold transition-colors ${exploreCls}`}
                   >
                     {dict.brandsSection.explore}

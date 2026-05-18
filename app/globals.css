@@ -10,7 +10,10 @@
 }
 
 html {
-  scroll-behavior: smooth;
+  /* Instant jump on anchor clicks — the slow smooth scroll was distracting.
+     The Back-to-Top button still animates smoothly because it calls
+     window.scrollTo({ behavior: 'smooth' }) explicitly in JS. */
+  scroll-behavior: auto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   /* Prevent any rogue overflowing element from causing horizontal scroll on phones */

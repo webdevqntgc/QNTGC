@@ -69,7 +69,7 @@ export function MarketPresence({ dict }: { dict: Dict }) {
   const active = BRANDS.find((b) => b.id === hovered) ?? null;
 
   return (
-    <section className="relative overflow-hidden bg-white py-20 text-brand-navy md:py-32">
+    <section id="market" className="relative overflow-hidden bg-white py-20 text-brand-navy md:py-32">
       {/* Subtle atmosphere */}
       <div className="absolute -left-40 top-1/4 h-[28rem] w-[28rem] rounded-full bg-brand-red/5 blur-[120px]" />
       <div className="absolute -right-40 bottom-1/4 h-[28rem] w-[28rem] rounded-full bg-brand-navy/5 blur-[120px]" />

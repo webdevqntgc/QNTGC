@@ -5,7 +5,8 @@
       "PowerShell(try { $r = Invoke-WebRequest -Uri \"http://localhost:3000/en\" -UseBasicParsing -TimeoutSec 30; \"Status: $\\($r.StatusCode\\)  ContentLength: $\\($r.Content.Length\\)\" } catch { \"ERR: $_\" })",
       "Bash(grep -iE \"\\\\.\\(png|jpg|jpeg|webp|svg\\)$\")",
       "Bash(grep -iE \"\\\\.\\(mp4|webm|mov|m4v\\)$\")",
-      "Bash(grep -iE \"qntgc|hero|\\\\.\\(mp4|webm|mov|m4v\\)$\")"
+      "Bash(grep -iE \"qntgc|hero|\\\\.\\(mp4|webm|mov|m4v\\)$\")",
+      "Bash(awk 'NR<659 || NR>832' \"C:/Users/MUHAMMAD/Downloads/Code/components/sub-brands/CandyVillPage.tsx\")"
     ]
   }
 }

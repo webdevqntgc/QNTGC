@@ -43,6 +43,7 @@ export function Footer({ locale, dict }: Props) {
             <li><a href={`/${locale}#about`} className="text-white/80 hover:text-white">{dict.nav.about}</a></li>
             <li><a href={`/${locale}#brands`} className="text-white/80 hover:text-white">{dict.nav.brands}</a></li>
             <li><a href={`/${locale}#milestones`} className="text-white/80 hover:text-white">{dict.nav.milestones}</a></li>
+            <li><a href={`/${locale}#market`} className="text-white/80 hover:text-white">{dict.nav.market}</a></li>
             <li><a href={`/${locale}#csr`} className="text-white/80 hover:text-white">{dict.nav.csr}</a></li>
           </ul>
         </div>

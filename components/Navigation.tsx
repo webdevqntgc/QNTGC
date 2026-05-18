@@ -31,6 +31,7 @@ export function Navigation({ locale, dict }: Props) {
     { href: `${home}#about`,       label: dict.nav.about,       page: false },
     { href: `${home}#brands`,      label: dict.nav.brands,      page: false },
     { href: `${home}#milestones`,  label: dict.nav.milestones,  page: false },
+    { href: `${home}#market`,      label: dict.nav.market,      page: false },
     { href: `${home}#csr`,         label: dict.nav.csr,         page: false },
     { href: `${home}#leadership`,  label: dict.nav.leadership,  page: false },
     { href: `${home}/career`,      label: dict.nav.careers,     page: true  },

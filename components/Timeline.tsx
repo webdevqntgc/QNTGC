@@ -29,20 +29,21 @@ interface Milestone {
   character?: string;          // path under /public — renders a floating 3D-feel mascot
   characterAnim?: CharacterAnim;
   logoImg?: string;            // when set, replaces the gradient icon tile with the actual logo
+  tileBg?: string;             // if set, the tile uses this brand color with a smaller contained logo (instead of edge-to-edge cover on white)
   specialMug?: boolean;        // renders the animated coffee-mug-with-steam decoration (L'Art du Café)
 }
 
 const MILESTONES: Milestone[] = [
-  { year: '2003', brand: 'Spacetoys',     brand_ar: 'Spacetoys',                 icon: Rocket,      color: '#3A86FF', logoImg: '/brands/Space Toys Logo.svg', character: '/icon_SpaceToys.svg', characterAnim: 'jump' },
-  { year: '2006', brand: 'QNTGC',         brand_ar: 'المجموعة القطرية الوطنية',  icon: Rocket,      color: '#B01117', logoImg: '/QNTGC Logo.png', character: '/icon_QNTGC.svg', characterAnim: 'wave' },
-  { year: '2006', brand: 'Kiddy Zone',    brand_ar: 'Kiddy Zone',                icon: Rocket,      color: '#E63946', logoImg: '/brands/KZ-Logo.svg', character: '/icon_KiddyZone.svg', characterAnim: 'wave' },
-  { year: '2015', brand: 'Trampo Extreme',brand_ar: 'Trampo Extreme',            icon: Activity,    color: '#06A77D', logoImg: '/brands/Trampo-Logo.svg', character: '/icon_trampo.svg', characterAnim: 'jump' },
-  { year: '2018', brand: 'PhotoBrick',    brand_ar: 'PhotoBrick',                icon: Box,         color: '#FFB703', logoImg: '/brands/Photobrick-Logo.svg', character: '/icon_Photosbrik.svg', characterAnim: 'wave' },
-  { year: '2023', brand: 'Rondvill',      brand_ar: 'Rondvill',                  icon: Gift,        color: '#9D4EDD', logoImg: '/brands/Rondvill-Logo.svg', character: '/icon_Ronvill.svg', characterAnim: 'bounce' },
-  { year: '2023', brand: 'Candyvill',     brand_ar: 'Candyvill',                 icon: Candy,       color: '#FF6B9D', logoImg: '/brands/CandyVill-Logo.svg', character: '/icon_CandyVill.svg', characterAnim: 'bounce' },
-  { year: '2023', brand: 'L ’Art du Café', brand_ar: 'L’Art du Café', icon: Coffee, color: '#7F5539', logoImg: '/brands/Lart du cafe-Logo.svg', character: "/icon_L'Artducafe.svg", characterAnim: 'bounce' },
-  { year: '2025', brand: 'West Fun',      brand_ar: 'West Fun',                  icon: Gamepad2,    color: '#F77F00', logoImg: '/brands/West Fun-Logo.svg', character: '/icon_WestFun.svg', characterAnim: 'wave' },
-  { year: '2025', brand: 'Ecolandia',     brand_ar: 'Ecolandia',                 icon: Sparkles,    color: '#52B788', logoImg: '/brands/Ecolandia-Logo.svg', character: '/icon_Ecolandia.svg', characterAnim: 'bounce' },
+  { year: '2003', brand: 'Spacetoys',     brand_ar: 'Spacetoys',                 icon: Rocket,      color: '#3A86FF', logoImg: '/our%20journey/logo_space%20toys.webp', character: '/icon_SpaceToys.svg', characterAnim: 'jump' },
+  { year: '2006', brand: 'QNTGC',         brand_ar: 'المجموعة القطرية الوطنية',  icon: Rocket,      color: '#B01117', logoImg: '/our%20journey/logo_qntgc.webp', character: '/icon_QNTGC.svg', characterAnim: 'wave' },
+  { year: '2006', brand: 'Kiddy Zone',    brand_ar: 'Kiddy Zone',                icon: Rocket,      color: '#E63946', logoImg: '/our%20journey/logo_Kiddy%20zone.webp', tileBg: '#333b88', character: '/icon_KiddyZone.svg', characterAnim: 'wave' },
+  { year: '2015', brand: 'Trampo Extreme',brand_ar: 'Trampo Extreme',            icon: Activity,    color: '#06A77D', logoImg: '/our%20journey/logo_trampoextreme.webp', tileBg: '#f06b3c', character: '/icon_trampo.svg', characterAnim: 'jump' },
+  { year: '2018', brand: 'PhotoBrick',    brand_ar: 'PhotoBrick',                icon: Box,         color: '#FFB703', logoImg: '/our%20journey/logo_photobric.webp', character: '/icon_Photosbrik.svg', characterAnim: 'wave' },
+  { year: '2023', brand: 'Rondvill',      brand_ar: 'Rondvill',                  icon: Gift,        color: '#9D4EDD', logoImg: '/our%20journey/logo_ronvill.webp', tileBg: '#ac2228', character: '/icon_Ronvill.svg', characterAnim: 'bounce' },
+  { year: '2023', brand: 'Candyvill',     brand_ar: 'Candyvill',                 icon: Candy,       color: '#FF6B9D', logoImg: '/our%20journey/logo_%20candyvill.webp', tileBg: '#cb2129', character: '/icon_CandyVill.svg', characterAnim: 'bounce' },
+  { year: '2023', brand: 'L ’Art du Café', brand_ar: 'L’Art du Café', icon: Coffee, color: '#7F5539', logoImg: '/our%20journey/logo_L%20art%20du%20cafe.webp', tileBg: '#71cac8', character: "/icon_L'Artducafe.svg", characterAnim: 'bounce' },
+  { year: '2025', brand: 'West Fun',      brand_ar: 'West Fun',                  icon: Gamepad2,    color: '#F77F00', logoImg: '/our%20journey/logo_westfun.webp', tileBg: '#38421d', character: '/icon_WestFun.svg', characterAnim: 'wave' },
+  { year: '2025', brand: 'Ecolandia',     brand_ar: 'Ecolandia',                 icon: Sparkles,    color: '#52B788', logoImg: '/our%20journey/logo_ecolandia.webp', tileBg: '#ffffff', character: '/icon_Ecolandia.svg', characterAnim: 'bounce' },
 ];
 
 export function Timeline({ dict, locale }: { dict: Dict; locale?: Locale }) {
@@ -290,8 +291,9 @@ function MilestoneRow({
                   <motion.div
                     animate={{ y: [0, -6, 0], rotate: [0, 3, -3, 0] }}
                     transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-                    className="grid h-16 w-16 shrink-0 place-items-center rounded-xl bg-white p-2 shadow-lg ring-1 ring-white/30"
+                    className={`h-16 w-16 shrink-0 overflow-hidden rounded-xl shadow-lg ${milestone.tileBg ? 'grid place-items-center p-2' : ''}`}
                     style={{
+                      background: milestone.tileBg ?? '#ffffff',
                       boxShadow: `0 14px 36px -6px ${milestone.color}80, inset 0 1px 0 rgba(255,255,255,0.5)`,
                     }}
                   >
@@ -299,7 +301,7 @@ function MilestoneRow({
                     <img
                       src={milestone.logoImg}
                       alt={`${milestone.brand} logo`}
-                      className="h-full w-full select-none object-contain"
+                      className={`block select-none ${milestone.tileBg ? 'h-full w-full object-contain' : 'h-full w-full object-cover'}`}
                       draggable={false}
                     />
                   </motion.div>
