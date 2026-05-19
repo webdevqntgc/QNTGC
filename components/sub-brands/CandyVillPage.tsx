@@ -16,9 +16,6 @@ import {
   Smile,
   Recycle,
   Wand2,
-  IceCream,
-  CupSoda,
-  Cookie,
   Candy as CandyIcon,
   Phone,
   Mail,
@@ -58,7 +55,6 @@ export function CandyVillPage() {
       <Branches />
       <VisionMission />
       <CoreValues />
-      <ProductExperience />
       <FinalCTA />
     </main>
   );
@@ -747,9 +743,29 @@ function FamilyOfBrands() {
 
 function Chocovill() {
   return (
-    <section id="chocovill" className="relative overflow-hidden py-20 md:py-28 text-white" style={{ background: `linear-gradient(135deg, ${CV.choco.dark}, ${CV.choco.mid})` }}>
-      <div aria-hidden className="absolute inset-0 opacity-20 [background-image:radial-gradient(circle_at_1px_1px,_${CV.choco.gold}_1.5px,_transparent_0)] [background-size:30px_30px]" />
-      <div aria-hidden className="absolute -right-32 top-10 h-96 w-96 rounded-full blur-3xl" style={{ background: `${CV.choco.gold}30` }} />
+    <section
+      id="chocovill"
+      className="relative overflow-hidden py-20 md:py-28 text-white"
+      style={{
+        background: `linear-gradient(135deg, ${CV.choco.dark}, ${CV.choco.mid})`,
+      }}
+    >
+      <div
+        aria-hidden
+        className="absolute inset-0 opacity-20 [background-image:radial-gradient(circle_at_1px_1px,_rgba(217,164,65,0.7)_1.5px,_transparent_0)] [background-size:30px_30px]"
+      />
+
+      <div
+        aria-hidden
+        className="absolute -right-32 top-10 h-96 w-96 rounded-full blur-3xl"
+        style={{ background: `${CV.choco.gold}30` }}
+      />
+
+      <div
+        aria-hidden
+        className="absolute left-1/2 top-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-3xl"
+        style={{ background: `${CV.choco.gold}18` }}
+      />
 
       <div className="container-page relative grid gap-12 lg:grid-cols-2 lg:items-center">
         <SubBrandIntro
@@ -763,68 +779,58 @@ function Chocovill() {
           ctaBg={CV.choco.gold}
           ctaColor={CV.choco.dark}
         />
+
         <motion.div
-          initial={{ opacity: 0, scale: 0.9, rotate: -8 }}
+          initial={{ opacity: 0, scale: 0.9, rotate: -4 }}
           whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-          className="relative grid place-items-center"
+          className="relative grid min-h-[360px] place-items-center md:min-h-[460px]"
         >
-          {/* Chocolate bar SVG */}
-          <motion.svg
-            viewBox="0 0 200 240"
-            className="w-48 md:w-64 lg:w-72"
-            animate={{ y: [0, -10, 0], rotate: [-2, 2, -2] }}
-            transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
-            style={{ filter: `drop-shadow(0 30px 40px rgba(0,0,0,0.6)) drop-shadow(0 0 30px ${CV.choco.gold}60)` }}
-          >
-            <defs>
-              <linearGradient id="choco-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#6B2A1C" />
-                <stop offset="50%" stopColor="#4B1E14" />
-                <stop offset="100%" stopColor="#2A0F0A" />
-              </linearGradient>
-              <linearGradient id="gold-wrap" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stopColor="#FBD37C" />
-                <stop offset="50%" stopColor="#D9A441" />
-                <stop offset="100%" stopColor="#9C7220" />
-              </linearGradient>
-            </defs>
-            {/* Foil wrapper top + bottom */}
-            <path d="M 30 10 L 170 10 L 170 30 L 30 30 Z" fill="url(#gold-wrap)" />
-            <path d="M 30 210 L 170 210 L 170 230 L 30 230 Z" fill="url(#gold-wrap)" />
-            {/* Bar */}
-            <rect x="30" y="30" width="140" height="180" rx="6" fill="url(#choco-grad)" />
-            {/* Bar segments */}
-            {[0, 1, 2, 3].map((row) =>
-              [0, 1, 2].map((col) => (
-                <rect
-                  key={`${row}-${col}`}
-                  x={36 + col * 44}
-                  y={36 + row * 44}
-                  width="40"
-                  height="40"
-                  rx="4"
-                  fill="none"
-                  stroke="#2A0F0A"
-                  strokeWidth="3"
-                />
-              ))
-            )}
-            {/* Glossy highlight */}
-            <rect x="42" y="36" width="6" height="170" rx="3" fill="rgba(255,255,255,0.18)" />
-            {/* Brand label on foil */}
-            <text x="100" y="24" textAnchor="middle" fontSize="9" fontWeight="700" fill={CV.choco.dark} letterSpacing="2">
-              CHOCOVILL
-            </text>
-          </motion.svg>
+          {/* Chocovill Image */}
+          <motion.img
+            src="/sub%20brands/Candyvill/candyChocolate.webp"
+            alt="Chocovill chocolate"
+            draggable={false}
+            className="relative z-20 w-[260px] select-none object-contain md:w-[340px] lg:w-[420px]"
+            style={{
+              filter: `drop-shadow(0 35px 45px rgba(0,0,0,0.65)) drop-shadow(0 0 35px ${CV.choco.gold}55)`,
+            }}
+            animate={{
+              y: [0, -12, 0],
+              rotate: [-1.5, 1.5, -1.5],
+            }}
+            transition={{
+              duration: 5,
+              repeat: Infinity,
+              ease: 'easeInOut',
+            }}
+          />
+
+          {/* Premium golden glow behind image */}
+          <motion.div
+            aria-hidden
+            className="absolute left-1/2 top-1/2 z-10 h-72 w-72 -translate-x-1/2 -translate-y-1/2 rounded-full blur-3xl md:h-96 md:w-96"
+            style={{
+              background: `radial-gradient(circle, ${CV.choco.gold}35, transparent 70%)`,
+            }}
+            animate={{
+              opacity: [0.45, 0.85, 0.45],
+              scale: [0.95, 1.08, 0.95],
+            }}
+            transition={{
+              duration: 4,
+              repeat: Infinity,
+              ease: 'easeInOut',
+            }}
+          />
 
           {/* Floating cocoa beans */}
           {[
-            { x: -10, y: 10 },
-            { x: 90, y: 14 },
-            { x: 92, y: 78 },
-            { x: -6, y: 84 },
+            { x: 2, y: 18 },
+            { x: 86, y: 16 },
+            { x: 90, y: 70 },
+            { x: 6, y: 76 },
           ].map((p, i) => (
             <motion.div
               key={i}
@@ -835,8 +841,16 @@ function Chocovill() {
                 background: `linear-gradient(135deg, ${CV.choco.mid}, ${CV.choco.dark})`,
                 boxShadow: `inset 1px 1px 2px ${CV.choco.gold}80, 0 4px 8px rgba(0,0,0,0.4)`,
               }}
-              animate={{ y: [0, -8, 0], rotate: [-10, 10, -10] }}
-              transition={{ duration: 3 + i, delay: i * 0.3, repeat: Infinity, ease: 'easeInOut' }}
+              animate={{
+                y: [0, -8, 0],
+                rotate: [-10, 10, -10],
+              }}
+              transition={{
+                duration: 3 + i,
+                delay: i * 0.3,
+                repeat: Infinity,
+                ease: 'easeInOut',
+              }}
             />
           ))}
         </motion.div>
@@ -844,7 +858,6 @@ function Chocovill() {
     </section>
   );
 }
-
 /* -------------------------------------------------------------------------- */
 /*  CORNVILL                                                                   */
 /* -------------------------------------------------------------------------- */
@@ -993,47 +1006,19 @@ function Icevill() {
           transition={{ duration: 0.9 }}
           className="relative grid place-items-center"
         >
-          {/* Ice cream swirl SVG */}
-          <motion.svg
-            viewBox="0 0 200 280"
-            className="w-48 md:w-64 lg:w-72"
-            animate={{ y: [0, -8, 0], rotate: [-2, 2, -2] }}
+          {/* Icevill picture — drifts up/down with subtle tilt */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <motion.img
+            src="/sub%20brands/candyvill/icevill.png"
+            alt="Icevill"
+            draggable={false}
+            animate={{ y: [0, -10, 0], rotate: [-2, 2, -2] }}
             transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
-            style={{ filter: 'drop-shadow(0 28px 36px rgba(0,0,0,0.3))' }}
-          >
-            <defs>
-              <linearGradient id="ice-cone" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stopColor="#E0B97A" />
-                <stop offset="100%" stopColor="#7C4F1D" />
-              </linearGradient>
-              <linearGradient id="ice-swirl" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stopColor="#fff" />
-                <stop offset="50%" stopColor={CV.ice.pink} />
-                <stop offset="100%" stopColor={CV.ice.lavender} />
-              </linearGradient>
-            </defs>
-            {/* Cone */}
-            <path d="M 70 160 L 100 270 L 130 160 Z" fill="url(#ice-cone)" />
-            {/* Waffle pattern */}
-            {[0, 1, 2].map((i) => (
-              <line key={i} x1={80 - i * 3} y1={180 + i * 25} x2={120 + i * 3} y2={180 + i * 25} stroke="#5A3915" strokeWidth="2" />
-            ))}
-            {/* Ice cream tiers */}
-            <ellipse cx="100" cy="160" rx="50" ry="12" fill="#fff" />
-            <path d="M 50 160 Q 60 110 100 110 Q 140 110 150 160 Z" fill="url(#ice-swirl)" />
-            <path d="M 60 130 Q 70 90 100 90 Q 130 90 140 130 Z" fill="url(#ice-swirl)" />
-            <path d="M 70 105 Q 78 70 100 70 Q 122 70 130 105 Z" fill="url(#ice-swirl)" />
-            <circle cx="100" cy="62" r="8" fill={CV.ice.pink} />
-            {/* Sprinkles */}
-            {[
-              { x: 75, y: 110, c: CV.ice.mint   },
-              { x: 92, y: 100, c: CV.ice.pink   },
-              { x: 110, y: 115, c: CV.slush.yellow },
-              { x: 125, y: 105, c: CV.ice.lavender },
-            ].map((s, i) => (
-              <rect key={i} x={s.x} y={s.y} width="6" height="2.5" rx="1" fill={s.c} transform={`rotate(${i * 30} ${s.x + 3} ${s.y + 1})`} />
-            ))}
-          </motion.svg>
+            className="w-56 select-none object-contain md:w-72 lg:w-80"
+            style={{
+              filter: 'drop-shadow(0 28px 36px rgba(0,0,0,0.3)) drop-shadow(0 0 30px rgba(255,255,255,0.4))',
+            }}
+          />
 
           {/* Falling sprinkles */}
           {Array.from({ length: 8 }).map((_, i) => {
@@ -1405,69 +1390,6 @@ function CoreValues() {
               </div>
               <h3 className="font-display text-lg font-bold">{title}</h3>
               <p className="mt-1.5 text-sm leading-relaxed text-white/80">{body}</p>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* -------------------------------------------------------------------------- */
-/*  PRODUCT EXPERIENCE                                                         */
-/* -------------------------------------------------------------------------- */
-
-function ProductExperience() {
-  const products = [
-    { Icon: Cookie,   name: 'Chocolates',           cta: 'Shop Chocolates', color: CV.choco.mid,    icon: '🍫' },
-    { Icon: CupSoda,  name: 'Slush Drinks',         cta: 'Sip Slush',       color: CV.slush.purple, icon: '🥤' },
-    { Icon: IceCream, name: 'Ice Cream',            cta: 'Scoop Ice Cream', color: CV.ice.pink,     icon: '🍦' },
-    { Icon: Leaf,     name: 'Corn & Popcorn Snacks', cta: 'Try Cornvill',    color: CV.corn.yellow,  icon: '🍿' },
-  ];
-  return (
-    <section className="relative bg-white py-20 md:py-28">
-      <div className="container-page">
-        <div className="mx-auto max-w-3xl text-center">
-          <span className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-[0.25em] text-white" style={{ background: CV.red }}>
-            Product Experience
-          </span>
-          <h2 className="mt-4 font-display text-4xl font-bold leading-tight md:text-5xl lg:text-6xl" style={{ color: CV.redShadow }}>
-            Every Sweet Craving
-            <span className="block" style={{ color: CV.red }}>Has a Village</span>
-          </h2>
-        </div>
-
-        <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {products.map((p, i) => (
-            <motion.div
-              key={p.name}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.5, delay: i * 0.08 }}
-              whileHover={{ y: -8 }}
-              className="group relative overflow-hidden rounded-3xl border bg-white p-6 text-center shadow-card transition-shadow duration-500 hover:shadow-card-hover"
-              style={{ borderColor: `${CV.redShadow}15` }}
-            >
-              <div className="absolute -right-12 -top-12 h-32 w-32 rounded-full opacity-0 blur-3xl transition-opacity duration-500 group-hover:opacity-50" style={{ background: p.color }} />
-              <div className="relative">
-                <motion.div
-                  className="text-6xl"
-                  animate={{ y: [0, -6, 0], rotate: [-4, 4, -4] }}
-                  transition={{ duration: 3 + i * 0.3, repeat: Infinity, ease: 'easeInOut' }}
-                >
-                  {p.icon}
-                </motion.div>
-                <h3 className="mt-4 font-display text-lg font-bold" style={{ color: CV.redShadow }}>{p.name}</h3>
-                <a
-                  href="#branches"
-                  className="mt-4 inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-xs font-bold text-white shadow-md transition-transform duration-300 hover:-translate-y-0.5"
-                  style={{ background: p.color }}
-                >
-                  {p.cta}
-                  <ArrowUpRight className="h-3.5 w-3.5" />
-                </a>
-              </div>
             </motion.div>
           ))}
         </div>
