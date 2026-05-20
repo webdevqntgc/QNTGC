@@ -8,7 +8,8 @@
       "Bash(grep -iE \"qntgc|hero|\\\\.\\(mp4|webm|mov|m4v\\)$\")",
       "Bash(awk 'NR<659 || NR>832' \"C:/Users/MUHAMMAD/Downloads/Code/components/sub-brands/CandyVillPage.tsx\")",
       "Bash(awk 'NR<1415 || NR>1477' \"C:/Users/MUHAMMAD/Downloads/Code/components/sub-brands/CandyVillPage.tsx\")",
-      "Bash(awk 'NR<303 || NR>369' \"C:/Users/MUHAMMAD/Downloads/Code/components/sub-brands/TrampoExtremePage.tsx\")"
+      "Bash(awk 'NR<303 || NR>369' \"C:/Users/MUHAMMAD/Downloads/Code/components/sub-brands/TrampoExtremePage.tsx\")",
+      "PowerShell(try { $r = Invoke-WebRequest -Uri \"http://localhost:3000/en/brands/spacetoys/\" -UseBasicParsing -TimeoutSec 90; \"STATUS \" + $r.StatusCode; if \\($r.Content -match 'SpaceToys Galaxy'\\) { 'SQUAD OK' } else { 'SQUAD MISSING' } } catch { $_.Exception.Message })"
     ]
   }
 }

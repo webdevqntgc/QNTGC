@@ -16,6 +16,8 @@ import {
   PartyPopper,
   Eye,
   Target,
+  Instagram,
+  Facebook,
 } from 'lucide-react';
 
 /* -------------------------------------------------------------------------- */
@@ -297,36 +299,54 @@ function JungleScene() {
         </g>
       </svg>
 
-      {/* Jungle character ensemble — using emoji as supporting cast around the WestFun icon */}
+      {/* Jungle character ensemble — official West Fun characters around the mascot */}
       {/* Giraffe (back left) */}
-      <motion.div
-        className="absolute"
-        style={{ left: '8%', top: '24%', fontSize: 60 }}
-        animate={{ y: [0, -6, 0], rotate: [-3, 3, -3] }}
+      <motion.img
+        src="/sub%20brands/west%20fun/Jerap.webp"
+        alt="Giraffe"
+        draggable={false}
+        className="pointer-events-none absolute select-none object-contain"
+        style={{
+          left: '-2%',
+          top: '8%',
+          width: 96,
+          filter: 'drop-shadow(0 12px 16px rgba(0,0,0,0.5))',
+        }}
+        animate={{ y: [0, -8, 0], rotate: [-3, 3, -3] }}
         transition={{ duration: 4.2, repeat: Infinity, ease: 'easeInOut' }}
-      >
-        🦒
-      </motion.div>
+      />
 
-      {/* Toucan (top right) */}
-      <motion.div
-        className="absolute"
-        style={{ right: '6%', top: '14%', fontSize: 44 }}
-        animate={{ y: [0, -10, 0], rotate: [-6, 6, -6] }}
+      {/* Parrot (top right) */}
+      <motion.img
+        src="/sub%20brands/west%20fun/parot.webp"
+        alt="Parrot"
+        draggable={false}
+        className="pointer-events-none absolute select-none object-contain"
+        style={{
+          right: '-2%',
+          top: '6%',
+          width: 78,
+          filter: 'drop-shadow(0 12px 16px rgba(0,0,0,0.5))',
+        }}
+        animate={{ y: [0, -12, 0], rotate: [-7, 7, -7] }}
         transition={{ duration: 3.5, delay: 0.4, repeat: Infinity, ease: 'easeInOut' }}
-      >
-        🦜
-      </motion.div>
+      />
 
       {/* Elephant (back right) */}
-      <motion.div
-        className="absolute"
-        style={{ right: '18%', top: '38%', fontSize: 56 }}
-        animate={{ y: [0, -5, 0], rotate: [-2, 2, -2] }}
+      <motion.img
+        src="/sub%20brands/west%20fun/elepant.webp"
+        alt="Elephant"
+        draggable={false}
+        className="pointer-events-none absolute select-none object-contain"
+        style={{
+          right: '4%',
+          top: '40%',
+          width: 92,
+          filter: 'drop-shadow(0 12px 16px rgba(0,0,0,0.5))',
+        }}
+        animate={{ y: [0, -6, 0], rotate: [-2, 2, -2] }}
         transition={{ duration: 4.8, delay: 0.8, repeat: Infinity, ease: 'easeInOut' }}
-      >
-        🐘
-      </motion.div>
+      />
 
       {/* WestFun character — front centre, the brand mascot */}
       <motion.div
@@ -758,14 +778,20 @@ function VisionMission() {
       <div aria-hidden className="absolute -right-32 bottom-10 h-96 w-96 rounded-full opacity-25 blur-3xl" style={{ background: `${WF.orange}70` }} />
 
       {/* Floating parrot */}
-      <motion.div
-        className="pointer-events-none absolute hidden md:block"
-        style={{ right: '8%', top: '10%', fontSize: 72 }}
+      <motion.img
+        src="/sub%20brands/west%20fun/parot.webp"
+        alt="Parrot"
+        draggable={false}
+        className="pointer-events-none absolute hidden select-none object-contain md:block"
+        style={{
+          right: '6%',
+          top: '8%',
+          width: 120,
+          filter: 'drop-shadow(0 14px 20px rgba(0,0,0,0.4))',
+        }}
         animate={{ y: [0, -14, 0], rotate: [-6, 6, -6] }}
         transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-      >
-        🦜
-      </motion.div>
+      />
 
       <div className="container-page relative grid gap-6 text-white lg:grid-cols-2">
         {[
@@ -967,9 +993,57 @@ function FinalCTA() {
                 Contact West Fun
               </a>
             </div>
+
+            {/* Follow on social media */}
+            <div className="mt-10">
+              <div className="text-xs font-extrabold uppercase tracking-[0.25em] text-white/65">Follow West Fun</div>
+              <div className="mt-3 flex flex-wrap justify-center gap-3">
+                <SocialIconButton href="https://www.instagram.com/westfun.qa" type="instagram" hoverColor={WF.jungle} />
+              </div>
+            </div>
           </div>
         </motion.div>
       </div>
     </section>
+  );
+}
+
+/* -------------------------------------------------------------------------- */
+/*  Social icon button                                                         */
+/* -------------------------------------------------------------------------- */
+
+function SocialIconButton({
+  href,
+  type,
+  hoverColor,
+}: {
+  href: string;
+  type: 'instagram' | 'facebook' | 'tiktok';
+  hoverColor: string;
+}) {
+  const label = type[0].toUpperCase() + type.slice(1);
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={label}
+      title={label}
+      className="grid h-11 w-11 place-items-center rounded-full bg-white/12 text-white ring-1 ring-white/20 backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:bg-white hover:shadow-lg"
+      onMouseEnter={(e) => (e.currentTarget.style.color = hoverColor)}
+      onMouseLeave={(e) => (e.currentTarget.style.color = '#fff')}
+    >
+      {type === 'instagram' && <Instagram className="h-5 w-5" />}
+      {type === 'facebook'  && <Facebook  className="h-5 w-5" />}
+      {type === 'tiktok'    && <TikTokIcon />}
+    </a>
+  );
+}
+
+function TikTokIcon() {
+  return (
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden>
+      <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5.8 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1.84-.1z" />
+    </svg>
   );
 }
