@@ -168,7 +168,13 @@ export function BrandEcosystem({ dict, locale }: Props) {
                                 ? `/${locale}/brands/ecolandia`
                                 : brand.id === 'spacetoys'
                                   ? `/${locale}/brands/spacetoys`
-                                  : `/${locale}/#contact`
+                                  : brand.id === 'rondvill'
+                                    ? `/${locale}/brands/rondvill`
+                                    : brand.id === 'photobrick'
+                                      ? `/${locale}/brands/photobrick`
+                                      : brand.id === 'lartducafe'
+                                        ? `/${locale}/brands/lartducafe`
+                                        : `/${locale}/#contact`
                     }
                     className={`inline-flex items-center gap-1 text-sm font-semibold transition-colors ${exploreCls}`}
                   >

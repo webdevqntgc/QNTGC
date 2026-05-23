@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Mail, Phone, MapPin, Linkedin, Instagram, Facebook } from 'lucide-react';
+import { Mail, Phone, MapPin, Linkedin } from 'lucide-react';
 import type { Dict, Locale } from '@/lib/i18n';
 import { LogoLockup } from './LogoMark';
 
@@ -22,16 +22,15 @@ export function Footer({ locale, dict }: Props) {
           <LogoLockup locale={locale} variant="white" />
           <p className="max-w-md text-white/70 leading-relaxed">{dict.footer.tagline}</p>
           <div className="flex gap-3 pt-2">
-            {[Linkedin, Instagram, Facebook].map((Icon, i) => (
-              <a
-                key={i}
-                href="#"
-                className="grid h-10 w-10 place-items-center rounded-full bg-white/10 text-white transition-colors hover:bg-brand-red"
-                aria-label="Social"
-              >
-                <Icon className="h-4 w-4" />
-              </a>
-            ))}
+            <a
+              href="https://www.linkedin.com/company/qatar-national-trading-group"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="grid h-10 w-10 place-items-center rounded-full bg-white/10 text-white transition-colors hover:bg-brand-red"
+              aria-label="QNTGC on LinkedIn"
+            >
+              <Linkedin className="h-4 w-4" />
+            </a>
           </div>
         </div>
 
