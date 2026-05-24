@@ -14,6 +14,19 @@ interface Props {
   dict: Dict;
 }
 
+/** Coloured journey logos (with their own background) — used in the brands flyout */
+const JOURNEY_LOGO: Record<string, string> = {
+  kiddyzone:  '/our%20journey/logo_Kiddy%20zone.webp',
+  spacetoys:  '/our%20journey/logo_space%20toys.webp',
+  rondvill:   '/our%20journey/logo_ronvill.webp',
+  candyvill:  '/our%20journey/logo_%20candyvill.webp',
+  photobrick: '/our%20journey/logo_photobric.webp',
+  trampo:     '/our%20journey/logo_trampoextreme.webp',
+  westfun:    '/our%20journey/logo_westfun.webp',
+  ecolandia:  '/our%20journey/logo_ecolandia.webp',
+  lartducafe: '/our%20journey/logo_L%20art%20du%20cafe.webp',
+};
+
 export function Navigation({ locale, dict }: Props) {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
@@ -103,30 +116,25 @@ export function Navigation({ locale, dict }: Props) {
                                   onClick={() => setBrandsOpen(false)}
                                 >
                                   <span
-                                    className="relative grid h-16 w-16 place-items-center rounded-full p-[3px] shadow-md transition-transform duration-300 group-hover:-translate-y-1 group-hover:scale-105"
-                                    style={{ background: `linear-gradient(135deg, ${b.accent}, ${b.bg})` }}
+                                    className="relative h-16 w-16 overflow-hidden rounded-full shadow-md ring-1 ring-black/5 transition-transform duration-300 group-hover:-translate-y-1 group-hover:scale-105"
+                                    style={{ background: b.bg }}
                                   >
-                                    <span className="grid h-full w-full place-items-center rounded-full bg-white p-2">
-                                      {b.logo ? (
-                                        /* eslint-disable-next-line @next/next/no-img-element */
-                                        <img
-                                          src={b.logo}
-                                          alt={`${b.name} logo`}
-                                          className="h-full w-full object-contain"
-                                          draggable={false}
-                                        />
-                                      ) : (
-                                        <span className="font-display text-sm font-bold text-brand-navy">
-                                          {b.name.slice(0, 2).toUpperCase()}
-                                        </span>
-                                      )}
-                                    </span>
-                                    {/* hover glow */}
-                                    <span
-                                      aria-hidden
-                                      className="pointer-events-none absolute inset-0 rounded-full opacity-0 blur-md transition-opacity duration-300 group-hover:opacity-60"
-                                      style={{ background: b.accent }}
-                                    />
+                                    {JOURNEY_LOGO[b.id] ? (
+                                      /* eslint-disable-next-line @next/next/no-img-element */
+                                      <img
+                                        src={JOURNEY_LOGO[b.id]}
+                                        alt={`${b.name} logo`}
+                                        className="h-full w-full object-contain p-1.5"
+                                        draggable={false}
+                                      />
+                                    ) : (
+                                      <span
+                                        className="grid h-full w-full place-items-center font-display text-sm font-bold text-white"
+                                        style={{ background: `linear-gradient(135deg, ${b.accent}, ${b.bg})` }}
+                                      >
+                                        {b.name.slice(0, 2).toUpperCase()}
+                                      </span>
+                                    )}
                                   </span>
                                   <span className="text-center text-[10px] font-bold leading-tight text-brand-navy/85 transition-colors group-hover:text-brand-navy">
                                     {b.name}
@@ -250,17 +258,25 @@ export function Navigation({ locale, dict }: Props) {
                                   className="flex flex-col items-center gap-2 rounded-2xl bg-white/5 p-3 transition-colors hover:bg-white/10"
                                 >
                                   <span
-                                    className="grid h-14 w-14 place-items-center rounded-full p-[2.5px]"
-                                    style={{ background: `linear-gradient(135deg, ${b.accent}, ${b.bg})` }}
+                                    className="relative h-14 w-14 overflow-hidden rounded-full ring-1 ring-white/20"
+                                    style={{ background: b.bg }}
                                   >
-                                    <span className="grid h-full w-full place-items-center rounded-full bg-white p-1.5">
-                                      {b.logo ? (
-                                        /* eslint-disable-next-line @next/next/no-img-element */
-                                        <img src={b.logo} alt="" className="h-full w-full object-contain" draggable={false} />
-                                      ) : (
-                                        <span className="font-display text-xs font-bold text-brand-navy">{b.name.slice(0, 2)}</span>
-                                      )}
-                                    </span>
+                                    {JOURNEY_LOGO[b.id] ? (
+                                      /* eslint-disable-next-line @next/next/no-img-element */
+                                      <img
+                                        src={JOURNEY_LOGO[b.id]}
+                                        alt=""
+                                        className="h-full w-full object-contain p-1"
+                                        draggable={false}
+                                      />
+                                    ) : (
+                                      <span
+                                        className="grid h-full w-full place-items-center font-display text-xs font-bold text-white"
+                                        style={{ background: `linear-gradient(135deg, ${b.accent}, ${b.bg})` }}
+                                      >
+                                        {b.name.slice(0, 2)}
+                                      </span>
+                                    )}
                                   </span>
                                   <span className="text-center text-[10px] font-bold leading-tight text-white/90">{b.name}</span>
                                 </Link>

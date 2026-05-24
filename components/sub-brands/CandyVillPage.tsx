@@ -791,7 +791,7 @@ function Chocovill() {
         >
           {/* Chocovill Image */}
           <motion.img
-            src="/sub%20brands/Candyvill/candyChocolate.webp"
+            src="/sub%20brands/candyvill/chocovill.webp"
             alt="Chocovill chocolate"
             draggable={false}
             className="relative z-20 w-[260px] select-none object-contain md:w-[340px] lg:w-[420px]"

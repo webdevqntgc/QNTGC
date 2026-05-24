@@ -59,8 +59,45 @@ export function KiddyZonePage() {
 
 function Hero() {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-[#FFF8E7] via-white to-[#FFF8E7] pt-12 pb-20 md:pt-16 md:pb-28 lg:pt-20">
+    <section
+      className="relative overflow-hidden pt-12 pb-20 text-white md:pt-16 md:pb-28 lg:pt-20"
+      style={{
+        background:
+          'radial-gradient(130% 100% at 50% 0%, #3a4cb5 0%, #2B398A 55%, #1a2566 100%)',
+      }}
+    >
+      <BlinkingStars />
       <FloatingPlanets />
+
+      {/* Drifting planet — top right */}
+      <motion.img
+        src="/sub%20brands/kiddyzone/Planet_001.svg"
+        alt=""
+        aria-hidden
+        draggable={false}
+        className="pointer-events-none absolute -right-12 top-6 h-32 w-32 select-none md:-right-6 md:top-10 md:h-44 md:w-44 lg:h-56 lg:w-56"
+        animate={{ rotate: 360, y: [0, -16, 0] }}
+        transition={{
+          rotate: { duration: 70, repeat: Infinity, ease: 'linear' },
+          y:      { duration: 8,  repeat: Infinity, ease: 'easeInOut' },
+        }}
+        style={{ filter: 'drop-shadow(0 22px 32px rgba(0,0,0,0.45)) drop-shadow(0 0 28px rgba(254,201,86,0.18))' }}
+      />
+
+      {/* Drifting planet — bottom left, smaller, opposite spin */}
+      <motion.img
+        src="/sub%20brands/kiddyzone/Planet_002.svg"
+        alt=""
+        aria-hidden
+        draggable={false}
+        className="pointer-events-none absolute -left-10 bottom-4 h-28 w-28 select-none md:-left-6 md:bottom-10 md:h-36 md:w-36 lg:h-44 lg:w-44"
+        animate={{ rotate: -360, y: [0, 14, 0] }}
+        transition={{
+          rotate: { duration: 90, repeat: Infinity, ease: 'linear' },
+          y:      { duration: 10, repeat: Infinity, ease: 'easeInOut' },
+        }}
+        style={{ filter: 'drop-shadow(0 18px 28px rgba(0,0,0,0.45)) drop-shadow(0 0 24px rgba(201,44,153,0.22))' }}
+      />
 
       <div className="container-page relative grid items-center gap-12 lg:grid-cols-12 lg:gap-8">
         {/* Left: copy */}
@@ -71,10 +108,9 @@ function Hero() {
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           >
             <span
-              className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-[0.2em]"
-              style={{ background: `${KZ.red}15`, color: KZ.red }}
+              className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.2em] text-white backdrop-blur-sm"
             >
-              <Star className="h-3 w-3" /> Sub-brand of QNTGC
+              <Star className="h-3 w-3" style={{ color: KZ.yellow }} fill="currentColor" /> Sub-brand of QNTGC
             </span>
 
             <div className="mt-6">
@@ -84,22 +120,21 @@ function Hero() {
                 alt="Kiddy Zone"
                 className="h-20 w-auto md:h-28 lg:h-32"
                 draggable={false}
+                style={{ filter: 'drop-shadow(0 8px 24px rgba(0,0,0,0.45))' }}
               />
             </div>
 
-            <h1 className="mt-8 font-display text-5xl font-bold leading-[1.02] tracking-tight md:text-6xl lg:text-7xl" style={{ color: KZ.primary }}>
+            <h1
+              className="mt-8 font-display text-5xl font-bold leading-[1.02] tracking-tight text-white md:text-6xl lg:text-7xl"
+              style={{ textShadow: '0 4px 24px rgba(0,0,0,0.35)' }}
+            >
               A Gift from
-              <span className="block">
-                <span
-                  className="bg-clip-text text-transparent"
-                  style={{ backgroundImage: `linear-gradient(90deg, ${KZ.red}, ${KZ.primary})` }}
-                >
-                  Another Planet
-                </span>
+              <span className="block" style={{ color: '#CE2736' }}>
+                Another Planet
               </span>
             </h1>
 
-            <p className="mt-6 max-w-xl text-lg leading-relaxed md:text-xl" style={{ color: `${KZ.navy}b3` }}>
+            <p className="mt-6 max-w-xl text-lg leading-relaxed text-white/85 md:text-xl">
               Qatar's largest toy retail destination — bringing joy, imagination, and play to families since 2006.
               Fourteen branches and counting, across Qatar, the UAE and Oman.
             </p>
@@ -122,8 +157,7 @@ function Hero() {
                 href="https://kiddyzone.com/collections"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border-2 px-6 py-3 text-sm font-bold transition-all duration-300 hover:-translate-y-0.5"
-                style={{ borderColor: KZ.primary, color: KZ.primary }}
+                className="inline-flex items-center gap-2 rounded-full border-2 border-white/50 bg-white/5 px-6 py-3 text-sm font-bold text-white backdrop-blur-sm transition-colors duration-300 hover:bg-white hover:text-[#2B398A]"
               >
                 Browse Categories
               </a>
@@ -132,14 +166,14 @@ function Hero() {
             <div className="mt-12 grid max-w-lg grid-cols-3 gap-6">
               {[
                 { num: '2006', label: 'Est.' },
-                { num: '13',   label: 'Branches' },
+                { num: '14',   label: 'Branches' },
                 { num: '3',    label: 'Countries' },
               ].map((s) => (
                 <div key={s.label}>
-                  <div className="font-display text-3xl font-bold md:text-4xl" style={{ color: KZ.red }}>
+                  <div className="font-display text-3xl font-bold md:text-4xl" style={{ color: KZ.yellow }}>
                     {s.num}
                   </div>
-                  <div className="mt-1 text-[10px] font-bold uppercase tracking-wider" style={{ color: `${KZ.navy}80` }}>
+                  <div className="mt-1 text-[10px] font-bold uppercase tracking-wider text-white/70">
                     {s.label}
                   </div>
                 </div>
@@ -213,10 +247,130 @@ function Hero() {
 function FloatingPlanets() {
   return (
     <div aria-hidden className="pointer-events-none absolute inset-0">
-      <div className="absolute -left-32 top-20 h-80 w-80 rounded-full opacity-40 blur-3xl" style={{ background: `${KZ.red}30` }} />
-      <div className="absolute -right-32 bottom-10 h-96 w-96 rounded-full opacity-40 blur-3xl" style={{ background: `${KZ.primary}25` }} />
-      {/* Constellation dotted pattern */}
-      <div className="absolute inset-0 opacity-25 [background-image:radial-gradient(circle_at_1px_1px,_rgba(27,42,94,0.5)_1.5px,_transparent_0)] [background-size:36px_36px]" />
+      <div className="absolute -left-32 top-20 h-80 w-80 rounded-full opacity-50 blur-3xl" style={{ background: `${KZ.red}55` }} />
+      <div className="absolute -right-32 bottom-10 h-96 w-96 rounded-full opacity-50 blur-3xl" style={{ background: `${KZ.pink}40` }} />
+      <div className="absolute left-1/2 -top-32 h-72 w-72 -translate-x-1/2 rounded-full opacity-40 blur-3xl" style={{ background: `${KZ.yellow}30` }} />
+    </div>
+  );
+}
+
+/* Animated blinking stars across the cosmic hero backdrop */
+function BlinkingStars() {
+  /* Three layers: tiny twinkles, mid stars, plus a handful of shooting stars */
+  const tiny = Array.from({ length: 60 });
+  const mid  = Array.from({ length: 12 });
+  return (
+    <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
+      {/* Tiny twinkling dots */}
+      {tiny.map((_, i) => {
+        const seed = (i * 9301 + 49297) % 233280;
+        const r = (n: number) => ((seed * (n + 1)) % 1000) / 1000;
+        const size = 1.5 + r(3) * 2.5;
+        const colors = ['#ffffff', KZ.yellow, KZ.cyan];
+        const c = colors[i % colors.length];
+        return (
+          <motion.span
+            key={`t-${i}`}
+            className="absolute rounded-full"
+            style={{
+              left: `${r(1) * 100}%`,
+              top: `${r(2) * 100}%`,
+              width: size,
+              height: size,
+              background: c,
+              boxShadow: `0 0 ${4 + size * 2}px ${c}`,
+            }}
+            animate={{ opacity: [0.15, 1, 0.15], scale: [0.7, 1.3, 0.7] }}
+            transition={{
+              duration: 1.6 + r(4) * 2.4,
+              delay: r(5) * 4,
+              repeat: Infinity,
+              ease: 'easeInOut',
+            }}
+          />
+        );
+      })}
+
+      {/* Mid-size 4-point stars with cross glow */}
+      {mid.map((_, i) => {
+        const seed = (i * 4271 + 13007) % 99991;
+        const r = (n: number) => ((seed * (n + 1)) % 1000) / 1000;
+        const size = 10 + r(3) * 8;
+        const c = i % 2 === 0 ? KZ.yellow : '#ffffff';
+        return (
+          <motion.div
+            key={`m-${i}`}
+            className="absolute"
+            style={{
+              left: `${5 + r(1) * 90}%`,
+              top: `${5 + r(2) * 90}%`,
+              width: size,
+              height: size,
+            }}
+            animate={{ opacity: [0.2, 1, 0.2], scale: [0.6, 1.15, 0.6], rotate: [0, 25, 0] }}
+            transition={{
+              duration: 3 + r(4) * 2.5,
+              delay: r(5) * 4,
+              repeat: Infinity,
+              ease: 'easeInOut',
+            }}
+          >
+            <svg viewBox="0 0 24 24" fill={c} className="h-full w-full" style={{ filter: `drop-shadow(0 0 8px ${c})` }}>
+              <path d="M12 0 L13.6 10.4 L24 12 L13.6 13.6 L12 24 L10.4 13.6 L0 12 L10.4 10.4 Z" />
+            </svg>
+          </motion.div>
+        );
+      })}
+
+      {/* Shooting stars — diagonal streaks coming from the left */}
+      {[0, 1].map((i) => (
+        <motion.span
+          key={`s-${i}`}
+          className="absolute h-px"
+          style={{
+            top: `${15 + i * 35}%`,
+            left: '-10%',
+            width: '180px',
+            background: `linear-gradient(90deg, transparent, ${KZ.yellow}, #fff)`,
+            boxShadow: `0 0 12px ${KZ.yellow}`,
+            transform: 'rotate(15deg)',
+            transformOrigin: 'left center',
+          }}
+          animate={{ x: ['0%', '700%'], opacity: [0, 1, 0] }}
+          transition={{
+            duration: 2.2,
+            delay: 3 + i * 4,
+            repeat: Infinity,
+            repeatDelay: 7 + i * 2,
+            ease: 'easeOut',
+          }}
+        />
+      ))}
+
+      {/* Falling stars — streaks dropping in from the top sky */}
+      {[0, 1, 2].map((i) => (
+        <motion.span
+          key={`f-${i}`}
+          className="absolute w-px"
+          style={{
+            left: `${18 + i * 28}%`,
+            top: '-10%',
+            height: '160px',
+            background: `linear-gradient(180deg, transparent, ${KZ.yellow}, #fff)`,
+            boxShadow: `0 0 12px ${KZ.yellow}`,
+            transform: 'rotate(12deg)',
+            transformOrigin: 'top center',
+          }}
+          animate={{ y: ['0%', '800%'], opacity: [0, 1, 0] }}
+          transition={{
+            duration: 5.5,
+            delay: 1.5 + i * 3,
+            repeat: Infinity,
+            repeatDelay: 8 + i * 2,
+            ease: 'easeIn',
+          }}
+        />
+      ))}
     </div>
   );
 }
@@ -270,7 +424,7 @@ function About() {
               Kiddy Zone opened its first store in Doha in <strong style={{ color: KZ.red }}>2006</strong> with one simple promise: to be Qatar's most loved place for families to discover, play, and gift the very best toys.
             </p>
             <p>
-              Two decades later we're the country's <strong style={{ color: KZ.primary }}>largest toy retail chain</strong>, with thirteen branches across Qatar, the UAE and Oman — and that promise is still the same.
+              Two decades later we're the country's <strong style={{ color: KZ.primary }}>largest toy retail chain</strong>, with fourteen branches across Qatar, the UAE and Oman — and that promise is still the same.
             </p>
           </div>
         </motion.div>
@@ -286,7 +440,7 @@ function About() {
             <div className="grid grid-cols-2 gap-6">
               {[
                 { val: '20', suf: '+', label: 'Years of Play' },
-                { val: '13', suf: '',  label: 'Stores' },
+                { val: '14', suf: '',  label: 'Stores' },
                 { val: '300', suf: 'K+', label: 'Customers/yr' },
                 { val: '50', suf: '+', label: 'Top Brands' },
               ].map((s) => (

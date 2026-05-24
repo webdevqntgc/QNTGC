@@ -83,17 +83,24 @@ export function BrandEcosystem({ dict, locale }: Props) {
                 ? 'text-brand-navy group-hover:text-brand-red'
                 : 'text-white group-hover:text-yellow-300';
 
+              const subBrandIds = ['kiddyzone','candyvill','trampo','westfun','ecolandia','spacetoys','rondvill','photobrick','lartducafe'];
+              const cardHref = subBrandIds.includes(brand.id)
+                ? `/${locale}/brands/${brand.id}`
+                : `/${locale}/#contact`;
+
               return (
-                <motion.article
+                <motion.a
                   key={brand.id}
+                  href={cardHref}
                   layout
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ duration: 0.5, delay: (i % 6) * 0.06 }}
                   whileHover={{ y: -6 }}
-                  className="group relative overflow-hidden rounded-3xl p-8 shadow-card transition-shadow duration-500 hover:shadow-card-hover"
+                  className="group relative block overflow-hidden rounded-3xl p-8 shadow-card transition-shadow duration-500 hover:shadow-card-hover focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
                   style={{ background: brand.bg }}
+                  aria-label={`Explore ${brand.name}`}
                 >
                   {/* Glow */}
                   <div
@@ -153,35 +160,14 @@ export function BrandEcosystem({ dict, locale }: Props) {
                     </div>
                   )}
 
-                  {/* Brands with a dedicated sub-brand page link to it; others fall back to the contact section */}
-                  <a
-                    href={
-                      brand.id === 'kiddyzone'
-                        ? `/${locale}/brands/kiddyzone`
-                        : brand.id === 'candyvill'
-                          ? `/${locale}/brands/candyvill`
-                          : brand.id === 'trampo'
-                            ? `/${locale}/brands/trampo`
-                            : brand.id === 'westfun'
-                              ? `/${locale}/brands/westfun`
-                              : brand.id === 'ecolandia'
-                                ? `/${locale}/brands/ecolandia`
-                                : brand.id === 'spacetoys'
-                                  ? `/${locale}/brands/spacetoys`
-                                  : brand.id === 'rondvill'
-                                    ? `/${locale}/brands/rondvill`
-                                    : brand.id === 'photobrick'
-                                      ? `/${locale}/brands/photobrick`
-                                      : brand.id === 'lartducafe'
-                                        ? `/${locale}/brands/lartducafe`
-                                        : `/${locale}/#contact`
-                    }
+                  {/* Whole card is the link — this is just the visible "Explore" affordance */}
+                  <span
                     className={`inline-flex items-center gap-1 text-sm font-semibold transition-colors ${exploreCls}`}
                   >
                     {dict.brandsSection.explore}
                     <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                  </a>
-                </motion.article>
+                  </span>
+                </motion.a>
               );
             })}
           </AnimatePresence>

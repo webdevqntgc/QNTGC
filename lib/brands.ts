@@ -36,7 +36,7 @@ export const brands: Brand[] = [
     year: 2003,
     category: 'retail',
     accent: '#3A86FF',
-    bg: '#005c96',
+    bg: '#003c6e',
     description_en: 'Established in 2003, a recognized toy retailer and collector destination, known for toys, TCG collections, and its flagship branch at Doha City Centre.',
     description_ar: 'تأسست عام 2003، وجهة بارزة للألعاب والمقتنيات، ومعروفة بالألعاب ومجموعات TCG وفرعها الرئيسي في سيتي سنتر الدوحة.',
     locations: ['Qatar'],
