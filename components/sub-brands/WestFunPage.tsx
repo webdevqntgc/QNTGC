@@ -19,6 +19,7 @@ import {
   Instagram,
   Facebook,
 } from 'lucide-react';
+import type { Locale } from '@/lib/i18n';
 
 /* -------------------------------------------------------------------------- */
 /*  West Fun brand palette                                                      */
@@ -39,17 +40,200 @@ const WF = {
 const CHAR = '/sub%20brands/west%20fun/icon_WestFun.svg';
 
 /* -------------------------------------------------------------------------- */
+/*  Translation dictionary                                                     */
+/* -------------------------------------------------------------------------- */
 
-export function WestFunPage() {
+type Dict = typeof EN;
+const EN = {
+  heroBadge: 'Sub-brand of QNTGC',
+  heroTitle1: 'WELCOME TO',
+  heroTitle2: 'WEST FUN',
+  heroTag: 'TAKE THE WALK TO THE WILD.',
+  heroBody: 'A nature-inspired entertainment destination where kids, teens, and families explore, play, and belong together.',
+  heroCta1: 'Explore the Wild',
+  heroCta2: 'Visit West Walk',
+  badge1: 'Safe Play',
+  badge2: 'Family Fun',
+  badge3: 'Wild Adventure',
+
+  forestEyebrow: 'The Forest',
+  forestTitle1: 'A Playful',
+  forestTitle2: 'Forest World',
+  forestBody: 'Step into a living jungle filled with imagination, movement, and meaningful moments — a place where families explore, play actively, and create memories that last.',
+  forest1Title: 'Jungle Adventure',
+  forest1Body: 'Wander, climb, and discover hidden trails inside our living forest playground.',
+  forest2Title: 'Active Play',
+  forest2Body: 'Tunnels, towers, and movement zones designed for kids to burn energy and grow.',
+  forest3Title: 'Family Bonding',
+  forest3Body: 'Spaces and moments built so parents and kids can play together — not apart.',
+
+  zonesEyebrow: 'Inside the Park',
+  zonesTitle1: 'Experience',
+  zonesTitle2: 'Zones',
+  zonesBody: 'Four worlds of jungle play, all under one wild roof at West Walk.',
+  zone1Name: 'Wild Play Zone',
+  zone1Tag: 'Soft + active jungle play',
+  zone1Body: 'Tunnels, ball pits, soft mountains and themed jungle climbs for under-10s.',
+  zone2Name: 'Adventure Challenges',
+  zone2Tag: 'Test your wild side',
+  zone2Body: 'Obstacle runs, balance bridges and timed quests built for active kids and teens.',
+  zone3Name: 'Family Moments',
+  zone3Tag: 'Play together',
+  zone3Body: 'Photo spots, themed corners and shared games designed for parents AND kids.',
+  zone4Name: 'Birthday & Events',
+  zone4Tag: 'Loud, wild, unforgettable',
+  zone4Body: 'Themed party rooms with full hosts, decoration packages and cake moments.',
+  discoverZone: 'Discover Zone',
+
+  locEyebrow: 'Find Us',
+  locTitle1: 'One Wild Stop at',
+  locTitle2: 'West Walk',
+  locBody: "Right inside one of Qatar's freshest lifestyle destinations — easy to find, easy to love.",
+  tag1: 'Lifestyle Destination',
+  tag2: 'Family Entertainment',
+  tag3: 'Adventure Concept',
+  viewLocation: 'View Location',
+  addressLabel: 'Address',
+  addressLine: 'West Walk, Qatar',
+  signLabel: 'This Way to Fun!',
+  buildingSign: 'WEST WALK',
+
+  vmVision: 'Our Vision',
+  vmVisionTitle: "Qatar's Most-Loved Jungle Park",
+  vmVisionBody: "To become Qatar's most loved jungle-inspired family entertainment destination.",
+  vmMission: 'Our Mission',
+  vmMissionTitle: 'Safe, Active, Unforgettable',
+  vmMissionBody: 'Creating safe, active, and unforgettable experiences where every child can laugh, every teen can explore, and every family can connect.',
+
+  valuesEyebrow: 'What We Stand For',
+  valuesTitle1: 'Our',
+  valuesTitle2: 'Values',
+  val1Title: 'Safety First',
+  val1Body: 'Every climb, slide and corner engineered with kids in mind.',
+  val2Title: 'Inclusive Play',
+  val2Body: 'A space that welcomes every child, every age, every story.',
+  val3Title: 'Adventure & Curiosity',
+  val3Body: 'Spaces that ask kids to wander, climb and try something new.',
+  val4Title: 'Family Togetherness',
+  val4Body: 'Activities designed for parents and kids — not parallel play.',
+  val5Title: 'Active Fun',
+  val5Body: 'Movement-first play that swaps screens for jungle adventure.',
+  val6Title: 'Memorable Experiences',
+  val6Body: 'The moments families talk about long after they leave.',
+
+  ctaBadge: 'Ready to Roar',
+  ctaTitle1: 'Step Into the',
+  ctaTitle2: 'Wild Side of Fun',
+  ctaBody: 'From playful jungle details to family adventures, West Fun turns every visit into a shared memory.',
+  ctaPlan: 'Plan Your Visit',
+  ctaContact: 'Contact West Fun',
+  followLabel: 'Follow West Fun',
+};
+
+const AR: Dict = {
+  heroBadge: 'علامة فرعية من المجموعة',
+  heroTitle1: 'أهلًا بكم في',
+  heroTitle2: 'ويست فن',
+  heroTag: 'سيرٌ نحو البرية.',
+  heroBody: 'وجهة ترفيهية مستوحاة من الطبيعة يستكشف فيها الأطفال والمراهقون والعائلات ويلعبون وينتمون معًا.',
+  heroCta1: 'استكشف البرية',
+  heroCta2: 'زر ويست ووك',
+  badge1: 'لعب آمن',
+  badge2: 'مرح عائلي',
+  badge3: 'مغامرة برية',
+
+  forestEyebrow: 'الغابة',
+  forestTitle1: 'عالم غابة',
+  forestTitle2: 'مرح',
+  forestBody: 'ادخل غابة حيّة مليئة بالخيال والحركة واللحظات المعبّرة — مكان تستكشف فيه العائلات وتلعب بنشاط وتصنع ذكريات تدوم.',
+  forest1Title: 'مغامرة الغابة',
+  forest1Body: 'تجوّل وتسلّق واكتشف المسارات المخفية داخل ملعبنا الغابي الحيّ.',
+  forest2Title: 'لعب نشِط',
+  forest2Body: 'أنفاق وأبراج ومناطق حركة مصمّمة ليُفرّغ الأطفال طاقتهم وينمو.',
+  forest3Title: 'رابطة العائلة',
+  forest3Body: 'مساحات ولحظات تجعل الآباء والأطفال يلعبون معًا — لا منفصلين.',
+
+  zonesEyebrow: 'داخل الحديقة',
+  zonesTitle1: 'مناطق',
+  zonesTitle2: 'التجربة',
+  zonesBody: 'أربعة عوالم من اللعب في الغابة، كلها تحت سقف واحد متوحّش في ويست ووك.',
+  zone1Name: 'منطقة اللعب البرّي',
+  zone1Tag: 'لعب ناعم ونشِط',
+  zone1Body: 'أنفاق وحفر كرات وجبال ناعمة وتسلّق غابي للأطفال دون العاشرة.',
+  zone2Name: 'تحدّيات المغامرة',
+  zone2Tag: 'اختبر جانبك البرّي',
+  zone2Body: 'مسارات عقبات وجسور توازن ومهمّات موقوتة للأطفال النشطين والمراهقين.',
+  zone3Name: 'لحظات عائلية',
+  zone3Tag: 'العبوا معًا',
+  zone3Body: 'زوايا للتصوير ومناطق مزيّنة وألعاب مشتركة للآباء والأطفال.',
+  zone4Name: 'أعياد ميلاد وفعاليات',
+  zone4Tag: 'صاخبة، برّية، لا تُنسى',
+  zone4Body: 'غرف حفلات مزيّنة مع مُضيفين كاملين وباقات ديكور ولحظات الكعكة.',
+  discoverZone: 'اكتشف المنطقة',
+
+  locEyebrow: 'تجدوننا',
+  locTitle1: 'محطة برّية واحدة في',
+  locTitle2: 'ويست ووك',
+  locBody: 'داخل واحدة من أحدث وجهات نمط الحياة في قطر — سهلة الوصول، سهلة الحب.',
+  tag1: 'وجهة نمط حياة',
+  tag2: 'ترفيه عائلي',
+  tag3: 'مفهوم مغامرة',
+  viewLocation: 'عرض الموقع',
+  addressLabel: 'العنوان',
+  addressLine: 'ويست ووك، قطر',
+  signLabel: 'من هنا إلى المرح!',
+  buildingSign: 'WEST WALK',
+
+  vmVision: 'رؤيتنا',
+  vmVisionTitle: 'حديقة الغابة الأحبّ في قطر',
+  vmVisionBody: 'أن نصبح وجهة الترفيه العائلي الأحبّ في قطر المستوحاة من الغابة.',
+  vmMission: 'رسالتنا',
+  vmMissionTitle: 'آمن، نشِط، لا يُنسى',
+  vmMissionBody: 'صنع تجارب آمنة ونشِطة لا تُنسى يضحك فيها كل طفل ويستكشف كل مراهق وتتواصل كل عائلة.',
+
+  valuesEyebrow: 'ما نؤمن به',
+  valuesTitle1: 'قيمنا',
+  valuesTitle2: '',
+  val1Title: 'السلامة أولًا',
+  val1Body: 'كل تسلّق ومنزلق وزاوية مُصمّمة بالأطفال في الاعتبار.',
+  val2Title: 'لعب شامل',
+  val2Body: 'مكان يرحّب بكل طفل وكل عمر وكل قصة.',
+  val3Title: 'مغامرة وفضول',
+  val3Body: 'مساحات تطلب من الأطفال أن يتجوّلوا ويتسلّقوا ويجرّبوا.',
+  val4Title: 'لمّ شمل العائلة',
+  val4Body: 'أنشطة مصمّمة للآباء والأطفال — لا للعب المتوازي.',
+  val5Title: 'مرح نشِط',
+  val5Body: 'لعب أوّله الحركة يستبدل الشاشات بمغامرة الغابة.',
+  val6Title: 'تجارب لا تُنسى',
+  val6Body: 'لحظات تتحدّث عنها العائلات طويلًا بعد المغادرة.',
+
+  ctaBadge: 'مستعدون للزئير',
+  ctaTitle1: 'ادخل إلى',
+  ctaTitle2: 'الجانب البرّي من المرح',
+  ctaBody: 'من تفاصيل الغابة المرحة إلى المغامرات العائلية، ويست فن يحوّل كل زيارة إلى ذكرى مشتركة.',
+  ctaPlan: 'خطّط لزيارتك',
+  ctaContact: 'تواصل مع ويست فن',
+  followLabel: 'تابع ويست فن',
+};
+
+type SP = { t: Dict; isAr: boolean };
+const arProps = (isAr: boolean) =>
+  isAr ? ({ dir: 'rtl' as const, lang: 'ar', className: 'font-ar' }) : ({});
+
+/* -------------------------------------------------------------------------- */
+
+export function WestFunPage({ locale }: { locale: Locale }) {
+  const isAr = locale === 'ar';
+  const t = isAr ? AR : EN;
   return (
     <main className="bg-white" style={{ color: WF.shadow }}>
-      <Hero />
-      <PlayfulForest />
-      <ExperienceZones />
-      <LocationSection />
-      <VisionMission />
-      <CoreValues />
-      <FinalCTA />
+      <Hero t={t} isAr={isAr} />
+      <PlayfulForest t={t} isAr={isAr} />
+      <ExperienceZones t={t} isAr={isAr} />
+      <LocationSection t={t} isAr={isAr} />
+      <VisionMission t={t} isAr={isAr} />
+      <CoreValues t={t} isAr={isAr} />
+      <FinalCTA t={t} isAr={isAr} />
     </main>
   );
 }
@@ -58,7 +242,7 @@ export function WestFunPage() {
 /*  HERO                                                                       */
 /* -------------------------------------------------------------------------- */
 
-function Hero() {
+function Hero({ t, isAr }: SP) {
   return (
     <section
       className="relative overflow-hidden pt-12 pb-24 text-white md:pt-16 md:pb-32"
@@ -73,12 +257,13 @@ function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            {...arProps(isAr)}
           >
             <span
               className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-[0.25em] text-white"
               style={{ background: WF.orange }}
             >
-              <Star className="h-3 w-3" fill="currentColor" /> Sub-brand of QNTGC
+              <Star className="h-3 w-3" fill="currentColor" /> {t.heroBadge}
             </span>
 
             <h1 className="mt-8 font-display text-5xl font-extrabold leading-[1] tracking-tight md:text-7xl lg:text-8xl">
@@ -89,7 +274,7 @@ function Hero() {
                   WebkitTextStroke: '0.5px rgba(0,0,0,0.1)',
                 }}
               >
-                WELCOME TO
+                {t.heroTitle1}
               </span>
               <span
                 className="block bg-clip-text text-transparent"
@@ -97,17 +282,16 @@ function Hero() {
                   backgroundImage: `linear-gradient(90deg, ${WF.yellow}, ${WF.orange})`,
                 }}
               >
-                WEST FUN
+                {t.heroTitle2}
               </span>
             </h1>
 
             <p className="mt-6 font-display text-2xl font-extrabold tracking-tight md:text-3xl" style={{ color: WF.yellow }}>
-              TAKE THE WALK TO THE WILD.
+              {t.heroTag}
             </p>
 
             <p className="mt-6 max-w-xl text-base leading-relaxed text-white/85 md:text-lg">
-              A nature-inspired entertainment destination where kids, teens, and families
-              explore, play, and belong together.
+              {t.heroBody}
             </p>
 
             <div className="mt-10 flex flex-wrap gap-3">
@@ -116,7 +300,7 @@ function Hero() {
                 className="inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-sm font-extrabold uppercase tracking-wider text-white shadow-xl transition-all duration-300 hover:-translate-y-0.5"
                 style={{ background: WF.orange, boxShadow: `0 14px 30px -5px ${WF.orange}80` }}
               >
-                Explore the Wild
+                {t.heroCta1}
                 <ArrowRight className="h-4 w-4" />
               </a>
               <a
@@ -124,7 +308,7 @@ function Hero() {
                 className="inline-flex items-center gap-2 rounded-full border-2 px-7 py-3.5 text-sm font-extrabold uppercase tracking-wider transition-all duration-300 hover:-translate-y-0.5"
                 style={{ borderColor: WF.yellow, color: WF.yellow }}
               >
-                Visit West Walk
+                {t.heroCta2}
                 <MapPin className="h-4 w-4" />
               </a>
             </div>
@@ -132,9 +316,9 @@ function Hero() {
             {/* Floating feature badges */}
             <div className="mt-10 flex flex-wrap gap-2.5">
               {[
-                { Icon: Shield, label: 'Safe Play',     color: WF.yellow },
-                { Icon: Heart,  label: 'Family Fun',    color: WF.orange },
-                { Icon: Compass,label: 'Wild Adventure',color: WF.olive  },
+                { Icon: Shield, label: t.badge1, color: WF.yellow },
+                { Icon: Heart,  label: t.badge2, color: WF.orange },
+                { Icon: Compass,label: t.badge3, color: WF.olive  },
               ].map(({ Icon, label, color }, i) => (
                 <motion.div
                   key={label}
@@ -404,32 +588,30 @@ function JungleScene() {
 /*  A PLAYFUL FOREST WORLD                                                     */
 /* -------------------------------------------------------------------------- */
 
-function PlayfulForest() {
+function PlayfulForest({ t, isAr }: SP) {
   const cards = [
-    { Icon: Trees,     title: 'Jungle Adventure', body: 'Wander, climb, and discover hidden trails inside our living forest playground.', color: WF.olive,  emoji: '🌿' },
-    { Icon: Sparkles,  title: 'Active Play',      body: 'Tunnels, towers, and movement zones designed for kids to burn energy and grow.', color: WF.orange, emoji: '🪢' },
-    { Icon: Heart,     title: 'Family Bonding',   body: 'Spaces and moments built so parents and kids can play together — not apart.', color: WF.yellow, emoji: '🧡' },
+    { Icon: Trees,    title: t.forest1Title, body: t.forest1Body, color: WF.olive,  emoji: '🌿' },
+    { Icon: Sparkles, title: t.forest2Title, body: t.forest2Body, color: WF.orange, emoji: '🪢' },
+    { Icon: Heart,    title: t.forest3Title, body: t.forest3Body, color: WF.yellow, emoji: '🧡' },
   ];
 
   return (
     <section className="relative overflow-hidden py-20 md:py-28" style={{ background: WF.cream }}>
-      {/* Subtle foliage pattern */}
       <div aria-hidden className="absolute inset-0 opacity-[0.07] [background-image:radial-gradient(circle_at_2px_2px,_rgba(57,69,28,0.6)_2px,_transparent_0)] [background-size:30px_30px]" />
 
       <div className="container-page relative">
-        <div className="mx-auto max-w-3xl text-center">
+        <div className="mx-auto max-w-3xl text-center" {...arProps(isAr)}>
           <span
             className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-[0.25em] text-white"
             style={{ background: WF.jungle }}
           >
-            <Trees className="h-3 w-3" /> The Forest
+            <Trees className="h-3 w-3" /> {t.forestEyebrow}
           </span>
           <h2 className="mt-4 font-display text-4xl font-extrabold uppercase leading-tight tracking-tight md:text-5xl lg:text-6xl" style={{ color: WF.jungle }}>
-            A Playful <span style={{ color: WF.orange }}>Forest World</span>
+            {t.forestTitle1} <span style={{ color: WF.orange }}>{t.forestTitle2}</span>
           </h2>
           <p className="mt-5 text-lg leading-relaxed" style={{ color: `${WF.shadow}b3` }}>
-            Step into a living jungle filled with imagination, movement, and meaningful moments — a place where families
-            explore, play actively, and create memories that last.
+            {t.forestBody}
           </p>
         </div>
 
@@ -443,6 +625,7 @@ function PlayfulForest() {
               transition={{ duration: 0.5, delay: i * 0.1 }}
               whileHover={{ y: -8 }}
               className="group relative overflow-hidden rounded-3xl bg-white p-8 shadow-card transition-shadow duration-500 hover:shadow-card-hover"
+              {...arProps(isAr)}
             >
               {/* Coloured corner accent */}
               <div
@@ -477,36 +660,12 @@ function PlayfulForest() {
 /*  EXPERIENCE ZONES                                                           */
 /* -------------------------------------------------------------------------- */
 
-function ExperienceZones() {
+function ExperienceZones({ t, isAr }: SP) {
   const zones = [
-    {
-      name: 'Wild Play Zone',
-      tag:  'Soft + active jungle play',
-      body: 'Tunnels, ball pits, soft mountains and themed jungle climbs for under-10s.',
-      color: WF.olive,
-      emoji: '🌴',
-    },
-    {
-      name: 'Adventure Challenges',
-      tag:  'Test your wild side',
-      body: 'Obstacle runs, balance bridges and timed quests built for active kids and teens.',
-      color: WF.orange,
-      emoji: '🪜',
-    },
-    {
-      name: 'Family Moments',
-      tag:  'Play together',
-      body: 'Photo spots, themed corners and shared games designed for parents AND kids.',
-      color: WF.yellow,
-      emoji: '📸',
-    },
-    {
-      name: 'Birthday & Events',
-      tag:  'Loud, wild, unforgettable',
-      body: 'Themed party rooms with full hosts, decoration packages and cake moments.',
-      color: WF.gold,
-      emoji: '🎉',
-    },
+    { name: t.zone1Name, tag: t.zone1Tag, body: t.zone1Body, color: WF.olive,  emoji: '🌴' },
+    { name: t.zone2Name, tag: t.zone2Tag, body: t.zone2Body, color: WF.orange, emoji: '🪜' },
+    { name: t.zone3Name, tag: t.zone3Tag, body: t.zone3Body, color: WF.yellow, emoji: '📸' },
+    { name: t.zone4Name, tag: t.zone4Tag, body: t.zone4Body, color: WF.gold,   emoji: '🎉' },
   ];
 
   return (
@@ -537,18 +696,18 @@ function ExperienceZones() {
       })}
 
       <div className="container-page relative">
-        <div className="mx-auto max-w-3xl text-center">
+        <div className="mx-auto max-w-3xl text-center" {...arProps(isAr)}>
           <span
             className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-[0.25em]"
             style={{ background: WF.yellow, color: WF.shadow }}
           >
-            <Compass className="h-3 w-3" /> Inside the Park
+            <Compass className="h-3 w-3" /> {t.zonesEyebrow}
           </span>
           <h2 className="mt-4 font-display text-4xl font-extrabold uppercase leading-tight tracking-tight md:text-5xl lg:text-6xl">
-            Experience <span style={{ color: WF.yellow }}>Zones</span>
+            {t.zonesTitle1} <span style={{ color: WF.yellow }}>{t.zonesTitle2}</span>
           </h2>
           <p className="mt-5 text-lg text-white/85">
-            Four worlds of jungle play, all under one wild roof at West Walk.
+            {t.zonesBody}
           </p>
         </div>
 
@@ -562,6 +721,7 @@ function ExperienceZones() {
               transition={{ duration: 0.5, delay: i * 0.08 }}
               whileHover={{ y: -8 }}
               className="group relative overflow-hidden rounded-3xl bg-white/8 p-7 ring-1 ring-white/15 backdrop-blur-sm transition-all duration-500 hover:bg-white/12 hover:ring-white/30"
+              {...arProps(isAr)}
             >
               {/* Coloured glow corner */}
               <div className="absolute -right-12 -top-12 h-40 w-40 rounded-full opacity-30 blur-3xl transition-opacity duration-500 group-hover:opacity-60" style={{ background: z.color }} />
@@ -587,7 +747,7 @@ function ExperienceZones() {
                     onMouseEnter={(e) => (e.currentTarget.style.color = WF.shadow)}
                     onMouseLeave={(e) => (e.currentTarget.style.color = '#fff')}
                   >
-                    Discover Zone <ArrowUpRight className="h-3.5 w-3.5" />
+                    {t.discoverZone} <ArrowUpRight className="h-3.5 w-3.5" />
                   </a>
                 </div>
               </div>
@@ -603,7 +763,7 @@ function ExperienceZones() {
 /*  LOCATION                                                                   */
 /* -------------------------------------------------------------------------- */
 
-function LocationSection() {
+function LocationSection({ t, isAr }: SP) {
   return (
     <section id="location" className="relative overflow-hidden py-20 md:py-28" style={{ background: WF.cream }}>
       <div aria-hidden className="absolute -right-32 top-10 h-96 w-96 rounded-full opacity-20 blur-3xl" style={{ background: `${WF.orange}80` }} />
@@ -711,10 +871,10 @@ function LocationSection() {
               </svg>
             </div>
 
-            <div className="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-white/15 pt-4">
+            <div className="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-white/15 pt-4" {...arProps(isAr)}>
               <div>
-                <div className="text-[10px] font-bold uppercase tracking-wider text-white/55">Address</div>
-                <div className="font-bold">West Walk, Qatar</div>
+                <div className="text-[10px] font-bold uppercase tracking-wider text-white/55">{t.addressLabel}</div>
+                <div className="font-bold">{t.addressLine}</div>
               </div>
               <div className="grid h-10 w-10 place-items-center rounded-full" style={{ background: WF.yellow }}>
                 <MapPin className="h-5 w-5" style={{ color: WF.shadow }} />
@@ -731,7 +891,7 @@ function LocationSection() {
             className="absolute -right-4 -top-6 hidden md:block"
             animate={{ rotate: [-7, -3, -7] }}
           >
-            <WoodenSign label="This Way to Fun!" />
+            <WoodenSign label={t.signLabel} />
           </motion.div>
         </motion.div>
       </div>
@@ -771,7 +931,7 @@ function WoodenSign({ label }: { label: string }) {
 /*  VISION & MISSION                                                            */
 /* -------------------------------------------------------------------------- */
 
-function VisionMission() {
+function VisionMission({ t, isAr }: SP) {
   return (
     <section className="relative overflow-hidden py-20 md:py-28" style={{ background: WF.jungle }}>
       <div aria-hidden className="absolute -left-32 top-10 h-96 w-96 rounded-full opacity-20 blur-3xl" style={{ background: `${WF.yellow}50` }} />
@@ -795,20 +955,8 @@ function VisionMission() {
 
       <div className="container-page relative grid gap-6 text-white lg:grid-cols-2">
         {[
-          {
-            label: 'Our Vision',
-            heading: "Qatar's Most-Loved Jungle Park",
-            body: "To become Qatar's most loved jungle-inspired family entertainment destination.",
-            Icon: Eye,
-            bg: WF.olive,
-          },
-          {
-            label: 'Our Mission',
-            heading: 'Safe, Active, Unforgettable',
-            body: 'Creating safe, active, and unforgettable experiences where every child can laugh, every teen can explore, and every family can connect.',
-            Icon: Target,
-            bg: WF.orange,
-          },
+          { label: t.vmVision,  heading: t.vmVisionTitle,  body: t.vmVisionBody,  Icon: Eye,    bg: WF.olive  },
+          { label: t.vmMission, heading: t.vmMissionTitle, body: t.vmMissionBody, Icon: Target, bg: WF.orange },
         ].map((c, i) => (
           <motion.div
             key={c.label}
@@ -818,6 +966,7 @@ function VisionMission() {
             transition={{ duration: 0.6, delay: i * 0.1 }}
             className="relative overflow-hidden rounded-3xl p-8 ring-1 ring-white/15 md:p-10"
             style={{ background: c.bg }}
+            {...arProps(isAr)}
           >
             <div className="absolute -right-20 -top-20 h-56 w-56 rounded-full bg-white/15 blur-3xl" />
             <div className="relative">
@@ -841,28 +990,28 @@ function VisionMission() {
 /*  CORE VALUES                                                                */
 /* -------------------------------------------------------------------------- */
 
-function CoreValues() {
+function CoreValues({ t, isAr }: SP) {
   const values = [
-    { Icon: Shield,      title: 'Safety First',          body: 'Every climb, slide and corner engineered with kids in mind.', color: WF.orange },
-    { Icon: Users,       title: 'Inclusive Play',         body: 'A space that welcomes every child, every age, every story.', color: WF.olive },
-    { Icon: Compass,     title: 'Adventure & Curiosity',  body: 'Spaces that ask kids to wander, climb and try something new.', color: WF.yellow },
-    { Icon: Heart,       title: 'Family Togetherness',     body: 'Activities designed for parents and kids — not parallel play.', color: WF.gold },
-    { Icon: Sparkles,    title: 'Active Fun',              body: 'Movement-first play that swaps screens for jungle adventure.', color: WF.orange },
-    { Icon: Trophy,      title: 'Memorable Experiences',   body: 'The moments families talk about long after they leave.',     color: WF.olive },
+    { Icon: Shield,   title: t.val1Title, body: t.val1Body, color: WF.orange },
+    { Icon: Users,    title: t.val2Title, body: t.val2Body, color: WF.olive },
+    { Icon: Compass,  title: t.val3Title, body: t.val3Body, color: WF.yellow },
+    { Icon: Heart,    title: t.val4Title, body: t.val4Body, color: WF.gold },
+    { Icon: Sparkles, title: t.val5Title, body: t.val5Body, color: WF.orange },
+    { Icon: Trophy,   title: t.val6Title, body: t.val6Body, color: WF.olive },
   ];
 
   return (
     <section className="relative bg-white py-20 md:py-28">
       <div className="container-page">
-        <div className="mx-auto max-w-3xl text-center">
+        <div className="mx-auto max-w-3xl text-center" {...arProps(isAr)}>
           <span
             className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-[0.25em] text-white"
             style={{ background: WF.jungle }}
           >
-            <Star className="h-3 w-3" fill="currentColor" /> What We Stand For
+            <Star className="h-3 w-3" fill="currentColor" /> {t.valuesEyebrow}
           </span>
           <h2 className="mt-4 font-display text-4xl font-extrabold uppercase leading-tight tracking-tight md:text-5xl lg:text-6xl" style={{ color: WF.jungle }}>
-            Our <span style={{ color: WF.orange }}>Values</span>
+            {t.valuesTitle1} <span style={{ color: WF.orange }}>{t.valuesTitle2}</span>
           </h2>
         </div>
 
@@ -876,6 +1025,7 @@ function CoreValues() {
               transition={{ duration: 0.45, delay: i * 0.06 }}
               whileHover={{ y: -6 }}
               className="group relative overflow-hidden rounded-2xl border border-black/8 bg-white p-6 shadow-card transition-shadow duration-300 hover:shadow-card-hover"
+              {...arProps(isAr)}
             >
               <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full opacity-0 blur-3xl transition-opacity duration-500 group-hover:opacity-30" style={{ background: color }} />
               <div className="relative">
@@ -900,7 +1050,7 @@ function CoreValues() {
 /*  FINAL CTA — Step into the wild side of fun                                  */
 /* -------------------------------------------------------------------------- */
 
-function FinalCTA() {
+function FinalCTA({ t, isAr }: SP) {
   return (
     <section className="relative bg-white py-20 md:py-28">
       <div className="container-page">
@@ -962,16 +1112,16 @@ function FinalCTA() {
             <Leaf size={64} color={WF.olive} />
           </div>
 
-          <div className="relative">
+          <div className="relative" {...arProps(isAr)}>
             <span className="inline-flex items-center gap-2 rounded-full bg-white/15 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.25em] text-white backdrop-blur-sm">
-              <PartyPopper className="h-3 w-3" /> Ready to Roar
+              <PartyPopper className="h-3 w-3" /> {t.ctaBadge}
             </span>
             <h2 className="mt-5 font-display text-4xl font-extrabold uppercase leading-tight tracking-tight md:text-5xl lg:text-6xl">
-              Step Into the
-              <span className="block" style={{ color: WF.yellow }}>Wild Side of Fun</span>
+              {t.ctaTitle1}
+              <span className="block" style={{ color: WF.yellow }}>{t.ctaTitle2}</span>
             </h2>
             <p className="mx-auto mt-5 max-w-xl text-lg text-white/90">
-              From playful jungle details to family adventures, West Fun turns every visit into a shared memory.
+              {t.ctaBody}
             </p>
 
             <div className="mt-10 flex flex-wrap justify-center gap-4">
@@ -980,23 +1130,23 @@ function FinalCTA() {
                 className="inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-sm font-extrabold uppercase tracking-wider text-white shadow-xl transition-all duration-300 hover:-translate-y-0.5"
                 style={{ background: WF.orange, boxShadow: `0 14px 30px -5px ${WF.orange}80` }}
               >
-                Plan Your Visit
+                {t.ctaPlan}
                 <MapPin className="h-4 w-4" />
               </a>
               <a
-                href="/en/#contact"
+                href={`/${isAr ? 'ar' : 'en'}/#contact`}
                 className="inline-flex items-center gap-2 rounded-full border-2 border-white/40 px-7 py-3.5 text-sm font-extrabold uppercase tracking-wider text-white transition-all duration-300 hover:border-white hover:bg-white"
                 style={{ color: 'inherit' }}
                 onMouseEnter={(e) => (e.currentTarget.style.color = WF.jungle)}
                 onMouseLeave={(e) => (e.currentTarget.style.color = '#fff')}
               >
-                Contact West Fun
+                {t.ctaContact}
               </a>
             </div>
 
             {/* Follow on social media */}
             <div className="mt-10">
-              <div className="text-xs font-extrabold uppercase tracking-[0.25em] text-white/65">Follow West Fun</div>
+              <div className="text-xs font-extrabold uppercase tracking-[0.25em] text-white/65">{t.followLabel}</div>
               <div className="mt-3 flex flex-wrap justify-center gap-3">
                 <SocialIconButton href="https://www.instagram.com/westfun.qa" type="instagram" hoverColor={WF.jungle} />
               </div>

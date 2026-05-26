@@ -88,7 +88,7 @@
       { "value": "2006", "label": "Founded" },
       { "value": "150+", "label": "Employees" },
       { "value": "9+", "label": "Brands" },
-      { "value": "5", "label": "Countries" },
+      { "value": "3", "label": "Countries" },
       { "value": "20+", "label": "Branches" }
     ],
     "countries": ["Qatar", "UAE", "Oman", "Kuwait", "Australia", "USA"]

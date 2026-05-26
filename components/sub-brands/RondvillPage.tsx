@@ -17,7 +17,10 @@ import {
   Heart,
   Puzzle,
   Bike,
+  Instagram,
+  Facebook,
 } from 'lucide-react';
+import type { Locale } from '@/lib/i18n';
 
 /* -------------------------------------------------------------------------- */
 /*  Rondvill brand palette (from the official brand guideline)                 */
@@ -55,17 +58,172 @@ const CHARS = {
 const LOGO = '/brands/Rondvill-Logo.svg';
 
 /* -------------------------------------------------------------------------- */
+/*  Translation dictionary                                                     */
+/* -------------------------------------------------------------------------- */
 
-export function RondvillPage() {
+type Dict = typeof EN;
+const EN = {
+  heroEyebrow: 'A QNTGC Brand · Est. 2023',
+  heroBrand: 'RONDVILL',
+  heroTagline: 'A Premium Gift & Toy Destination',
+  heroBody: 'Step inside a refined world of toys, gifts, collectibles, and memorable family discoveries at Katara Gift Box.',
+  heroCta1: 'Discover Rondvill',
+  heroCta2: 'Visit Katara Gift Box',
+
+  whyEyebrow: 'Why Families Love Us',
+  whyTitle1: 'A Toy Store Full of',
+  whyTitle2: 'Happy Surprises',
+  why1Title: 'Premium Toy Brands',
+  why1Desc: 'Original, hand-picked toys families love.',
+  why2Title: 'Free Gift Wrapping',
+  why2Desc: 'Every gift wrapped beautifully, ready to give.',
+  why3Title: 'At Katara Gift Box',
+  why3Desc: "A magical stop inside Children's Mall, Doha.",
+  why4Title: 'Loyalty Rewards',
+  why4Desc: 'Earn rewards every time you play & shop.',
+
+  catsEyebrow: 'Shop by Category',
+  catsTitle1: 'Pick Your Kind',
+  catsTitle2: 'of Play!',
+  cat1Name: 'Building Blocks',
+  cat1Desc: 'Build, stack & create.',
+  cat2Name: 'Action Figures',
+  cat2Desc: 'Heroes & adventures await.',
+  cat3Name: 'Dolls & Playsets',
+  cat3Desc: 'Imagine your own little world.',
+  cat4Name: 'Plush & Soft Toys',
+  cat4Desc: 'Cuddly friends for every age.',
+  cat5Name: 'Games & Puzzles',
+  cat5Desc: 'Fun for the whole family.',
+  cat6Name: 'Outdoor Play',
+  cat6Desc: 'Ride, run & explore.',
+  catExplore: 'Explore',
+
+  mascotEyebrow: 'Our Mascots',
+  mascotTitle1: 'Meet the',
+  mascotTitle2: 'Ron Bears!',
+  mascotBody: 'The friendly Ron Bears welcome every family into Rondvill — ready to help you discover the perfect toy, gift, and play moment.',
+
+  wrapEyebrow: 'The Fun Part',
+  wrapTitle1: 'Every Gift Wrapped',
+  wrapTitle2: 'With a Smile!',
+  wrapBody: "Pick a toy, and we'll wrap it up in our signature Rondvill style — free gift wrapping that makes every surprise extra special.",
+  wrapCta: 'Visit & Discover',
+
+  visitEyebrow: 'Come & Play',
+  visitTitle1: 'Visit Rondvill at',
+  visitTitle2: 'Katara Gift Box',
+  visitBody: "Bring the whole family for a day of discovery, play, and the perfect gift — right inside the Children's Mall at Katara.",
+  card1Label: 'Location',
+  card1Line1: 'Katara Gift Box',
+  card1Line2: "Children's Mall, Doha",
+  card2Label: 'Opening Hours',
+  card2Line1: 'Sat – Thu: 10 AM – 12 AM',
+  card2Line2: 'Friday: 1 PM – 12 AM',
+  card3Label: 'Call Us',
+  card4Label: 'Email',
+  visitDirections: 'Get Directions',
+  visitMapPin: 'Katara',
+
+  ctaEyebrow: "Let's Play",
+  ctaTitle1: 'Open the Gift.',
+  ctaTitle2: 'Discover Rondvill.',
+  ctaBody: 'Plan your visit to Katara Gift Box for a day of toys, gifts, and family fun.',
+  ctaPrimary: 'Plan Your Visit',
+  ctaSecondary: 'Contact Rondvill',
+  followLabel: 'Follow Rondvill',
+};
+
+const AR: Dict = {
+  heroEyebrow: 'علامة من المجموعة · تأسست ٢٠٢٣',
+  heroBrand: 'روندفيل',
+  heroTagline: 'وجهة فاخرة للهدايا والألعاب',
+  heroBody: 'ادخلوا إلى عالم راقٍ من الألعاب والهدايا والمقتنيات والاكتشافات العائلية التي لا تُنسى في كتارا للهدايا.',
+  heroCta1: 'اكتشف روندفيل',
+  heroCta2: 'زر كتارا للهدايا',
+
+  whyEyebrow: 'لماذا تحبّنا العائلات',
+  whyTitle1: 'متجر ألعاب مليء',
+  whyTitle2: 'بالمفاجآت السعيدة',
+  why1Title: 'علامات ألعاب فاخرة',
+  why1Desc: 'ألعاب أصلية مختارة بعناية تحبّها العائلات.',
+  why2Title: 'تغليف هدايا مجاني',
+  why2Desc: 'كل هدية مُغلّفة بأناقة وجاهزة للإهداء.',
+  why3Title: 'في كتارا للهدايا',
+  why3Desc: 'محطة ساحرة داخل مول الأطفال بالدوحة.',
+  why4Title: 'مكافآت الولاء',
+  why4Desc: 'اكسب مكافآت في كل مرة تتسوّق وتلعب.',
+
+  catsEyebrow: 'تسوّق حسب الفئة',
+  catsTitle1: 'اختر نوع',
+  catsTitle2: 'اللعب المفضّل!',
+  cat1Name: 'مكعبات البناء',
+  cat1Desc: 'ابنِ، رصّ، وأبدع.',
+  cat2Name: 'شخصيات الأكشن',
+  cat2Desc: 'أبطال ومغامرات بانتظارك.',
+  cat3Name: 'الدُّمى والمجموعات',
+  cat3Desc: 'تخيّل عالمك الصغير الخاص.',
+  cat4Name: 'الدُّمى القطنية',
+  cat4Desc: 'رفاق يلاطفون كل الأعمار.',
+  cat5Name: 'الألعاب والألغاز',
+  cat5Desc: 'متعة لكل أفراد العائلة.',
+  cat6Name: 'اللعب الخارجي',
+  cat6Desc: 'انطلق، اركض، واستكشف.',
+  catExplore: 'استكشف',
+
+  mascotEyebrow: 'شخصياتنا',
+  mascotTitle1: 'تعرّفوا على',
+  mascotTitle2: 'دببة رون!',
+  mascotBody: 'دببة رون الودودة ترحّب بكل عائلة في روندفيل — جاهزة لمساعدتك على اكتشاف اللعبة والهدية واللحظة المثالية.',
+
+  wrapEyebrow: 'الجزء الممتع',
+  wrapTitle1: 'كل هدية مُغلّفة',
+  wrapTitle2: 'بابتسامة!',
+  wrapBody: 'اختر لعبة، ونحن نغلّفها بأسلوب روندفيل المميّز — تغليف هدايا مجاني يجعل كل مفاجأة أكثر تميّزًا.',
+  wrapCta: 'زر واكتشف',
+
+  visitEyebrow: 'تعالوا والعبوا',
+  visitTitle1: 'زر روندفيل في',
+  visitTitle2: 'كتارا للهدايا',
+  visitBody: 'أحضر العائلة كاملة ليوم من الاكتشاف واللعب والهدايا المثالية — داخل مول الأطفال في كتارا.',
+  card1Label: 'الموقع',
+  card1Line1: 'كتارا للهدايا',
+  card1Line2: 'مول الأطفال، الدوحة',
+  card2Label: 'ساعات العمل',
+  card2Line1: 'السبت – الخميس: ١٠ ص – ١٢ م',
+  card2Line2: 'الجمعة: ١ م – ١٢ م',
+  card3Label: 'اتصل بنا',
+  card4Label: 'البريد الإلكتروني',
+  visitDirections: 'الاتجاهات',
+  visitMapPin: 'كتارا',
+
+  ctaEyebrow: 'هيا نلعب',
+  ctaTitle1: 'افتح الهدية.',
+  ctaTitle2: 'اكتشف روندفيل.',
+  ctaBody: 'خطّط لزيارتك إلى كتارا للهدايا واستمتع بيوم من الألعاب والهدايا والمرح العائلي.',
+  ctaPrimary: 'خطّط لزيارتك',
+  ctaSecondary: 'تواصل مع روندفيل',
+  followLabel: 'تابع روندفيل',
+};
+
+type SP = { t: Dict; isAr: boolean };
+const arProps = (isAr: boolean) =>
+  isAr ? ({ dir: 'rtl' as const, lang: 'ar', className: 'font-ar' }) : ({});
+
+/* -------------------------------------------------------------------------- */
+
+export function RondvillPage({ locale }: { locale: Locale }) {
+  const isAr = locale === 'ar';
+  const t = isAr ? AR : EN;
   return (
     <main className="overflow-hidden" style={{ background: RV.white, color: RV.black }}>
-      <Hero />
-      <WhyRondvill />
-      <ShopByCategory />
-      <MeetRonBears />
-      <GiftWrapFun />
-      <VisitKatara />
-      <FinalCTA />
+      <Hero t={t} isAr={isAr} />
+      <WhyRondvill t={t} isAr={isAr} />
+      <ShopByCategory t={t} isAr={isAr} />
+      <MeetRonBears t={t} isAr={isAr} />
+      <GiftWrapFun t={t} isAr={isAr} />
+      <VisitKatara t={t} isAr={isAr} />
+      <FinalCTA t={t} isAr={isAr} />
     </main>
   );
 }
@@ -158,7 +316,7 @@ function PlayDots({ colors }: { colors: string[] }) {
 /*  HERO                                                                        */
 /* -------------------------------------------------------------------------- */
 
-function Hero() {
+function Hero({ t, isAr }: SP) {
   return (
     <section
       className="relative flex min-h-[92vh] items-center overflow-hidden"
@@ -193,6 +351,7 @@ function Hero() {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+            {...arProps(isAr)}
           >
             {/* Logo */}
             <div className="inline-flex rounded-sm bg-white px-6 py-4 shadow-2xl">
@@ -203,7 +362,7 @@ function Hero() {
             <div className="mt-8 flex items-center gap-3">
               <span className="h-px w-10" style={{ background: RV.beige }} />
               <span className="text-[11px] font-semibold uppercase tracking-[0.35em]" style={{ color: RV.beige }}>
-                A QNTGC Brand · Est. 2023
+                {t.heroEyebrow}
               </span>
             </div>
 
@@ -211,18 +370,19 @@ function Hero() {
               className="mt-5 font-display text-6xl font-bold leading-[0.95] tracking-tight text-white md:text-7xl lg:text-8xl"
               style={{ textShadow: '0 12px 40px rgba(0,0,0,0.4)' }}
             >
-              RONDVILL
+              {t.heroBrand}
             </h1>
             <p className="mt-4 font-display text-2xl font-medium tracking-wide md:text-3xl" style={{ color: RV.beige }}>
-              A Premium Gift &amp; Toy Destination
+              {t.heroTagline}
             </p>
-            <p className="mt-3 font-ar text-xl font-semibold text-white/85 md:text-2xl" dir="rtl" lang="ar">
-              وجهة فاخرة للهدايا والألعاب
-            </p>
+            {!isAr && (
+              <p className="mt-3 font-ar text-xl font-semibold text-white/85 md:text-2xl" dir="rtl" lang="ar">
+                وجهة فاخرة للهدايا والألعاب
+              </p>
+            )}
 
             <p className="mt-6 max-w-md text-base leading-relaxed text-white/75 md:text-lg">
-              Step inside a refined world of toys, gifts, collectibles, and memorable
-              family discoveries at Katara Gift Box.
+              {t.heroBody}
             </p>
 
             <div className="mt-10 flex flex-wrap gap-4">
@@ -233,7 +393,7 @@ function Hero() {
                 className="inline-flex items-center gap-2 px-8 py-4 text-xs font-bold uppercase tracking-[0.18em] shadow-xl transition-colors"
                 style={{ background: RV.beige, color: RV.black }}
               >
-                Discover Rondvill
+                {t.heroCta1}
                 <ArrowRight className="h-4 w-4" />
               </motion.a>
               <motion.a
@@ -245,7 +405,7 @@ function Hero() {
                 onMouseEnter={(e) => (e.currentTarget.style.color = RV.red)}
                 onMouseLeave={(e) => (e.currentTarget.style.color = '#fff')}
               >
-                Visit Katara Gift Box
+                {t.heroCta2}
                 <MapPin className="h-4 w-4" />
               </motion.a>
             </div>
@@ -280,23 +440,23 @@ function Hero() {
 /*  WHY RONDVILL — playful feature cards                                        */
 /* -------------------------------------------------------------------------- */
 
-function WhyRondvill() {
+function WhyRondvill({ t, isAr }: SP) {
   const items = [
-    { title: 'Premium Toy Brands', desc: 'Original, hand-picked toys families love.', color: TOY.blue,   Icon: Sparkles },
-    { title: 'Free Gift Wrapping', desc: 'Every gift wrapped beautifully, ready to give.', color: RV.red,   Icon: Gift },
-    { title: 'At Katara Gift Box', desc: "A magical stop inside Children's Mall, Doha.", color: TOY.teal,  Icon: MapPin },
-    { title: 'Loyalty Rewards',    desc: 'Earn rewards every time you play & shop.', color: TOY.orange, Icon: Star },
+    { title: t.why1Title, desc: t.why1Desc, color: TOY.blue,   Icon: Sparkles },
+    { title: t.why2Title, desc: t.why2Desc, color: RV.red,     Icon: Gift },
+    { title: t.why3Title, desc: t.why3Desc, color: TOY.teal,   Icon: MapPin },
+    { title: t.why4Title, desc: t.why4Desc, color: TOY.orange, Icon: Star },
   ];
   return (
     <section className="relative bg-white py-20 md:py-28">
       <div className="container-page">
-        <div className="mx-auto max-w-3xl text-center">
+        <div className="mx-auto max-w-3xl text-center" {...arProps(isAr)}>
           <span className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-[11px] font-extrabold uppercase tracking-[0.22em] text-white" style={{ background: RV.red }}>
-            <Heart className="h-3 w-3" fill="currentColor" /> Why Families Love Us
+            <Heart className="h-3 w-3" fill="currentColor" /> {t.whyEyebrow}
           </span>
           <h2 className="mt-4 font-display text-4xl font-extrabold leading-tight tracking-tight md:text-5xl lg:text-6xl" style={{ color: RV.red }}>
-            A Toy Store Full of
-            <span className="block" style={{ color: RV.black }}>Happy Surprises</span>
+            {t.whyTitle1}
+            <span className="block" style={{ color: RV.black }}>{t.whyTitle2}</span>
           </h2>
         </div>
 
@@ -311,6 +471,7 @@ function WhyRondvill() {
               whileHover={{ y: -10 }}
               className="group relative overflow-hidden rounded-[2rem] border p-7 shadow-lg transition-shadow duration-500 hover:shadow-2xl"
               style={{ borderColor: `${color}33`, background: '#fff' }}
+              {...arProps(isAr)}
             >
               <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full opacity-15 blur-2xl" style={{ background: color }} />
               <motion.div
@@ -335,26 +496,26 @@ function WhyRondvill() {
 /*  SHOP BY CATEGORY — colourful toy cards                                      */
 /* -------------------------------------------------------------------------- */
 
-function ShopByCategory() {
+function ShopByCategory({ t, isAr }: SP) {
   const cats = [
-    { name: 'Building Blocks', desc: 'Build, stack & create.',        color: RV.red,     Icon: Blocks },
-    { name: 'Action Figures',  desc: 'Heroes & adventures await.',    color: TOY.blue,   Icon: Rocket },
-    { name: 'Dolls & Playsets',desc: 'Imagine your own little world.',color: TOY.pink,   Icon: Crown },
-    { name: 'Plush & Soft Toys',desc:'Cuddly friends for every age.', color: TOY.orange, Icon: Heart },
-    { name: 'Games & Puzzles', desc: 'Fun for the whole family.',     color: TOY.teal,   Icon: Puzzle },
-    { name: 'Outdoor Play',    desc: 'Ride, run & explore.',          color: TOY.green,  Icon: Bike },
+    { name: t.cat1Name, desc: t.cat1Desc, color: RV.red,     Icon: Blocks },
+    { name: t.cat2Name, desc: t.cat2Desc, color: TOY.blue,   Icon: Rocket },
+    { name: t.cat3Name, desc: t.cat3Desc, color: TOY.pink,   Icon: Crown },
+    { name: t.cat4Name, desc: t.cat4Desc, color: TOY.orange, Icon: Heart },
+    { name: t.cat5Name, desc: t.cat5Desc, color: TOY.teal,   Icon: Puzzle },
+    { name: t.cat6Name, desc: t.cat6Desc, color: TOY.green,  Icon: Bike },
   ];
   return (
     <section id="categories" className="relative overflow-hidden py-20 md:py-28" style={{ background: RV.beigeL }}>
       <PlayDots colors={[RV.red, TOY.yellow, TOY.teal, TOY.blue]} />
       <div className="container-page relative">
-        <div className="mx-auto max-w-3xl text-center">
+        <div className="mx-auto max-w-3xl text-center" {...arProps(isAr)}>
           <span className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-[11px] font-extrabold uppercase tracking-[0.22em] text-white" style={{ background: TOY.blue }}>
-            <Sparkles className="h-3 w-3" /> Shop by Category
+            <Sparkles className="h-3 w-3" /> {t.catsEyebrow}
           </span>
           <h2 className="mt-4 font-display text-4xl font-extrabold leading-tight tracking-tight md:text-5xl lg:text-6xl" style={{ color: RV.red }}>
-            Pick Your Kind
-            <span className="block" style={{ color: RV.black }}>of Play!</span>
+            {t.catsTitle1}
+            <span className="block" style={{ color: RV.black }}>{t.catsTitle2}</span>
           </h2>
         </div>
 
@@ -369,6 +530,7 @@ function ShopByCategory() {
               whileHover={{ y: -10 }}
               className="group relative overflow-hidden rounded-[2rem] p-7 text-white shadow-xl transition-shadow duration-500 hover:shadow-2xl"
               style={{ background: `linear-gradient(155deg, ${color}, ${color}cc)` }}
+              {...arProps(isAr)}
             >
               <div className="absolute -right-10 -top-10 h-36 w-36 rounded-full bg-white/25 blur-2xl" />
               <div aria-hidden className="absolute -bottom-4 -right-4 h-24 w-24 opacity-25 [background-image:radial-gradient(circle_at_1px_1px,_rgba(255,255,255,0.85)_1.5px,_transparent_0)] [background-size:14px_14px]" />
@@ -385,7 +547,7 @@ function ShopByCategory() {
                   <h3 className="font-display text-xl font-extrabold leading-tight">{name}</h3>
                   <p className="mt-1.5 text-sm leading-relaxed text-white/90">{desc}</p>
                   <span className="mt-3 inline-flex items-center gap-1 text-xs font-extrabold uppercase tracking-wider">
-                    Explore <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                    {t.catExplore} <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                   </span>
                 </div>
               </div>
@@ -401,7 +563,7 @@ function ShopByCategory() {
 /*  MEET RON BEARS — mascot showcase                                            */
 /* -------------------------------------------------------------------------- */
 
-function MeetRonBears() {
+function MeetRonBears({ t, isAr }: SP) {
   const bears = [
     { src: CHARS.c2, color: TOY.yellow, delay: 0   },
     { src: CHARS.c3, color: RV.beige,   delay: 0.3 },
@@ -415,17 +577,16 @@ function MeetRonBears() {
       <PlayDots colors={[TOY.yellow, RV.beige, '#ffffff']} />
 
       <div className="container-page relative">
-        <div className="mx-auto max-w-3xl text-center">
+        <div className="mx-auto max-w-3xl text-center" {...arProps(isAr)}>
           <span className="inline-flex items-center gap-2 rounded-full bg-white/15 px-3 py-1 text-[11px] font-extrabold uppercase tracking-[0.22em] text-white backdrop-blur-sm">
-            <Star className="h-3 w-3" fill="currentColor" /> Our Mascots
+            <Star className="h-3 w-3" fill="currentColor" /> {t.mascotEyebrow}
           </span>
           <h2 className="mt-4 font-display text-4xl font-extrabold leading-tight tracking-tight md:text-5xl lg:text-6xl">
-            Meet the
-            <span className="block" style={{ color: RV.beige }}>Ron Bears!</span>
+            {t.mascotTitle1}
+            <span className="block" style={{ color: RV.beige }}>{t.mascotTitle2}</span>
           </h2>
           <p className="mx-auto mt-5 max-w-xl text-lg text-white/85">
-            The friendly Ron Bears welcome every family into Rondvill — ready to help
-            you discover the perfect toy, gift, and play moment.
+            {t.mascotBody}
           </p>
         </div>
 
@@ -462,7 +623,7 @@ function MeetRonBears() {
 /*  GIFT WRAP FUN — playful gift wrapping banner                                */
 /* -------------------------------------------------------------------------- */
 
-function GiftWrapFun() {
+function GiftWrapFun({ t, isAr }: SP) {
   return (
     <section className="relative py-16 md:py-24" style={{ background: RV.white }}>
       <div className="container-page">
@@ -491,17 +652,16 @@ function GiftWrapFun() {
           </motion.div>
 
           {/* Copy */}
-          <div className="relative z-10 text-white md:col-span-6">
+          <div className="relative z-10 text-white md:col-span-6" {...arProps(isAr)}>
             <span className="inline-flex items-center gap-2 rounded-full bg-white/20 px-3 py-1 text-[11px] font-extrabold uppercase tracking-[0.22em] backdrop-blur-sm">
-              <Sparkles className="h-3 w-3" /> The Fun Part
+              <Sparkles className="h-3 w-3" /> {t.wrapEyebrow}
             </span>
             <h2 className="mt-4 font-display text-3xl font-extrabold uppercase leading-[0.95] tracking-tight md:text-5xl">
-              Every Gift Wrapped
-              <span className="block" style={{ color: TOY.yellow }}>With a Smile!</span>
+              {t.wrapTitle1}
+              <span className="block" style={{ color: TOY.yellow }}>{t.wrapTitle2}</span>
             </h2>
             <p className="mt-4 max-w-md text-base leading-relaxed text-white/90">
-              Pick a toy, and we&apos;ll wrap it up in our signature Rondvill style —
-              free gift wrapping that makes every surprise extra special.
+              {t.wrapBody}
             </p>
             <motion.a
               href="#location"
@@ -509,7 +669,7 @@ function GiftWrapFun() {
               className="mt-6 inline-flex items-center gap-2 rounded-2xl bg-white px-7 py-3.5 text-sm font-extrabold uppercase tracking-wider shadow-xl"
               style={{ color: TOY.blue }}
             >
-              Visit &amp; Discover
+              {t.wrapCta}
               <ArrowRight className="h-4 w-4" />
             </motion.a>
           </div>
@@ -537,29 +697,28 @@ function GiftWrapFun() {
 /*  VISIT KATARA — playful location section                                     */
 /* -------------------------------------------------------------------------- */
 
-function VisitKatara() {
+function VisitKatara({ t, isAr }: SP) {
   const cards = [
-    { Icon: MapPin, label: 'Location', lines: ['Katara Gift Box', "Children's Mall, Doha"], color: RV.red },
-    { Icon: Clock, label: 'Opening Hours', lines: ['Sat – Thu: 10 AM – 12 AM', 'Friday: 1 PM – 12 AM'], color: TOY.teal },
-    { Icon: Phone, label: 'Call Us', lines: ['+974 66360088'], color: TOY.blue },
-    { Icon: Mail, label: 'Email', lines: ['online@rondvill.com'], color: TOY.orange },
+    { Icon: MapPin, label: t.card1Label, lines: [t.card1Line1, t.card1Line2], color: RV.red },
+    { Icon: Clock,  label: t.card2Label, lines: [t.card2Line1, t.card2Line2], color: TOY.teal },
+    { Icon: Phone,  label: t.card3Label, lines: ['+974 66360088'],            color: TOY.blue },
+    { Icon: Mail,   label: t.card4Label, lines: ['online@rondvill.com'],      color: TOY.orange },
   ];
   return (
     <section id="location" className="relative overflow-hidden py-20 md:py-28" style={{ background: RV.beigeL }}>
       <PlayDots colors={[RV.red, TOY.yellow, TOY.teal]} />
       <div className="container-page relative grid items-center gap-12 lg:grid-cols-2">
         {/* Info */}
-        <div>
+        <div {...arProps(isAr)}>
           <span className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-[11px] font-extrabold uppercase tracking-[0.22em] text-white" style={{ background: RV.red }}>
-            <MapPin className="h-3 w-3" /> Come & Play
+            <MapPin className="h-3 w-3" /> {t.visitEyebrow}
           </span>
           <h2 className="mt-4 font-display text-4xl font-extrabold leading-tight tracking-tight md:text-5xl lg:text-6xl" style={{ color: RV.red }}>
-            Visit Rondvill at
-            <span className="block" style={{ color: RV.black }}>Katara Gift Box</span>
+            {t.visitTitle1}
+            <span className="block" style={{ color: RV.black }}>{t.visitTitle2}</span>
           </h2>
           <p className="mt-5 max-w-md text-lg leading-relaxed" style={{ color: RV.grey }}>
-            Bring the whole family for a day of discovery, play, and the perfect gift —
-            right inside the Children&apos;s Mall at Katara.
+            {t.visitBody}
           </p>
 
           <div className="mt-8 grid gap-4 sm:grid-cols-2">
@@ -593,7 +752,7 @@ function VisitKatara() {
             className="mt-8 inline-flex items-center gap-2 rounded-2xl px-7 py-3.5 text-sm font-extrabold uppercase tracking-wider text-white shadow-xl"
             style={{ background: RV.red }}
           >
-            Get Directions
+            {t.visitDirections}
             <ArrowUpRight className="h-4 w-4" />
           </motion.a>
         </div>
@@ -626,8 +785,8 @@ function VisitKatara() {
                   <path d="M 24 0 C 12 0, 3 9, 3 21 C 3 38, 24 62, 24 62 C 24 62, 45 38, 45 21 C 45 9, 36 0, 24 0 Z" fill={RV.beige} stroke="#fff" strokeWidth="3" />
                   <circle cx="24" cy="21" r="8" fill={RV.red} />
                 </svg>
-                <div className="mt-1 rounded-full bg-white px-4 py-1 text-xs font-extrabold uppercase tracking-wide shadow-lg" style={{ color: RV.red }}>
-                  Katara
+                <div className="mt-1 rounded-full bg-white px-4 py-1 text-xs font-extrabold uppercase tracking-wide shadow-lg" style={{ color: RV.red }} {...arProps(isAr)}>
+                  {t.visitMapPin}
                 </div>
               </motion.div>
 
@@ -659,7 +818,7 @@ function VisitKatara() {
 /*  FINAL CTA — playful                                                         */
 /* -------------------------------------------------------------------------- */
 
-function FinalCTA() {
+function FinalCTA({ t, isAr }: SP) {
   return (
     <section className="relative bg-white py-20 md:py-28">
       <div className="container-page">
@@ -686,19 +845,21 @@ function FinalCTA() {
             style={{ filter: 'drop-shadow(0 10px 16px rgba(0,0,0,0.5))' }}
           />
 
-          <div className="relative">
+          <div className="relative" {...arProps(isAr)}>
             <span className="inline-flex items-center gap-2 rounded-full bg-white/15 px-3 py-1 text-[11px] font-extrabold uppercase tracking-[0.22em] text-white backdrop-blur-sm">
-              <Gift className="h-3 w-3" /> Let&apos;s Play
+              <Gift className="h-3 w-3" /> {t.ctaEyebrow}
             </span>
             <h2 className="mt-5 font-display text-4xl font-extrabold leading-tight tracking-tight md:text-5xl lg:text-6xl">
-              Open the Gift.
-              <span className="block" style={{ color: RV.beige }}>Discover Rondvill.</span>
+              {t.ctaTitle1}
+              <span className="block" style={{ color: RV.beige }}>{t.ctaTitle2}</span>
             </h2>
-            <p className="mt-3 font-ar text-xl font-bold text-white/90 md:text-2xl" dir="rtl" lang="ar">
-              افتح الهدية واكتشف روندفيل
-            </p>
+            {!isAr && (
+              <p className="mt-3 font-ar text-xl font-bold text-white/90 md:text-2xl" dir="rtl" lang="ar">
+                افتح الهدية واكتشف روندفيل
+              </p>
+            )}
             <p className="mx-auto mt-5 max-w-xl text-lg text-white/85">
-              Plan your visit to Katara Gift Box for a day of toys, gifts, and family fun.
+              {t.ctaBody}
             </p>
 
             <div className="mt-10 flex flex-wrap justify-center gap-4">
@@ -710,15 +871,15 @@ function FinalCTA() {
                 className="inline-flex items-center gap-2 rounded-2xl px-7 py-3.5 text-sm font-extrabold uppercase tracking-wider shadow-xl"
                 style={{ background: RV.beige, color: RV.black }}
               >
-                Plan Your Visit
+                {t.ctaPrimary}
                 <MapPin className="h-4 w-4" />
               </motion.a>
               <motion.a
-                href="/en/#contact"
+                href={`/${isAr ? 'ar' : 'en'}/#contact`}
                 whileHover={{ y: -3 }}
                 className="inline-flex items-center gap-2 rounded-2xl border-2 border-white px-7 py-3.5 text-sm font-extrabold uppercase tracking-wider text-white transition-colors hover:bg-white hover:text-[#AB2328]"
               >
-                Contact Rondvill
+                {t.ctaSecondary}
                 <ArrowRight className="h-4 w-4" />
               </motion.a>
             </div>
@@ -727,9 +888,55 @@ function FinalCTA() {
               <span className="flex items-center gap-2"><Phone className="h-4 w-4" style={{ color: RV.beige }} /> +974 66360088</span>
               <span className="flex items-center gap-2"><Mail className="h-4 w-4" style={{ color: RV.beige }} /> online@rondvill.com</span>
             </div>
+
+            {/* Follow on social media */}
+            <div className="mt-8">
+              <div className="text-[11px] font-extrabold uppercase tracking-[0.25em] text-white/65">{t.followLabel}</div>
+              <div className="mt-3 flex flex-wrap justify-center gap-3">
+                <SocialIconButton href="https://www.instagram.com/rondvill.qa" type="instagram" />
+                <SocialIconButton href="https://www.facebook.com/people/Rondvill/100091534146185/" type="facebook" />
+                <SocialIconButton href="https://www.tiktok.com/@rondvill.qa" type="tiktok" />
+              </div>
+            </div>
           </div>
         </motion.div>
       </div>
     </section>
+  );
+}
+
+/* -------------------------------------------------------------------------- */
+/*  Social icon button                                                         */
+/* -------------------------------------------------------------------------- */
+
+function SocialIconButton({
+  href,
+  type,
+}: {
+  href: string;
+  type: 'instagram' | 'facebook' | 'tiktok';
+}) {
+  const label = type[0].toUpperCase() + type.slice(1);
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={label}
+      title={label}
+      className="grid h-11 w-11 place-items-center rounded-full bg-white/12 text-white ring-1 ring-white/20 backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:bg-white hover:text-[#AB2328] hover:shadow-lg"
+    >
+      {type === 'instagram' && <Instagram className="h-[18px] w-[18px]" />}
+      {type === 'facebook'  && <Facebook  className="h-[18px] w-[18px]" />}
+      {type === 'tiktok'    && <TikTokIcon className="h-[18px] w-[18px]" />}
+    </a>
+  );
+}
+
+function TikTokIcon({ className = '' }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} width="18" height="18" fill="currentColor" aria-hidden>
+      <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5.8 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1.84-.1z"/>
+    </svg>
   );
 }

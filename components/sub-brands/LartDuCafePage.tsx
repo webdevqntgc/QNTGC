@@ -17,6 +17,7 @@ import {
   Palette,
   Music,
 } from 'lucide-react';
+import type { Locale } from '@/lib/i18n';
 
 /* -------------------------------------------------------------------------- */
 /*  L'Art du Café palette                                                      */
@@ -47,19 +48,236 @@ const SERIF: React.CSSProperties = {
 };
 
 /* -------------------------------------------------------------------------- */
+/*  Translation dictionary                                                     */
+/* -------------------------------------------------------------------------- */
 
-export function LartDuCafePage() {
+type Dict = {
+  heroEyebrow: string;
+  heroTitle1: string;
+  heroTitle2: string;
+  heroBody: string;
+  heroCta1: string;
+  heroCta2: string;
+  chipSpecialty: string;
+  chipArt: string;
+
+  storyEyebrow: string;
+  storyTitle1: string;
+  storyTitle2: string;
+  storyBody: string;
+  statKataraTitle: string;
+  statKataraLabel: string;
+  statSpecialtyTitle: string;
+  statSpecialtyLabel: string;
+  statCuratedTitle: string;
+  statCuratedLabel: string;
+
+  menuEyebrow: string;
+  menuTitle1: string;
+  menuTitle2: string;
+  menuItem1Title: string;
+  menuItem1Desc: string;
+  menuItem2Title: string;
+  menuItem2Desc: string;
+  menuItem3Title: string;
+  menuItem3Desc: string;
+  menuItem4Title: string;
+  menuItem4Desc: string;
+
+  expEyebrow: string;
+  expTitle1: string;
+  expTitle2: string;
+  expCard1Title: string;
+  expCard1Desc: string;
+  expCard2Title: string;
+  expCard2Desc: string;
+  expCard3Title: string;
+  expCard3Desc: string;
+
+  visitEyebrow: string;
+  visitTitle1: string;
+  visitTitle2: string;
+  visitBody: string;
+  visitCardLocation: string;
+  visitCardLocationLine1: string;
+  visitCardLocationLine2: string;
+  visitCardHours: string;
+  visitCardHoursLine: string;
+  visitCardFollow: string;
+  visitCardSpecialty: string;
+  visitCardSpecialtyLine: string;
+  visitDirections: string;
+  visitMapPin: string;
+
+  ctaEyebrow: string;
+  ctaTitle1: string;
+  ctaTitle2: string;
+  ctaBody: string;
+  ctaPlanVisit: string;
+  ctaFollowIg: string;
+};
+
+const EN: Dict = {
+  heroEyebrow: 'Katara · Doha · Est. 2023',
+  heroTitle1: 'Where Art',
+  heroTitle2: 'Meets Coffee.',
+  heroBody:
+    'A refined café experience in the heart of Katara — speciality coffees, artisan desserts, French pastries, and a curated atmosphere worth lingering in.',
+  heroCta1: 'Visit the Café',
+  heroCta2: 'Follow on Instagram',
+  chipSpecialty: 'Speciality',
+  chipArt: 'Art',
+
+  storyEyebrow: 'Our Story',
+  storyTitle1: 'Change the World,',
+  storyTitle2: 'Start with a Coffee.',
+  storyBody:
+    "Tucked inside Katara's cultural village, L'Art du Café is more than a coffee shop. It's a refined destination where every detail is considered — the cup, the crema, the artwork on the wall, and the quiet warmth of a place built for slow mornings and conversations worth having.",
+  statKataraTitle: 'Katara',
+  statKataraLabel: 'Cultural Village',
+  statSpecialtyTitle: 'Specialty',
+  statSpecialtyLabel: 'Coffee · Pastry',
+  statCuratedTitle: 'Curated',
+  statCuratedLabel: 'Art · Ambience',
+
+  menuEyebrow: 'The Menu',
+  menuTitle1: 'A Taste of',
+  menuTitle2: 'Refined Indulgence',
+  menuItem1Title: 'Speciality Coffees',
+  menuItem1Desc: 'Single-origin beans, expertly pulled espressos and signature brews.',
+  menuItem2Title: 'Artisan Desserts',
+  menuItem2Desc: 'Hand-finished cakes and seasonal sweets crafted in-house.',
+  menuItem3Title: 'French Pastries',
+  menuItem3Desc: 'Buttery croissants, viennoiserie, and pastry-counter classics.',
+  menuItem4Title: 'Gourmet Plates',
+  menuItem4Desc: 'Refined all-day dining, plated with care.',
+
+  expEyebrow: 'The Experience',
+  expTitle1: 'More Than a Café.',
+  expTitle2: 'A Place to Linger.',
+  expCard1Title: 'Curated Art',
+  expCard1Desc:
+    'Rotating works and design objects from Qatari and international artists, woven into the café experience.',
+  expCard2Title: 'Ambient Music',
+  expCard2Desc:
+    'A carefully programmed soundtrack — quiet enough for a chapter, warm enough for a long talk.',
+  expCard3Title: 'Slow Mornings',
+  expCard3Desc: 'A pace that respects your coffee. Stay as long as you like.',
+
+  visitEyebrow: 'Visit Us',
+  visitTitle1: 'Find Us in',
+  visitTitle2: 'Katara',
+  visitBody:
+    "Tucked inside Katara's cultural village — a quiet doorway, a warm interior, and the unmistakable scent of fresh coffee.",
+  visitCardLocation: 'Location',
+  visitCardLocationLine1: 'Katara Cultural Village',
+  visitCardLocationLine2: 'Doha, Qatar',
+  visitCardHours: 'Open Daily',
+  visitCardHoursLine: 'Morning to late evening',
+  visitCardFollow: 'Follow Us',
+  visitCardSpecialty: 'Speciality',
+  visitCardSpecialtyLine: 'Coffee · Pastry · Art',
+  visitDirections: 'Get Directions',
+  visitMapPin: 'Katara',
+
+  ctaEyebrow: 'Come In',
+  ctaTitle1: 'Pour Yourself a Moment',
+  ctaTitle2: "at L'Art du Café.",
+  ctaBody:
+    'A doorway in Katara, a warm cup, and a quiet kind of beauty. Visit us or follow along on Instagram.',
+  ctaPlanVisit: 'Plan Your Visit',
+  ctaFollowIg: 'Follow on Instagram',
+};
+
+const AR: Dict = {
+  heroEyebrow: 'كتارا · الدوحة · تأسس ٢٠٢٣',
+  heroTitle1: 'حيث يلتقي الفن',
+  heroTitle2: 'بالقهوة.',
+  heroBody:
+    'تجربة مقهى راقية في قلب كتارا — قهوة مختصة، حلويات حرفية، معجنات فرنسية، وأجواء منسّقة بعناية تستحق المكوث فيها.',
+  heroCta1: 'زر المقهى',
+  heroCta2: 'تابعنا على إنستغرام',
+  chipSpecialty: 'قهوة مختصة',
+  chipArt: 'فن',
+
+  storyEyebrow: 'قصتنا',
+  storyTitle1: 'غيّر العالم،',
+  storyTitle2: 'ابدأ بقهوة.',
+  storyBody:
+    'في قلب قرية كتارا الثقافية، لارت دو كافيه أكثر من مجرّد مقهى. إنه وجهة راقية يُعتنى فيها بكل تفصيلة — الفنجان، الكريما، اللوحة على الجدار، والدفء الهادئ لمكان صُمم للصباحات الجميلة والمحادثات التي تستحق.',
+  statKataraTitle: 'كتارا',
+  statKataraLabel: 'الحي الثقافي',
+  statSpecialtyTitle: 'مختص',
+  statSpecialtyLabel: 'قهوة · معجنات',
+  statCuratedTitle: 'منسّق',
+  statCuratedLabel: 'فن · أجواء',
+
+  menuEyebrow: 'القائمة',
+  menuTitle1: 'مذاق من',
+  menuTitle2: 'المتعة الراقية',
+  menuItem1Title: 'قهوة مختصة',
+  menuItem1Desc: 'حبوب أصلية وإسبريسو محضّر بدقة ومشروبات مميزة.',
+  menuItem2Title: 'حلويات حرفية',
+  menuItem2Desc: 'كيك مصنوع يدويًا وحلويات موسمية تُعدّ داخل المقهى.',
+  menuItem3Title: 'معجنات فرنسية',
+  menuItem3Desc: 'كرواسون بالزبدة، فطائر فرنسية، وكلاسيكيات المخبز.',
+  menuItem4Title: 'أطباق راقية',
+  menuItem4Desc: 'وجبات راقية على مدار اليوم، تُقدّم بعناية.',
+
+  expEyebrow: 'التجربة',
+  expTitle1: 'أكثر من مجرّد مقهى.',
+  expTitle2: 'مكان للاسترخاء.',
+  expCard1Title: 'فن منسّق',
+  expCard1Desc: 'أعمال فنية متجدّدة وقطع تصميم من فنانين قطريين وعالميين، مدمجة في تجربة المقهى.',
+  expCard2Title: 'موسيقى الأجواء',
+  expCard2Desc: 'قائمة موسيقية مختارة بعناية — هادئة بما يكفي لقراءة فصل، ودافئة بما يكفي لحوار طويل.',
+  expCard3Title: 'صباحات هادئة',
+  expCard3Desc: 'إيقاع يحترم قهوتك. ابقَ كما يحلو لك.',
+
+  visitEyebrow: 'زورونا',
+  visitTitle1: 'تجدوننا في',
+  visitTitle2: 'كتارا',
+  visitBody: 'في قلب قرية كتارا الثقافية — بوّابة هادئة، أجواء دافئة، ورائحة القهوة الطازجة لا تُخطئها.',
+  visitCardLocation: 'الموقع',
+  visitCardLocationLine1: 'قرية كتارا الثقافية',
+  visitCardLocationLine2: 'الدوحة، قطر',
+  visitCardHours: 'مفتوح يوميًا',
+  visitCardHoursLine: 'من الصباح حتى وقت متأخر من المساء',
+  visitCardFollow: 'تابعنا',
+  visitCardSpecialty: 'تخصصنا',
+  visitCardSpecialtyLine: 'قهوة · معجنات · فن',
+  visitDirections: 'الاتجاهات',
+  visitMapPin: 'كتارا',
+
+  ctaEyebrow: 'تفضلوا',
+  ctaTitle1: 'اصنع لنفسك لحظة',
+  ctaTitle2: 'في لارت دو كافيه.',
+  ctaBody: 'بوابة في كتارا، فنجان دافئ، وجمال هادئ من نوع خاص. زورنا أو تابعونا على إنستغرام.',
+  ctaPlanVisit: 'خطّط لزيارتك',
+  ctaFollowIg: 'تابعنا على إنستغرام',
+};
+
+/* -------------------------------------------------------------------------- */
+
+export function LartDuCafePage({ locale }: { locale: Locale }) {
+  const isAr = locale === 'ar';
+  const t = isAr ? AR : EN;
+
   return (
     <main className="overflow-hidden" style={{ background: LC.creamL, color: LC.ink }}>
-      <Hero />
-      <Story />
-      <MenuHighlights />
-      <Experience />
-      <VisitSection />
-      <FinalCTA />
+      <Hero t={t} isAr={isAr} />
+      <Story t={t} isAr={isAr} />
+      <MenuHighlights t={t} isAr={isAr} />
+      <Experience t={t} isAr={isAr} />
+      <VisitSection t={t} isAr={isAr} />
+      <FinalCTA t={t} isAr={isAr} />
     </main>
   );
 }
+
+type SP = { t: Dict; isAr: boolean };
+const arProps = (isAr: boolean) =>
+  isAr ? ({ dir: 'rtl' as const, lang: 'ar', className: 'font-ar' }) : ({});
 
 /* -------------------------------------------------------------------------- */
 /*  Coffee cup SVG with animated steam                                          */
@@ -86,31 +304,23 @@ function CoffeeCup({ size = 320 }: { size?: number }) {
 
       {/* Cup */}
       <svg className="absolute inset-x-0 bottom-0" viewBox="0 0 200 220" fill="none">
-        {/* Saucer back */}
         <ellipse cx="100" cy="200" rx="86" ry="14" fill={LC.brownD} opacity="0.85" />
-        {/* Saucer front rim */}
         <ellipse cx="100" cy="198" rx="84" ry="11" fill={LC.brownL} />
         <ellipse cx="100" cy="195" rx="80" ry="9" fill={LC.cream} />
         <ellipse cx="100" cy="194" rx="74" ry="7" fill={LC.brownL} opacity="0.4" />
 
-        {/* Cup handle */}
         <path d="M 158 115 Q 200 115 200 150 Q 200 185 158 185" fill="none" stroke="#fff" strokeWidth="14" strokeLinecap="round" />
         <path d="M 158 115 Q 200 115 200 150 Q 200 185 158 185" fill="none" stroke={LC.brown} strokeWidth="2" strokeLinecap="round" />
         <path d="M 162 130 Q 185 130 185 150 Q 185 170 162 170" fill="none" stroke={LC.brown} strokeWidth="1" opacity="0.4" />
 
-        {/* Cup body */}
         <path d="M 42 95 L 52 178 Q 52 195 100 195 Q 148 195 148 178 L 158 95 Z" fill="#fff" />
         <path d="M 42 95 L 52 178 Q 52 195 100 195 Q 148 195 148 178 L 158 95 Z" fill="none" stroke={LC.brown} strokeWidth="2.5" />
-        {/* Subtle shading on cup */}
         <path d="M 145 100 L 150 175 Q 150 188 130 192" fill="none" stroke={LC.brown} strokeWidth="1" opacity="0.25" />
 
-        {/* Coffee surface dish */}
         <ellipse cx="100" cy="95" rx="58" ry="11" fill={LC.brownD} />
-        {/* Foam ring */}
         <ellipse cx="100" cy="94" rx="56" ry="9.5" fill={LC.cream} />
         <ellipse cx="100" cy="94" rx="50" ry="7.5" fill={LC.brownD} />
 
-        {/* Latte-art rosette */}
         <g transform="translate(100 94)">
           {[-12, 0, 12].map((dx, i) => (
             <ellipse key={i} cx={dx} cy="0" rx="6" ry="2.2" fill={LC.cream} opacity={0.85 - i * 0.08} />
@@ -120,7 +330,6 @@ function CoffeeCup({ size = 320 }: { size?: number }) {
           <path d="M 0 -2 L 0 3" stroke={LC.brownD} strokeWidth="1" />
         </g>
 
-        {/* Brand wordmark on cup */}
         <text x="100" y="160" textAnchor="middle" fontFamily="serif" fontStyle="italic" fontSize="13" fill={LC.brown}>L&apos;Art du Café</text>
       </svg>
     </div>
@@ -145,13 +354,7 @@ function ArtFrame({ children, tone = LC.gold, className = '' }: { children: Reac
           {children}
         </div>
       </div>
-      {/* Frame corner ornaments */}
-      {[
-        'top-1 left-1',
-        'top-1 right-1',
-        'bottom-1 left-1',
-        'bottom-1 right-1',
-      ].map((p) => (
+      {['top-1 left-1', 'top-1 right-1', 'bottom-1 left-1', 'bottom-1 right-1'].map((p) => (
         <div key={p} className={`absolute ${p} h-3 w-3 rounded-full`} style={{ background: '#fff', opacity: 0.55 }} />
       ))}
     </div>
@@ -188,7 +391,7 @@ function CafeBackdrop({ color = LC.brown }: { color?: string }) {
 /*  HERO                                                                        */
 /* -------------------------------------------------------------------------- */
 
-function Hero() {
+function Hero({ t, isAr }: SP) {
   return (
     <section
       className="relative overflow-hidden pt-16 pb-28 md:pt-20 md:pb-36"
@@ -196,7 +399,6 @@ function Hero() {
     >
       <CafeBackdrop color={LC.brown} />
 
-      {/* Ornamental art-deco lines */}
       <svg aria-hidden className="pointer-events-none absolute -left-10 top-10 h-40 w-40 opacity-25" viewBox="0 0 100 100" fill="none">
         <circle cx="50" cy="50" r="48" stroke={LC.gold} strokeWidth="1" />
         <circle cx="50" cy="50" r="36" stroke={LC.gold} strokeWidth="0.6" />
@@ -208,40 +410,36 @@ function Hero() {
       </svg>
 
       <div className="container-page relative grid items-center gap-12 lg:grid-cols-12 lg:gap-10">
-        {/* Copy */}
         <div className="lg:col-span-6">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+            {...arProps(isAr)}
           >
-            {/* Logo */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={LOGO} alt="L'Art du Café" className="h-16 w-auto md:h-20" draggable={false} />
 
             <div className="mt-7 flex items-center gap-3">
               <span className="h-px w-10" style={{ background: LC.gold }} />
               <span className="text-[11px] font-semibold uppercase tracking-[0.35em]" style={{ color: LC.brown }}>
-                Katara · Doha · Est. 2023
+                {t.heroEyebrow}
               </span>
             </div>
 
-            <h1
-              className="mt-4 text-5xl font-bold leading-[0.98] md:text-6xl lg:text-7xl"
-              style={{ ...SERIF, color: LC.brownD }}
-            >
-              Where Art
-              <span className="block italic" style={{ color: LC.brown }}>Meets Coffee.</span>
+            <h1 className="mt-4 text-5xl font-bold leading-[0.98] md:text-6xl lg:text-7xl" style={{ ...SERIF, color: LC.brownD }}>
+              {t.heroTitle1}
+              <span className="block italic" style={{ color: LC.brown }}>{t.heroTitle2}</span>
             </h1>
 
             <p className="mt-5 max-w-md text-lg leading-relaxed" style={{ color: LC.brown }}>
-              A refined café experience in the heart of Katara — speciality
-              coffees, artisan desserts, French pastries, and a curated
-              atmosphere worth lingering in.
+              {t.heroBody}
             </p>
-            <p className="mt-3 font-ar text-xl font-semibold md:text-2xl" dir="rtl" lang="ar" style={{ color: LC.brown }}>
-              غيّر العالم، ابدأ بقهوة
-            </p>
+            {!isAr && (
+              <p className="mt-3 font-ar text-xl font-semibold md:text-2xl" dir="rtl" lang="ar" style={{ color: LC.brown }}>
+                غيّر العالم، ابدأ بقهوة
+              </p>
+            )}
 
             <div className="mt-9 flex flex-wrap gap-3">
               <motion.a
@@ -251,7 +449,7 @@ function Hero() {
                 className="inline-flex items-center gap-2 rounded-full px-8 py-4 text-xs font-bold uppercase tracking-[0.2em] text-white shadow-xl"
                 style={{ background: LC.brown, boxShadow: `0 14px 30px -8px ${LC.brown}` }}
               >
-                Visit the Café
+                {t.heroCta1}
                 <ArrowRight className="h-4 w-4" />
               </motion.a>
               <motion.a
@@ -265,14 +463,13 @@ function Hero() {
                 onMouseEnter={(e) => { e.currentTarget.style.background = LC.brown; e.currentTarget.style.color = '#fff'; }}
                 onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = LC.brown; }}
               >
-                Follow on Instagram
+                {t.heroCta2}
                 <Instagram className="h-4 w-4" />
               </motion.a>
             </div>
           </motion.div>
         </div>
 
-        {/* Coffee cup in art frame */}
         <div className="lg:col-span-6">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
@@ -280,7 +477,6 @@ function Hero() {
             transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
             className="relative mx-auto flex w-full max-w-md items-center justify-center"
           >
-            {/* Soft glow behind */}
             <motion.div
               aria-hidden
               className="absolute inset-0 rounded-full blur-3xl"
@@ -301,15 +497,14 @@ function Hero() {
               </ArtFrame>
             </motion.div>
 
-            {/* Floating decorative chips */}
             <motion.div
               className="absolute -left-4 -top-4 rounded-full bg-white px-3 py-1 shadow-lg"
               style={{ color: LC.brown }}
               animate={{ y: [0, -10, 0] }}
               transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut' }}
             >
-              <span className="flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider">
-                <Coffee className="h-3.5 w-3.5" /> Speciality
+              <span className="flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider" {...arProps(isAr)}>
+                <Coffee className="h-3.5 w-3.5" /> {t.chipSpecialty}
               </span>
             </motion.div>
             <motion.div
@@ -318,8 +513,8 @@ function Hero() {
               animate={{ y: [0, 10, 0] }}
               transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
             >
-              <span className="flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider">
-                <Palette className="h-3.5 w-3.5" /> Art
+              <span className="flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider" {...arProps(isAr)}>
+                <Palette className="h-3.5 w-3.5" /> {t.chipArt}
               </span>
             </motion.div>
           </motion.div>
@@ -333,11 +528,10 @@ function Hero() {
 /*  STORY                                                                       */
 /* -------------------------------------------------------------------------- */
 
-function Story() {
+function Story({ t, isAr }: SP) {
   return (
     <section className="relative py-20 md:py-28" style={{ background: '#fff' }}>
       <div className="container-page grid items-center gap-14 lg:grid-cols-12 lg:gap-16">
-        {/* Editorial illustration */}
         <motion.div
           initial={{ opacity: 0, x: -30 }}
           whileInView={{ opacity: 1, x: 0 }}
@@ -367,38 +561,33 @@ function Story() {
           </div>
         </motion.div>
 
-        {/* Story copy */}
         <motion.div
           initial={{ opacity: 0, x: 30 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.9 }}
           className="lg:col-span-7"
+          {...arProps(isAr)}
         >
           <div className="flex items-center gap-3">
             <span className="h-px w-10" style={{ background: LC.brown }} />
             <span className="text-[11px] font-semibold uppercase tracking-[0.32em]" style={{ color: LC.brown }}>
-              Our Story
+              {t.storyEyebrow}
             </span>
           </div>
           <h2 className="mt-5 text-4xl font-bold leading-[1.05] md:text-5xl lg:text-6xl" style={{ ...SERIF, color: LC.brownD }}>
-            Change the World,
-            <span className="block italic" style={{ color: LC.brown }}>Start with a Coffee.</span>
+            {t.storyTitle1}
+            <span className="block italic" style={{ color: LC.brown }}>{t.storyTitle2}</span>
           </h2>
           <p className="mt-6 max-w-xl text-lg leading-relaxed" style={{ color: LC.brown }}>
-            Tucked inside Katara&apos;s cultural village, L&apos;Art du Café is more than a
-            coffee shop. It&apos;s a refined destination where every detail is
-            considered — the cup, the crema, the artwork on the wall, and the
-            quiet warmth of a place built for slow mornings and conversations
-            worth having.
+            {t.storyBody}
           </p>
 
-          {/* highlight stats */}
           <div className="mt-10 grid gap-4 sm:grid-cols-3">
             {[
-              { k: 'Katara', v: 'Cultural Village', c: LC.brown },
-              { k: 'Specialty', v: 'Coffee · Pastry', c: LC.teal },
-              { k: 'Curated', v: 'Art · Ambience', c: LC.gold },
+              { k: t.statKataraTitle, v: t.statKataraLabel, c: LC.brown },
+              { k: t.statSpecialtyTitle, v: t.statSpecialtyLabel, c: LC.teal },
+              { k: t.statCuratedTitle, v: t.statCuratedLabel, c: LC.gold },
             ].map((s) => (
               <div key={s.v} className="rounded-2xl border bg-white p-5 shadow-sm" style={{ borderColor: `${LC.brown}22` }}>
                 <div className="text-2xl font-bold" style={{ ...SERIF, color: s.c }}>{s.k}</div>
@@ -416,23 +605,23 @@ function Story() {
 /*  MENU HIGHLIGHTS                                                             */
 /* -------------------------------------------------------------------------- */
 
-function MenuHighlights() {
+function MenuHighlights({ t, isAr }: SP) {
   const items = [
-    { title: 'Speciality Coffees', desc: 'Single-origin beans, expertly pulled espressos and signature brews.', color: LC.brown, Icon: Coffee },
-    { title: 'Artisan Desserts',   desc: 'Hand-finished cakes and seasonal sweets crafted in-house.',          color: LC.gold,  Icon: Cake },
-    { title: 'French Pastries',    desc: 'Buttery croissants, viennoiserie, and pastry-counter classics.',    color: LC.tealD, Icon: Cookie },
-    { title: 'Gourmet Plates',     desc: 'Refined all-day dining, plated with care.',                          color: LC.brownD,Icon: UtensilsCrossed },
+    { title: t.menuItem1Title, desc: t.menuItem1Desc, color: LC.brown,  Icon: Coffee },
+    { title: t.menuItem2Title, desc: t.menuItem2Desc, color: LC.gold,   Icon: Cake },
+    { title: t.menuItem3Title, desc: t.menuItem3Desc, color: LC.tealD,  Icon: Cookie },
+    { title: t.menuItem4Title, desc: t.menuItem4Desc, color: LC.brownD, Icon: UtensilsCrossed },
   ];
   return (
     <section className="relative py-20 md:py-28" style={{ background: LC.creamL }}>
       <div className="container-page">
-        <div className="mx-auto max-w-3xl text-center">
+        <div className="mx-auto max-w-3xl text-center" {...arProps(isAr)}>
           <span className="text-[11px] font-semibold uppercase tracking-[0.32em]" style={{ color: LC.brown }}>
-            The Menu
+            {t.menuEyebrow}
           </span>
           <h2 className="mt-4 text-4xl font-bold leading-tight md:text-5xl lg:text-6xl" style={{ ...SERIF, color: LC.brownD }}>
-            A Taste of
-            <span className="italic" style={{ color: LC.brown }}> Refined Indulgence</span>
+            {t.menuTitle1}
+            <span className="italic" style={{ color: LC.brown }}> {t.menuTitle2}</span>
           </h2>
         </div>
 
@@ -447,6 +636,7 @@ function MenuHighlights() {
               whileHover={{ y: -10 }}
               className="group relative overflow-hidden rounded-[1.5rem] border bg-white p-7 shadow-md transition-shadow duration-500 hover:shadow-2xl"
               style={{ borderColor: `${color}33` }}
+              {...arProps(isAr)}
             >
               <div className="absolute -right-12 -top-12 h-32 w-32 rounded-full opacity-15 blur-2xl" style={{ background: color }} />
               <motion.div
@@ -471,24 +661,24 @@ function MenuHighlights() {
 /*  EXPERIENCE                                                                  */
 /* -------------------------------------------------------------------------- */
 
-function Experience() {
+function Experience({ t, isAr }: SP) {
   const cards = [
-    { title: 'Curated Art', desc: 'Rotating works and design objects from Qatari and international artists, woven into the café experience.', Icon: Palette, tone: LC.brown },
-    { title: 'Ambient Music', desc: 'A carefully programmed soundtrack — quiet enough for a chapter, warm enough for a long talk.', Icon: Music, tone: LC.teal },
-    { title: 'Slow Mornings', desc: 'A pace that respects your coffee. Stay as long as you like.', Icon: Heart, tone: LC.gold },
+    { title: t.expCard1Title, desc: t.expCard1Desc, Icon: Palette, tone: LC.brown },
+    { title: t.expCard2Title, desc: t.expCard2Desc, Icon: Music,   tone: LC.teal },
+    { title: t.expCard3Title, desc: t.expCard3Desc, Icon: Heart,   tone: LC.gold },
   ];
   return (
     <section className="relative overflow-hidden py-20 md:py-28" style={{ background: LC.brownD, color: '#fff' }}>
       <CafeBackdrop color={LC.cream} />
 
       <div className="container-page relative">
-        <div className="mx-auto max-w-3xl text-center">
+        <div className="mx-auto max-w-3xl text-center" {...arProps(isAr)}>
           <span className="inline-flex items-center gap-2 rounded-full bg-white/15 px-3 py-1 text-[11px] font-extrabold uppercase tracking-[0.25em] text-white backdrop-blur-sm">
-            <Sparkles className="h-3 w-3" style={{ color: LC.gold }} /> The Experience
+            <Sparkles className="h-3 w-3" style={{ color: LC.gold }} /> {t.expEyebrow}
           </span>
           <h2 className="mt-4 text-4xl font-bold leading-tight md:text-5xl lg:text-6xl" style={SERIF}>
-            More Than a Café.
-            <span className="block italic" style={{ color: LC.gold }}>A Place to Linger.</span>
+            {t.expTitle1}
+            <span className="block italic" style={{ color: LC.gold }}>{t.expTitle2}</span>
           </h2>
         </div>
 
@@ -503,6 +693,7 @@ function Experience() {
               whileHover={{ y: -8 }}
               className="group relative overflow-hidden rounded-[1.75rem] border border-white/10 p-7 shadow-2xl backdrop-blur-sm"
               style={{ background: 'rgba(255,255,255,0.06)' }}
+              {...arProps(isAr)}
             >
               <motion.div
                 animate={{ y: [0, -6, 0], rotate: [-5, 5, -5] }}
@@ -526,33 +717,31 @@ function Experience() {
 /*  VISIT — Katara location                                                     */
 /* -------------------------------------------------------------------------- */
 
-function VisitSection() {
+function VisitSection({ t, isAr }: SP) {
   return (
     <section id="visit" className="relative overflow-hidden py-20 md:py-28" style={{ background: '#fff' }}>
       <div className="container-page grid items-center gap-12 lg:grid-cols-2">
-        {/* Info */}
-        <div>
+        <div {...arProps(isAr)}>
           <div className="flex items-center gap-3">
             <span className="h-px w-10" style={{ background: LC.brown }} />
             <span className="text-[11px] font-semibold uppercase tracking-[0.32em]" style={{ color: LC.brown }}>
-              Visit Us
+              {t.visitEyebrow}
             </span>
           </div>
           <h2 className="mt-5 text-4xl font-bold leading-tight md:text-5xl lg:text-6xl" style={{ ...SERIF, color: LC.brownD }}>
-            Find Us in
-            <span className="block italic" style={{ color: LC.brown }}>Katara</span>
+            {t.visitTitle1}
+            <span className="block italic" style={{ color: LC.brown }}>{t.visitTitle2}</span>
           </h2>
           <p className="mt-6 max-w-md text-lg leading-relaxed" style={{ color: LC.brown }}>
-            Tucked inside Katara&apos;s cultural village — a quiet doorway, a warm
-            interior, and the unmistakable scent of fresh coffee.
+            {t.visitBody}
           </p>
 
           <div className="mt-8 grid gap-4 sm:grid-cols-2">
             {[
-              { Icon: MapPin,   label: 'Location',    lines: ['Katara Cultural Village', 'Doha, Qatar'], color: LC.brown },
-              { Icon: Clock,    label: 'Open Daily',  lines: ['Morning to late evening'],                color: LC.teal },
-              { Icon: Instagram, label: 'Follow Us',   lines: ['@lartducafe.qa'],                         color: LC.gold },
-              { Icon: Coffee,   label: 'Speciality',  lines: ['Coffee · Pastry · Art'],                   color: LC.brownD },
+              { Icon: MapPin,    label: t.visitCardLocation,  lines: [t.visitCardLocationLine1, t.visitCardLocationLine2], color: LC.brown },
+              { Icon: Clock,     label: t.visitCardHours,     lines: [t.visitCardHoursLine],                                color: LC.teal },
+              { Icon: Instagram, label: t.visitCardFollow,    lines: ['@lartducafe.qa'],                                    color: LC.gold },
+              { Icon: Coffee,    label: t.visitCardSpecialty, lines: [t.visitCardSpecialtyLine],                            color: LC.brownD },
             ].map(({ Icon, label, lines, color }, i) => (
               <motion.div
                 key={label}
@@ -583,12 +772,11 @@ function VisitSection() {
             className="mt-8 inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-xs font-bold uppercase tracking-[0.2em] text-white shadow-xl"
             style={{ background: LC.brown }}
           >
-            Get Directions
+            {t.visitDirections}
             <ArrowUpRight className="h-4 w-4" />
           </motion.a>
         </div>
 
-        {/* Elegant map / address card */}
         <motion.div
           initial={{ opacity: 0, scale: 0.94 }}
           whileInView={{ opacity: 1, scale: 1 }}
@@ -600,12 +788,10 @@ function VisitSection() {
             <div className="relative grid aspect-[4/5] place-items-center overflow-hidden rounded-[0.85rem]" style={{ background: `linear-gradient(160deg, ${LC.cream}, ${LC.creamL})` }}>
               <div aria-hidden className="absolute inset-0 opacity-20 [background-image:linear-gradient(rgba(0,0,0,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,0.08)_1px,transparent_1px)] [background-size:36px_36px]" />
 
-              {/* Route */}
               <svg viewBox="0 0 200 250" className="absolute inset-0 h-full w-full">
                 <path d="M 20 220 Q 70 180 90 130 T 170 50" fill="none" stroke={LC.brown} strokeWidth="2.5" strokeDasharray="6 6" strokeLinecap="round" />
               </svg>
 
-              {/* Pin */}
               <motion.div
                 className="absolute left-1/2 top-[28%] flex -translate-x-1/2 flex-col items-center"
                 animate={{ y: [-4, -14, -4] }}
@@ -615,12 +801,11 @@ function VisitSection() {
                   <path d="M 24 0 C 12 0 3 9 3 21 C 3 38 24 62 24 62 C 24 62 45 38 45 21 C 45 9 36 0 24 0 Z" fill={LC.brown} stroke="#fff" strokeWidth="3" />
                   <circle cx="24" cy="21" r="9" fill={LC.cream} />
                 </svg>
-                <div className="mt-1 rounded-full bg-white px-4 py-1 text-xs font-bold uppercase tracking-[0.2em] shadow-lg" style={{ color: LC.brown }}>
-                  Katara
+                <div className="mt-1 rounded-full bg-white px-4 py-1 text-xs font-bold uppercase tracking-[0.2em] shadow-lg" style={{ color: LC.brown }} {...arProps(isAr)}>
+                  {t.visitMapPin}
                 </div>
               </motion.div>
 
-              {/* Mini coffee cup at the bottom */}
               <div className="absolute bottom-6 left-1/2 -translate-x-1/2">
                 <motion.div animate={{ y: [0, -6, 0], rotate: [-2, 2, -2] }} transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}>
                   <CoffeeCup size={120} />
@@ -638,7 +823,7 @@ function VisitSection() {
 /*  FINAL CTA                                                                   */
 /* -------------------------------------------------------------------------- */
 
-function FinalCTA() {
+function FinalCTA({ t, isAr }: SP) {
   return (
     <section className="relative py-20 md:py-28" style={{ background: LC.creamL }}>
       <div className="container-page">
@@ -652,7 +837,6 @@ function FinalCTA() {
         >
           <CafeBackdrop color={LC.cream} />
 
-          {/* Steam from corner */}
           <motion.div
             className="pointer-events-none absolute -left-6 -top-6 h-40 w-40"
             animate={{ y: [0, -10, 0] }}
@@ -661,20 +845,21 @@ function FinalCTA() {
             <CoffeeCup size={140} />
           </motion.div>
 
-          <div className="relative">
+          <div className="relative" {...arProps(isAr)}>
             <span className="inline-flex items-center gap-2 rounded-full bg-white/15 px-3 py-1 text-[11px] font-extrabold uppercase tracking-[0.22em] text-white backdrop-blur-sm">
-              <Star className="h-3 w-3" fill="currentColor" style={{ color: LC.gold }} /> Come In
+              <Star className="h-3 w-3" fill="currentColor" style={{ color: LC.gold }} /> {t.ctaEyebrow}
             </span>
             <h2 className="mt-5 text-4xl font-bold leading-tight md:text-5xl lg:text-6xl" style={SERIF}>
-              Pour Yourself a Moment
-              <span className="block italic" style={{ color: LC.gold }}>at L&apos;Art du Café.</span>
+              {t.ctaTitle1}
+              <span className="block italic" style={{ color: LC.gold }}>{t.ctaTitle2}</span>
             </h2>
-            <p className="mt-3 font-ar text-xl font-semibold text-white/85 md:text-2xl" dir="rtl" lang="ar">
-              لحظة لك مع فنجان قهوة
-            </p>
+            {!isAr && (
+              <p className="mt-3 font-ar text-xl font-semibold text-white/85 md:text-2xl" dir="rtl" lang="ar">
+                لحظة لك مع فنجان قهوة
+              </p>
+            )}
             <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-white/85 md:text-lg">
-              A doorway in Katara, a warm cup, and a quiet kind of beauty. Visit
-              us or follow along on Instagram.
+              {t.ctaBody}
             </p>
 
             <div className="mt-10 flex flex-wrap justify-center gap-4">
@@ -686,7 +871,7 @@ function FinalCTA() {
                 className="inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-xs font-bold uppercase tracking-[0.2em] shadow-xl"
                 style={{ background: LC.gold, color: LC.brownD }}
               >
-                Plan Your Visit
+                {t.ctaPlanVisit}
                 <MapPin className="h-4 w-4" />
               </motion.a>
               <motion.a
@@ -698,7 +883,7 @@ function FinalCTA() {
                 onMouseEnter={(e) => (e.currentTarget.style.color = LC.brownD)}
                 onMouseLeave={(e) => (e.currentTarget.style.color = '#fff')}
               >
-                Follow on Instagram
+                {t.ctaFollowIg}
                 <Instagram className="h-4 w-4" />
               </motion.a>
             </div>

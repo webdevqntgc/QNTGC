@@ -29,7 +29,7 @@ export default function SpaceToysSubBrand({ params }: Props) {
     <>
       <Navigation locale={locale} dict={dict} />
       <div className="h-20 md:h-24 lg:h-32" aria-hidden />
-      <SpaceToysPage />
+      <SpaceToysPage locale={locale} />
       <Footer locale={locale} dict={dict} />
     </>
   );

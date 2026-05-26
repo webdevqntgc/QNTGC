@@ -168,15 +168,15 @@ function Hero() {
               transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
             >
               <motion.img
-                src="/icon_CandyVill.svg"
-                alt="CandyVill mascot"
+                src="/sub%20brands/candyvill/hero_character.png"
+                alt="CandyVill character"
                 draggable={false}
-                animate={{ rotate: [-6, 8, -6, 8, -6] }}
-                transition={{ duration: 2.6, repeat: Infinity, ease: 'easeInOut' }}
-                className="h-56 w-56 select-none object-contain md:h-72 md:w-72"
+                animate={{ rotate: [-5, 5, -5] }}
+                transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+                className="h-72 w-72 select-none object-contain md:h-[22rem] md:w-[22rem] lg:h-[26rem] lg:w-[26rem]"
                 style={{
                   filter:
-                    'drop-shadow(0 18px 24px rgba(0,0,0,0.35)) drop-shadow(0 0 30px rgba(255,214,224,0.55))',
+                    'drop-shadow(0 22px 30px rgba(0,0,0,0.4)) drop-shadow(0 0 36px rgba(255,214,224,0.55))',
                 }}
               />
             </motion.div>
@@ -898,49 +898,19 @@ function Cornvill() {
           transition={{ duration: 0.7 }}
           className="relative order-2 grid place-items-center lg:order-1"
         >
-          {/* Popcorn bucket SVG */}
-          <motion.svg
-            viewBox="0 0 240 280"
-            className="w-56 md:w-72 lg:w-80"
-            animate={{ y: [0, -6, 0], rotate: [-1.5, 1.5, -1.5] }}
-            transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-            style={{ filter: 'drop-shadow(0 20px 28px rgba(0,0,0,0.25))' }}
-          >
-            <defs>
-              <linearGradient id="corn-stripes" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stopColor={CV.red} />
-                <stop offset="100%" stopColor={CV.redShadow} />
-              </linearGradient>
-            </defs>
-            {/* Bucket */}
-            <path d="M 50 100 L 60 270 L 180 270 L 190 100 Z" fill="#fff" stroke={CV.redShadow} strokeWidth="3" />
-            {/* Vertical red stripes */}
-            {[60, 90, 120, 150, 180].map((x, i) => (
-              <rect key={i} x={x} y="100" width="14" height="170" fill="url(#corn-stripes)" />
-            ))}
-            {/* Top rim */}
-            <ellipse cx="120" cy="100" rx="70" ry="10" fill="#fff" stroke={CV.redShadow} strokeWidth="3" />
-            {/* Popcorn pieces on top */}
-            {[
-              { x: 70, y: 90,  r: 18 },
-              { x: 100, y: 75, r: 22 },
-              { x: 130, y: 70, r: 20 },
-              { x: 160, y: 80, r: 22 },
-              { x: 90, y: 55,  r: 16 },
-              { x: 145, y: 50, r: 18 },
-              { x: 115, y: 40, r: 16 },
-            ].map((p, i) => (
-              <g key={i}>
-                <circle cx={p.x} cy={p.y} r={p.r} fill="#FFF8DC" />
-                <circle cx={p.x + 3} cy={p.y - 3} r={p.r - 6} fill="#FFFAE6" />
-                <circle cx={p.x - 6} cy={p.y - 5} r="4" fill="#FFE89A" />
-              </g>
-            ))}
-            {/* CORNVILL label */}
-            <text x="120" y="210" textAnchor="middle" fontSize="20" fontWeight="800" fill="#fff" letterSpacing="3">
-              CORNVILL
-            </text>
-          </motion.svg>
+          {/* Cornvill picture — drifts up/down with subtle tilt */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <motion.img
+            src="/sub%20brands/candyvill/cornvill.png"
+            alt="Cornvill"
+            draggable={false}
+            animate={{ y: [0, -10, 0], rotate: [-2, 2, -2] }}
+            transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
+            className="w-56 select-none object-contain md:w-72 lg:w-80"
+            style={{
+              filter: 'drop-shadow(0 28px 36px rgba(0,0,0,0.3)) drop-shadow(0 0 30px rgba(255,255,255,0.4))',
+            }}
+          />
         </motion.div>
 
         <div className="order-1 lg:order-2">
@@ -1016,7 +986,7 @@ function Icevill() {
             draggable={false}
             animate={{ y: [0, -10, 0], rotate: [-2, 2, -2] }}
             transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
-            className="w-56 select-none object-contain md:w-72 lg:w-80"
+            className="w-72 select-none object-contain md:w-96 lg:w-[28rem]"
             style={{
               filter: 'drop-shadow(0 28px 36px rgba(0,0,0,0.3)) drop-shadow(0 0 30px rgba(255,255,255,0.4))',
             }}
@@ -1086,44 +1056,19 @@ function Slushvill() {
           transition={{ duration: 0.9 }}
           className="relative order-2 grid place-items-center lg:order-1"
         >
-          <motion.svg
-            viewBox="0 0 200 280"
-            className="w-48 md:w-64 lg:w-72"
-            animate={{ y: [0, -6, 0], rotate: [-1, 1, -1] }}
-            transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-            style={{ filter: 'drop-shadow(0 30px 40px rgba(0,0,0,0.4))' }}
-          >
-            <defs>
-              <linearGradient id="slush-mix" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stopColor={CV.slush.blue} />
-                <stop offset="50%" stopColor={CV.slush.purple} />
-                <stop offset="100%" stopColor={CV.slush.pink} />
-              </linearGradient>
-            </defs>
-            {/* Cup body (transparent) */}
-            <path d="M 50 70 L 60 250 L 140 250 L 150 70 Z" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.8)" strokeWidth="3" />
-            {/* Slush liquid inside */}
-            <path d="M 56 90 L 64 240 L 136 240 L 144 90 Z" fill="url(#slush-mix)" />
-            {/* Wavy top of liquid */}
-            <path d="M 56 90 Q 75 80 95 92 T 144 90 L 144 100 L 56 100 Z" fill="rgba(255,255,255,0.35)" />
-            {/* Ice cubes */}
-            {[
-              { x: 72, y: 140, s: 14 },
-              { x: 110, y: 165, s: 16 },
-              { x: 88, y: 195, s: 12 },
-              { x: 122, y: 210, s: 14 },
-            ].map((c, i) => (
-              <rect key={i} x={c.x} y={c.y} width={c.s} height={c.s} rx="2" fill="rgba(255,255,255,0.4)" transform={`rotate(${i * 22} ${c.x + c.s / 2} ${c.y + c.s / 2})`} />
-            ))}
-            {/* Straw */}
-            <rect x="95" y="40" width="8" height="60" rx="2" fill={CV.slush.yellow} transform="rotate(8 99 70)" />
-            <rect x="95" y="50" width="8" height="6" fill={CV.slush.pink} transform="rotate(8 99 70)" />
-            {/* Cup band */}
-            <rect x="50" y="68" width="100" height="20" fill={CV.red} />
-            <text x="100" y="82" textAnchor="middle" fontSize="10" fontWeight="800" fill="#fff" letterSpacing="3">SLUSHVILL</text>
-            {/* Highlight */}
-            <rect x="62" y="100" width="3" height="130" fill="rgba(255,255,255,0.5)" />
-          </motion.svg>
+          {/* Slushvill picture — drifts up/down with subtle tilt */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <motion.img
+            src="/sub%20brands/candyvill/slushvill.svg"
+            alt="Slushvill"
+            draggable={false}
+            animate={{ y: [0, -10, 0], rotate: [-2, 2, -2] }}
+            transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
+            className="w-72 select-none object-contain md:w-96 lg:w-[28rem]"
+            style={{
+              filter: 'drop-shadow(0 28px 36px rgba(0,0,0,0.4)) drop-shadow(0 0 30px rgba(255,255,255,0.35))',
+            }}
+          />
         </motion.div>
 
         <div className="order-1 lg:order-2">

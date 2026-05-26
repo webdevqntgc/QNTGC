@@ -29,7 +29,7 @@ export default function LartDuCafeSubBrand({ params }: Props) {
     <>
       <Navigation locale={locale} dict={dict} />
       <div className="h-20 md:h-24 lg:h-32" aria-hidden />
-      <LartDuCafePage />
+      <LartDuCafePage locale={locale} />
       <Footer locale={locale} dict={dict} />
     </>
   );

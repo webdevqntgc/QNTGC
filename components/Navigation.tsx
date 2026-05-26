@@ -101,10 +101,18 @@ export function Navigation({ locale, dict }: Props) {
                           animate={{ opacity: 1, y: 0, scale: 1 }}
                           exit={{ opacity: 0, y: 6, scale: 0.98 }}
                           transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
-                          className="absolute left-1/2 top-full z-50 mt-2 w-[min(96vw,820px)] -translate-x-1/2"
+                          className={clsx(
+                            'z-50 w-[min(96vw,820px)]',
+                            locale === 'ar'
+                              ? 'fixed left-1/2 top-20 -translate-x-1/2 md:top-24 lg:top-32'
+                              : 'absolute left-0 top-full mt-2'
+                          )}
+                          dir="ltr"
                         >
-                          {/* notch */}
-                          <div className="absolute left-1/2 top-0 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rotate-45 bg-white shadow-[-2px_-2px_4px_rgba(0,0,0,0.04)]" />
+                          {/* notch — anchored to trigger in LTR only */}
+                          {locale !== 'ar' && (
+                            <div className="absolute left-8 top-0 h-3 w-3 -translate-y-1/2 rotate-45 bg-white shadow-[-2px_-2px_4px_rgba(0,0,0,0.04)]" />
+                          )}
                           <div className="overflow-hidden rounded-3xl border border-brand-navy/10 bg-white shadow-2xl">
                             {/* Brand grid */}
                             <div className="grid grid-cols-3 gap-2 p-4 sm:grid-cols-5 md:grid-cols-9">

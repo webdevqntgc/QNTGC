@@ -71,22 +71,26 @@ function Hero() {
 
       {/* Drifting planet — top right */}
       <motion.img
-        src="/sub%20brands/kiddyzone/Planet_001.svg"
+        src="/sub%20brands/kiddyzone/planet_kz.png"
         alt=""
         aria-hidden
         draggable={false}
         className="pointer-events-none absolute -right-12 top-6 h-32 w-32 select-none md:-right-6 md:top-10 md:h-44 md:w-44 lg:h-56 lg:w-56"
-        animate={{ rotate: 360, y: [0, -16, 0] }}
+        animate={{ rotateY: 360, y: [0, -16, 0] }}
         transition={{
-          rotate: { duration: 70, repeat: Infinity, ease: 'linear' },
-          y:      { duration: 8,  repeat: Infinity, ease: 'easeInOut' },
+          rotateY: { duration: 14, repeat: Infinity, ease: 'linear' },
+          y:       { duration: 8,  repeat: Infinity, ease: 'easeInOut' },
         }}
-        style={{ filter: 'drop-shadow(0 22px 32px rgba(0,0,0,0.45)) drop-shadow(0 0 28px rgba(254,201,86,0.18))' }}
+        style={{
+          filter: 'drop-shadow(0 22px 32px rgba(0,0,0,0.45)) drop-shadow(0 0 28px rgba(254,201,86,0.18))',
+          transformPerspective: 1000,
+          backfaceVisibility: 'visible',
+        }}
       />
 
       {/* Drifting planet — bottom left, smaller, opposite spin */}
       <motion.img
-        src="/sub%20brands/kiddyzone/Planet_002.svg"
+        src="/sub%20brands/kiddyzone/Planet_001.svg"
         alt=""
         aria-hidden
         draggable={false}

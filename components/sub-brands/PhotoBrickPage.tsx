@@ -16,7 +16,10 @@ import {
   Camera,
   Frame,
   Gift,
+  Instagram,
+  Facebook,
 } from 'lucide-react';
+import type { Locale } from '@/lib/i18n';
 
 /* -------------------------------------------------------------------------- */
 /*  PhotoBrick palette — playful brick colours                                 */
@@ -84,16 +87,155 @@ const SMILE: number[][] = [
 ];
 
 /* -------------------------------------------------------------------------- */
+/*  Translation dictionary                                                     */
+/* -------------------------------------------------------------------------- */
 
-export function PhotoBrickPage() {
+type Dict = typeof EN;
+const EN = {
+  heroBadge: 'A QNTGC Brand · Since 2018',
+  heroTitle1: 'Build Your',
+  heroTitle2: 'Memories',
+  heroTitle3: 'One Brick at a Time.',
+  heroBody: 'Turn your favourite photo into a stunning, personalised brick mosaic — hand-built, framed, and delivered to your door.',
+  heroCta1: 'Build Yours Now',
+  heroCta2: 'How It Works',
+
+  howEyebrow: 'How It Works',
+  howTitle1: 'From Photo to',
+  howTitle2: 'Brick Masterpiece',
+  howBody: 'Four simple steps — your memory, immortalised in colourful bricks.',
+  step1Title: 'Upload Your Photo',
+  step1Desc: 'Pick your favourite picture — pets, family, weddings, milestones.',
+  step2Title: 'We Pixelize It',
+  step2Desc: 'Our designers translate your photo into a perfect brick pattern.',
+  step3Title: 'Hand-Built in Bricks',
+  step3Desc: 'Skilled hands assemble every brick into your one-of-a-kind mosaic.',
+  step4Title: 'Framed & Delivered',
+  step4Desc: 'Wrapped, framed, and shipped to your door — ready to hang.',
+
+  whyEyebrow: 'Why PhotoBrick',
+  whyTitle1: 'Memories That',
+  whyTitle2: 'Last a Lifetime',
+  why1Title: '100% Personalised',
+  why1Desc: 'Every mosaic is uniquely yours.',
+  why2Title: 'Premium Frames',
+  why2Desc: 'Crafted wood, ready to hang.',
+  why3Title: 'Worldwide Delivery',
+  why3Desc: 'Branches across four continents.',
+  why4Title: 'Made with Care',
+  why4Desc: 'Built brick by brick, by hand.',
+
+  showcaseEyebrow: 'Showcase',
+  showcaseTitle1: 'Built from Bricks.',
+  showcaseTitle2: 'Made with Love.',
+  showcase1: 'Love & Family',
+  showcase2: 'Stars & Heroes',
+  showcase3: 'Smiles & Joy',
+
+  globalEyebrow: 'Worldwide',
+  globalTitle1: 'Across Four',
+  globalTitle2: 'Continents',
+  globalBody: 'From Doha to Dubai, the US, and Australia — building memories around the world.',
+  loc1: 'Qatar',
+  loc1Note: 'Home Branch',
+  loc2: 'UAE',
+  loc2Note: 'Across the Gulf',
+  loc3: 'USA',
+  loc3Note: 'Coast to coast',
+  loc4: 'Australia',
+  loc4Note: 'Down under',
+
+  ctaBadge: 'Make It Yours',
+  ctaTitle1: 'Turn Your Photo',
+  ctaTitle2: 'Into a Brick Masterpiece',
+  ctaBody: 'The perfect gift for weddings, birthdays, anniversaries — or simply because.',
+  ctaPrimary: 'Build Yours Now',
+  ctaSecondary: 'Contact Us',
+  ctaFooter: 'Qatar · UAE · USA · Australia',
+  followLabel: 'Follow PhotoBrick',
+};
+
+const AR: Dict = {
+  heroBadge: 'علامة من المجموعة · منذ ٢٠١٨',
+  heroTitle1: 'ابنِ',
+  heroTitle2: 'ذكرياتك',
+  heroTitle3: 'مكعبًا تلو الآخر.',
+  heroBody: 'حوّل صورتك المفضّلة إلى لوحة مكعبات مذهلة ومخصّصة لك — مصنوعة يدويًا، مؤطّرة، وتوصل إلى بابك.',
+  heroCta1: 'ابنِ لوحتك الآن',
+  heroCta2: 'كيف نعمل',
+
+  howEyebrow: 'كيف نعمل',
+  howTitle1: 'من الصورة إلى',
+  howTitle2: 'تحفة من المكعبات',
+  howBody: 'أربع خطوات بسيطة — ذكرياتك تتجسّد في مكعبات ملوّنة.',
+  step1Title: 'حمّل صورتك',
+  step1Desc: 'اختر صورتك المفضّلة — حيوانات أليفة، عائلة، أعراس، مناسبات.',
+  step2Title: 'نحوّلها إلى بكسلات',
+  step2Desc: 'مصمّمونا يترجمون صورتك إلى نمط مكعبات مثالي.',
+  step3Title: 'تُبنى يدويًا بالمكعبات',
+  step3Desc: 'أيدٍ ماهرة تركّب كل مكعب لصنع لوحتك الفريدة.',
+  step4Title: 'مؤطّرة ومُسلَّمة',
+  step4Desc: 'مغلّفة، مؤطّرة، وتُشحن إلى بابك — جاهزة للتعليق.',
+
+  whyEyebrow: 'لماذا فوتو بريك',
+  whyTitle1: 'ذكريات تدوم',
+  whyTitle2: 'مدى الحياة',
+  why1Title: 'مخصّصة ١٠٠٪',
+  why1Desc: 'كل لوحة فريدة لك وحدك.',
+  why2Title: 'إطارات فاخرة',
+  why2Desc: 'خشب مصنوع بحرفية، جاهز للتعليق.',
+  why3Title: 'شحن حول العالم',
+  why3Desc: 'فروع في أربع قارّات.',
+  why4Title: 'مصنوعة بعناية',
+  why4Desc: 'تُبنى مكعبًا تلو الآخر، يدويًا.',
+
+  showcaseEyebrow: 'معرضنا',
+  showcaseTitle1: 'مبنيّة من المكعبات.',
+  showcaseTitle2: 'مصنوعة بحب.',
+  showcase1: 'حب وعائلة',
+  showcase2: 'نجوم وأبطال',
+  showcase3: 'ابتسامات وفرح',
+
+  globalEyebrow: 'حول العالم',
+  globalTitle1: 'في أربع',
+  globalTitle2: 'قارّات',
+  globalBody: 'من الدوحة إلى دبي والولايات المتحدة وأستراليا — نصنع الذكريات حول العالم.',
+  loc1: 'قطر',
+  loc1Note: 'الفرع الرئيسي',
+  loc2: 'الإمارات',
+  loc2Note: 'في الخليج',
+  loc3: 'أمريكا',
+  loc3Note: 'من الساحل إلى الساحل',
+  loc4: 'أستراليا',
+  loc4Note: 'في أقصى الجنوب',
+
+  ctaBadge: 'اصنعها لك',
+  ctaTitle1: 'حوّل صورتك',
+  ctaTitle2: 'إلى تحفة من المكعبات',
+  ctaBody: 'الهدية المثالية للأعراس وأعياد الميلاد والذكرى السنوية — أو بلا مناسبة.',
+  ctaPrimary: 'ابنِ لوحتك الآن',
+  ctaSecondary: 'تواصل معنا',
+  ctaFooter: 'قطر · الإمارات · أمريكا · أستراليا',
+  followLabel: 'تابع فوتو بريك',
+};
+
+type SP = { t: Dict; isAr: boolean };
+const arProps = (isAr: boolean) =>
+  isAr ? ({ dir: 'rtl' as const, lang: 'ar', className: 'font-ar' }) : ({});
+
+/* -------------------------------------------------------------------------- */
+
+export function PhotoBrickPage({ locale }: { locale: Locale }) {
+  const isAr = locale === 'ar';
+  const t = isAr ? AR : EN;
   return (
     <main className="overflow-hidden" style={{ background: PB.cream, color: PB.dark }}>
-      <Hero />
-      <HowItWorks />
-      <WhyPhotoBrick />
-      <BrickShowcase />
-      <GlobalReach />
-      <FinalCTA />
+      <Hero t={t} isAr={isAr} />
+      <HowItWorks t={t} isAr={isAr} />
+      <WhyPhotoBrick t={t} isAr={isAr} />
+      <BrickShowcase t={t} isAr={isAr} />
+      <GlobalReach t={t} isAr={isAr} />
+      <FinalCTA t={t} isAr={isAr} />
     </main>
   );
 }
@@ -211,7 +353,7 @@ function FloatingBricks({ count = 16, colors = PALETTE }: { count?: number; colo
 /*  HERO                                                                        */
 /* -------------------------------------------------------------------------- */
 
-function Hero() {
+function Hero({ t, isAr }: SP) {
   return (
     <section
       className="relative overflow-hidden pt-14 pb-24 md:pt-20 md:pb-32"
@@ -226,6 +368,7 @@ function Hero() {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            {...arProps(isAr)}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
@@ -236,24 +379,25 @@ function Hero() {
             />
 
             <div className="mt-7 inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-[11px] font-extrabold uppercase tracking-[0.22em] text-white" style={{ background: PB.dark }}>
-              <Sparkles className="h-3 w-3" style={{ color: PB.yellow }} /> A QNTGC Brand · Since 2018
+              <Sparkles className="h-3 w-3" style={{ color: PB.yellow }} /> {t.heroBadge}
             </div>
 
             <h1
               className="mt-6 font-display text-5xl font-extrabold leading-[0.95] tracking-tight md:text-6xl lg:text-7xl"
               style={{ color: PB.dark }}
             >
-              Build Your
-              <span className="block" style={{ color: PB.red }}>Memories</span>
-              <span className="block" style={{ color: PB.yellow }}>One Brick at a Time.</span>
+              {t.heroTitle1}
+              <span className="block" style={{ color: PB.red }}>{t.heroTitle2}</span>
+              <span className="block" style={{ color: PB.yellow }}>{t.heroTitle3}</span>
             </h1>
-            <p className="mt-4 font-ar text-2xl font-bold md:text-3xl" dir="rtl" lang="ar" style={{ color: PB.dark }}>
-              ابنِ ذكرياتك مكعبًا تلو الآخر
-            </p>
+            {!isAr && (
+              <p className="mt-4 font-ar text-2xl font-bold md:text-3xl" dir="rtl" lang="ar" style={{ color: PB.dark }}>
+                ابنِ ذكرياتك مكعبًا تلو الآخر
+              </p>
+            )}
 
             <p className="mt-6 max-w-md text-base leading-relaxed md:text-lg" style={{ color: '#5a544c' }}>
-              Turn your favourite photo into a stunning, personalised brick mosaic —
-              hand-built, framed, and delivered to your door.
+              {t.heroBody}
             </p>
 
             <div className="mt-9 flex flex-wrap gap-3">
@@ -266,7 +410,7 @@ function Hero() {
                 className="inline-flex items-center gap-2 rounded-2xl px-7 py-4 text-sm font-extrabold uppercase tracking-wider text-white shadow-xl"
                 style={{ background: PB.red, boxShadow: `0 14px 30px -8px ${PB.red}` }}
               >
-                Build Yours Now
+                {t.heroCta1}
                 <ArrowRight className="h-4 w-4" />
               </motion.a>
               <motion.a
@@ -278,7 +422,7 @@ function Hero() {
                 onMouseEnter={(e) => { e.currentTarget.style.background = PB.dark; }}
                 onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; }}
               >
-                How It Works
+                {t.heroCta2}
                 <Hammer className="h-4 w-4" />
               </motion.a>
             </div>
@@ -334,26 +478,26 @@ function Hero() {
 /*  HOW IT WORKS                                                                */
 /* -------------------------------------------------------------------------- */
 
-function HowItWorks() {
+function HowItWorks({ t, isAr }: SP) {
   const steps = [
-    { n: '01', title: 'Upload Your Photo',   desc: 'Pick your favourite picture — pets, family, weddings, milestones.', color: PB.blue,   Icon: Upload },
-    { n: '02', title: 'We Pixelize It',      desc: 'Our designers translate your photo into a perfect brick pattern.',   color: PB.yellow, Icon: ImageIcon },
-    { n: '03', title: 'Hand-Built in Bricks',desc: 'Skilled hands assemble every brick into your one-of-a-kind mosaic.', color: PB.green,  Icon: Hammer },
-    { n: '04', title: 'Framed & Delivered',  desc: 'Wrapped, framed, and shipped to your door — ready to hang.',         color: PB.red,    Icon: Truck },
+    { n: '01', title: t.step1Title, desc: t.step1Desc, color: PB.blue,   Icon: Upload },
+    { n: '02', title: t.step2Title, desc: t.step2Desc, color: PB.yellow, Icon: ImageIcon },
+    { n: '03', title: t.step3Title, desc: t.step3Desc, color: PB.green,  Icon: Hammer },
+    { n: '04', title: t.step4Title, desc: t.step4Desc, color: PB.red,    Icon: Truck },
   ];
   return (
     <section id="how" className="relative overflow-hidden py-20 md:py-28" style={{ background: '#fff' }}>
       <div className="container-page">
-        <div className="mx-auto max-w-3xl text-center">
+        <div className="mx-auto max-w-3xl text-center" {...arProps(isAr)}>
           <span className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-[11px] font-extrabold uppercase tracking-[0.22em] text-white" style={{ background: PB.red }}>
-            <Hammer className="h-3 w-3" /> How It Works
+            <Hammer className="h-3 w-3" /> {t.howEyebrow}
           </span>
           <h2 className="mt-4 font-display text-4xl font-extrabold leading-tight tracking-tight md:text-5xl lg:text-6xl" style={{ color: PB.dark }}>
-            From Photo to
-            <span className="block" style={{ color: PB.red }}>Brick Masterpiece</span>
+            {t.howTitle1}
+            <span className="block" style={{ color: PB.red }}>{t.howTitle2}</span>
           </h2>
           <p className="mx-auto mt-5 max-w-xl text-lg" style={{ color: '#5a544c' }}>
-            Four simple steps — your memory, immortalised in colourful bricks.
+            {t.howBody}
           </p>
         </div>
 
@@ -368,6 +512,7 @@ function HowItWorks() {
               whileHover={{ y: -10 }}
               className="group relative overflow-hidden rounded-[2rem] border bg-white p-7 shadow-lg transition-shadow duration-500 hover:shadow-2xl"
               style={{ borderColor: `${color}33` }}
+              {...arProps(isAr)}
             >
               <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full opacity-15 blur-2xl" style={{ background: color }} />
               <div className="mb-4 flex items-center gap-3">
@@ -395,25 +540,25 @@ function HowItWorks() {
 /*  WHY PHOTOBRICK                                                              */
 /* -------------------------------------------------------------------------- */
 
-function WhyPhotoBrick() {
+function WhyPhotoBrick({ t, isAr }: SP) {
   const items = [
-    { title: '100% Personalised', desc: 'Every mosaic is uniquely yours.', color: PB.pink,   Icon: Heart },
-    { title: 'Premium Frames',    desc: 'Crafted wood, ready to hang.',    color: PB.yellow, Icon: Frame },
-    { title: 'Worldwide Delivery',desc: 'Branches across four continents.',color: PB.blue,   Icon: Globe },
-    { title: 'Made with Care',    desc: 'Built brick by brick, by hand.',  color: PB.green,  Icon: Sparkles },
+    { title: t.why1Title, desc: t.why1Desc, color: PB.pink,   Icon: Heart },
+    { title: t.why2Title, desc: t.why2Desc, color: PB.yellow, Icon: Frame },
+    { title: t.why3Title, desc: t.why3Desc, color: PB.blue,   Icon: Globe },
+    { title: t.why4Title, desc: t.why4Desc, color: PB.green,  Icon: Sparkles },
   ];
   return (
     <section className="relative overflow-hidden py-20 md:py-28" style={{ background: PB.dark, color: '#fff' }}>
       <FloatingBricks count={16} />
 
       <div className="container-page relative">
-        <div className="mx-auto max-w-3xl text-center">
+        <div className="mx-auto max-w-3xl text-center" {...arProps(isAr)}>
           <span className="inline-flex items-center gap-2 rounded-full bg-white/15 px-3 py-1 text-[11px] font-extrabold uppercase tracking-[0.22em] text-white backdrop-blur-sm">
-            <Star className="h-3 w-3" fill="currentColor" style={{ color: PB.yellow }} /> Why PhotoBrick
+            <Star className="h-3 w-3" fill="currentColor" style={{ color: PB.yellow }} /> {t.whyEyebrow}
           </span>
           <h2 className="mt-4 font-display text-4xl font-extrabold leading-tight tracking-tight md:text-5xl lg:text-6xl">
-            Memories That
-            <span className="block" style={{ color: PB.yellow }}>Last a Lifetime</span>
+            {t.whyTitle1}
+            <span className="block" style={{ color: PB.yellow }}>{t.whyTitle2}</span>
           </h2>
         </div>
 
@@ -428,6 +573,7 @@ function WhyPhotoBrick() {
               whileHover={{ y: -10 }}
               className="group relative overflow-hidden rounded-[2rem] p-7 shadow-xl"
               style={{ background: `linear-gradient(155deg, ${color}, ${color}cc)` }}
+              {...arProps(isAr)}
             >
               <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-white/25 blur-2xl" />
               <motion.div
@@ -452,22 +598,22 @@ function WhyPhotoBrick() {
 /*  BRICK SHOWCASE                                                              */
 /* -------------------------------------------------------------------------- */
 
-function BrickShowcase() {
+function BrickShowcase({ t, isAr }: SP) {
   const showcase = [
-    { pattern: HEART,   fg: PB.red,    label: 'Love & Family' },
-    { pattern: STAR_P,  fg: PB.yellow, label: 'Stars & Heroes', multi: true },
-    { pattern: SMILE,   fg: PB.orange, label: 'Smiles & Joy' },
+    { pattern: HEART,   fg: PB.red,    label: t.showcase1 },
+    { pattern: STAR_P,  fg: PB.yellow, label: t.showcase2, multi: true },
+    { pattern: SMILE,   fg: PB.orange, label: t.showcase3 },
   ];
   return (
     <section className="relative py-20 md:py-28" style={{ background: PB.cream }}>
       <div className="container-page">
-        <div className="mx-auto max-w-3xl text-center">
+        <div className="mx-auto max-w-3xl text-center" {...arProps(isAr)}>
           <span className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-[11px] font-extrabold uppercase tracking-[0.22em] text-white" style={{ background: PB.blue }}>
-            <Camera className="h-3 w-3" /> Showcase
+            <Camera className="h-3 w-3" /> {t.showcaseEyebrow}
           </span>
           <h2 className="mt-4 font-display text-4xl font-extrabold leading-tight tracking-tight md:text-5xl lg:text-6xl" style={{ color: PB.dark }}>
-            Built from Bricks.
-            <span className="block" style={{ color: PB.red }}>Made with Love.</span>
+            {t.showcaseTitle1}
+            <span className="block" style={{ color: PB.red }}>{t.showcaseTitle2}</span>
           </h2>
         </div>
 
@@ -489,7 +635,7 @@ function BrickShowcase() {
               </motion.div>
               <div className="mt-6 flex items-center gap-2">
                 <span className="h-3 w-3 rounded-full" style={{ background: s.fg }} />
-                <span className="font-display text-sm font-extrabold uppercase tracking-[0.2em]" style={{ color: PB.dark }}>{s.label}</span>
+                <span className="font-display text-sm font-extrabold uppercase tracking-[0.2em]" style={{ color: PB.dark }} {...arProps(isAr)}>{s.label}</span>
               </div>
             </motion.div>
           ))}
@@ -503,12 +649,12 @@ function BrickShowcase() {
 /*  GLOBAL REACH                                                                */
 /* -------------------------------------------------------------------------- */
 
-function GlobalReach() {
+function GlobalReach({ t, isAr }: SP) {
   const locations = [
-    { country: 'Qatar',     flag: '🇶🇦', color: PB.red,    note: 'Home Branch' },
-    { country: 'UAE',       flag: '🇦🇪', color: PB.green,  note: 'Across the Gulf' },
-    { country: 'USA',       flag: '🇺🇸', color: PB.blue,   note: 'Coast to coast' },
-    { country: 'Australia', flag: '🇦🇺', color: PB.yellow, note: 'Down under' },
+    { country: t.loc1, flag: '🇶🇦', color: PB.red,    note: t.loc1Note },
+    { country: t.loc2, flag: '🇦🇪', color: PB.green,  note: t.loc2Note },
+    { country: t.loc3, flag: '🇺🇸', color: PB.blue,   note: t.loc3Note },
+    { country: t.loc4, flag: '🇦🇺', color: PB.yellow, note: t.loc4Note },
   ];
   return (
     <section className="relative overflow-hidden py-20 md:py-28" style={{ background: '#fff' }}>
@@ -530,16 +676,16 @@ function GlobalReach() {
       />
 
       <div className="container-page relative">
-        <div className="mx-auto max-w-3xl text-center">
+        <div className="mx-auto max-w-3xl text-center" {...arProps(isAr)}>
           <span className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-[11px] font-extrabold uppercase tracking-[0.22em] text-white" style={{ background: PB.green }}>
-            <Globe className="h-3 w-3" /> Worldwide
+            <Globe className="h-3 w-3" /> {t.globalEyebrow}
           </span>
           <h2 className="mt-4 font-display text-4xl font-extrabold leading-tight tracking-tight md:text-5xl lg:text-6xl" style={{ color: PB.dark }}>
-            Across Four
-            <span className="block" style={{ color: PB.red }}>Continents</span>
+            {t.globalTitle1}
+            <span className="block" style={{ color: PB.red }}>{t.globalTitle2}</span>
           </h2>
           <p className="mx-auto mt-5 max-w-xl text-lg" style={{ color: '#5a544c' }}>
-            From Doha to Dubai, the US, and Australia — building memories around the world.
+            {t.globalBody}
           </p>
         </div>
 
@@ -564,8 +710,8 @@ function GlobalReach() {
               >
                 {flag}
               </motion.div>
-              <h3 className="mt-4 font-display text-lg font-extrabold uppercase tracking-tight" style={{ color: PB.dark }}>{country}</h3>
-              <p className="mt-1 text-xs font-bold uppercase tracking-wider" style={{ color }}>{note}</p>
+              <h3 className="mt-4 font-display text-lg font-extrabold uppercase tracking-tight" style={{ color: PB.dark }} {...arProps(isAr)}>{country}</h3>
+              <p className="mt-1 text-xs font-bold uppercase tracking-wider" style={{ color }} {...arProps(isAr)}>{note}</p>
             </motion.div>
           ))}
         </div>
@@ -578,7 +724,7 @@ function GlobalReach() {
 /*  FINAL CTA                                                                   */
 /* -------------------------------------------------------------------------- */
 
-function FinalCTA() {
+function FinalCTA({ t, isAr }: SP) {
   return (
     <section className="relative bg-white py-20 md:py-28">
       <div className="container-page">
@@ -610,19 +756,21 @@ function FinalCTA() {
             transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
           />
 
-          <div className="relative">
+          <div className="relative" {...arProps(isAr)}>
             <span className="inline-flex items-center gap-2 rounded-full bg-white/20 px-3 py-1 text-[11px] font-extrabold uppercase tracking-[0.22em] text-white backdrop-blur-sm">
-              <Gift className="h-3 w-3" /> Make It Yours
+              <Gift className="h-3 w-3" /> {t.ctaBadge}
             </span>
             <h2 className="mt-5 font-display text-4xl font-extrabold leading-tight tracking-tight md:text-5xl lg:text-6xl">
-              Turn Your Photo
-              <span className="block" style={{ color: PB.yellow }}>Into a Brick Masterpiece</span>
+              {t.ctaTitle1}
+              <span className="block" style={{ color: PB.yellow }}>{t.ctaTitle2}</span>
             </h2>
-            <p className="mt-3 font-ar text-xl font-bold text-white/90 md:text-2xl" dir="rtl" lang="ar">
-              حوّل صورتك إلى تحفة من المكعبات
-            </p>
+            {!isAr && (
+              <p className="mt-3 font-ar text-xl font-bold text-white/90 md:text-2xl" dir="rtl" lang="ar">
+                حوّل صورتك إلى تحفة من المكعبات
+              </p>
+            )}
             <p className="mx-auto mt-5 max-w-xl text-lg text-white/90">
-              The perfect gift for weddings, birthdays, anniversaries — or simply because.
+              {t.ctaBody}
             </p>
 
             <div className="mt-10 flex flex-wrap justify-center gap-4">
@@ -634,28 +782,74 @@ function FinalCTA() {
                 className="inline-flex items-center gap-2 rounded-2xl bg-white px-7 py-3.5 text-sm font-extrabold uppercase tracking-wider shadow-xl"
                 style={{ color: PB.red }}
               >
-                Build Yours Now
+                {t.ctaPrimary}
                 <ArrowRight className="h-4 w-4" />
               </motion.a>
               <motion.a
-                href="/en/#contact"
+                href={`/${isAr ? 'ar' : 'en'}/#contact`}
                 whileHover={{ y: -3 }}
                 className="inline-flex items-center gap-2 rounded-2xl border-2 border-white px-7 py-3.5 text-sm font-extrabold uppercase tracking-wider text-white transition-colors hover:bg-white"
                 onMouseEnter={(e) => (e.currentTarget.style.color = PB.red)}
                 onMouseLeave={(e) => (e.currentTarget.style.color = '#fff')}
               >
-                Contact Us
+                {t.ctaSecondary}
                 <ArrowUpRight className="h-4 w-4" />
               </motion.a>
             </div>
 
             <div className="mt-9 flex flex-wrap items-center justify-center gap-x-8 gap-y-2 text-sm text-white/85">
               <span className="flex items-center gap-2"><Globe className="h-4 w-4" style={{ color: PB.yellow }} /> photobrick.com.qa</span>
-              <span className="flex items-center gap-2"><MapPin className="h-4 w-4" style={{ color: PB.yellow }} /> Qatar · UAE · USA · Australia</span>
+              <span className="flex items-center gap-2"><MapPin className="h-4 w-4" style={{ color: PB.yellow }} /> {t.ctaFooter}</span>
+            </div>
+
+            {/* Follow on social media */}
+            <div className="mt-8">
+              <div className="text-[11px] font-extrabold uppercase tracking-[0.25em] text-white/70">{t.followLabel}</div>
+              <div className="mt-3 flex flex-wrap justify-center gap-3">
+                <SocialIconButton href="https://www.instagram.com/photobrick.qa" type="instagram" />
+                <SocialIconButton href="https://www.facebook.com/thephotobrick/" type="facebook" />
+                <SocialIconButton href="https://www.tiktok.com/@photobrickqa" type="tiktok" />
+              </div>
             </div>
           </div>
         </motion.div>
       </div>
     </section>
+  );
+}
+
+/* -------------------------------------------------------------------------- */
+/*  Social icon button                                                         */
+/* -------------------------------------------------------------------------- */
+
+function SocialIconButton({
+  href,
+  type,
+}: {
+  href: string;
+  type: 'instagram' | 'facebook' | 'tiktok';
+}) {
+  const label = type[0].toUpperCase() + type.slice(1);
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={label}
+      title={label}
+      className="grid h-11 w-11 place-items-center rounded-full bg-white/15 text-white ring-1 ring-white/25 backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:bg-white hover:text-[#E63946] hover:shadow-lg"
+    >
+      {type === 'instagram' && <Instagram className="h-[18px] w-[18px]" />}
+      {type === 'facebook'  && <Facebook  className="h-[18px] w-[18px]" />}
+      {type === 'tiktok'    && <TikTokIcon className="h-[18px] w-[18px]" />}
+    </a>
+  );
+}
+
+function TikTokIcon({ className = '' }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} width="18" height="18" fill="currentColor" aria-hidden>
+      <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5.8 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1.84-.1z"/>
+    </svg>
   );
 }

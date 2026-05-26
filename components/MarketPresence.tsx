@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import type { Dict } from '@/lib/i18n';
 
@@ -94,7 +94,7 @@ export function MarketPresence({ dict }: { dict: Dict }) {
               className="rounded-2xl border border-brand-navy/10 bg-white p-6 text-center shadow-soft"
             >
               <div className="font-display text-3xl font-bold text-brand-red lg:text-4xl">
-                {s.value}
+                <StatCounter value={s.value} />
               </div>
               <div className="mt-1 text-xs font-semibold uppercase tracking-wider text-brand-navy/60">
                 {s.label}
@@ -400,4 +400,48 @@ function bezierPath(
     cy += -8;
   }
   return `M ${fromX} ${fromY} Q ${cx} ${cy} ${toX} ${toY}`;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Animated counter — ticks the number from 0 to the target          */
+/*  when the element scrolls into view. Supports trailing suffix      */
+/*  (e.g. "150+", "20+"). For non-numeric values it renders as-is.    */
+/* ------------------------------------------------------------------ */
+function StatCounter({ value }: { value: string }) {
+  const match = value.match(/^(\d+)(.*)$/);
+  const target = match ? parseInt(match[1], 10) : 0;
+  const suffix = match ? match[2] : '';
+  const [display, setDisplay] = useState(0);
+  const ref = useRef<HTMLSpanElement | null>(null);
+  const fired = useRef(false);
+
+  useEffect(() => {
+    if (!match) return;
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && !fired.current) {
+          fired.current = true;
+          const duration = 1400;
+          const start = performance.now();
+          let raf = 0;
+          const tick = (now: number) => {
+            const t = Math.min(1, (now - start) / duration);
+            const eased = 1 - Math.pow(1 - t, 3);
+            setDisplay(Math.round(eased * target));
+            if (t < 1) raf = requestAnimationFrame(tick);
+          };
+          raf = requestAnimationFrame(tick);
+          return () => cancelAnimationFrame(raf);
+        }
+      },
+      { threshold: 0.3 }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [match, target]);
+
+  if (!match) return <span ref={ref}>{value}</span>;
+  return <span ref={ref}>{display}{suffix}</span>;
 }
